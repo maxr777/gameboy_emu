@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc main.c -lSDL3 && ./a.out
+gcc main.c gameboy.c -lSDL3 && ./a.out
