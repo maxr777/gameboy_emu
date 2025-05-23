@@ -36,8 +36,8 @@ int main(int argc, char *argv[]) {
         running = false;
       }
     }
-    switch (byte) { // first byte is the opcode
-    case 0x00:      // NOP
+    switch (byte) {
+    case 0x00: // NOP
       ++cycle;
       break;
     case 0x01: // LD BC, n16

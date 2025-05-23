@@ -30,9 +30,9 @@ extern bool display[160][144];
 extern uint8_t ram[8192];
 extern uint8_t vram[8192];
 
-void set_zero_flag(int n);
-void set_subtraction_flag(int n);
-void set_half_carry_flag(int n);
-void set_carry_flag(int n);
+void set_zero_flag(bool n);
+void set_subtraction_flag(bool n);
+void set_half_carry_flag(bool n);
+void set_carry_flag(bool n);
 
 #endif
