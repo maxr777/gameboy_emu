@@ -5,14 +5,6 @@
 
 #define DISP_MULTP 4
 
-#define DEBUG_PRINT(fmt, ...)   \
-  do {                          \
-    if (debug)                  \
-      printf(fmt, __VA_ARGS__); \
-  } while (0)
-
-bool debug = false;
-
 // TODO: add debug mode argument
 int main(int argc, char *argv[]) {
   if (argc < 2) {
@@ -20,6 +12,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
   FILE *game = fopen(argv[1], "rb");
+
+  bool debug = false;
 
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
@@ -46,14 +40,14 @@ int main(int argc, char *argv[]) {
     }
     switch (byte) {
     case 0x00: // NOP
-      DEBUG_PRINT("0x%02X\t%s\n", byte, "NOP");
+      if (debug) printf("0x%02X\t%s\n", byte, "NOP");
       ++cycle;
       break;
     case 0x01: // LD BC, n16
     {
       uint16_t n16;
       fread(&n16, 2, 1, game);
-      DEBUG_PRINT("0x%02X %04X\t%s\n", byte, n16, "LD BC, n16");
+      if (debug) printf("0x%02X %04X\t%s\n", byte, n16, "LD BC, n16");
       ld_r16_n16(&regs[BC].full, n16);
     } break;
     case 0x02: // LD [BC], A
