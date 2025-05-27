@@ -8,7 +8,7 @@ enum RegisterNames {
   AF,
   BC,
   DE,
-  aHL,
+  HL,
   SP,
   PC,
   REGISTER_COUNT
@@ -69,6 +69,6 @@ void ld_A_aHLd();
 void ld_SP_n16(uint16_t src);
 void ld_addr16_SP(uint16_t dest);
 void ld_aHL_SPe8();
-void ld_sp_aHL();
+void ld_SP_aHL();
 
 #endif
