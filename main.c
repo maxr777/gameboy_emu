@@ -28,7 +28,6 @@ int main(int argc, char *argv[]) {
   SDL_Event event;
   bool running = true;
   uint8_t byte = 0;
-  int cycle = 0;
 
   while (running && (fread(&byte, 1, 1, game) == 1)) {
     while (SDL_PollEvent(&event)) {
@@ -65,6 +64,30 @@ int main(int argc, char *argv[]) {
       set_subtraction_flag(true);
       ++cycle;
     } break;
+    case 0x06: // LD B, n8
+      fread(&regs[BC].high, 1, 1, game);
+      cycle += 2;
+      break;
+    case 0x07: // RLCA
+    {
+      bool result = regs[AF].high & 0x80;
+      set_carry_flag(result);
+      regs[AF].high <<= 1;
+      regs[AF].high = regs[AF].high | result;
+      set_zero_flag(false);
+      set_subtraction_flag(false);
+      set_half_carry_flag(false);
+      ++cycle;
+    } break;
+    case 0x08: // LD [n16], SP
+    {
+      int address;
+      fread(&address, 2, 1, game);
+      ram[address] = regs[SP].full;
+      cycle += 4;
+    } break;
+    case 0x09:
+      break;
     default:
       break;
     }
