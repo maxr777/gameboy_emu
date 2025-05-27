@@ -49,7 +49,6 @@ void set_carry_flag(bool n);
 // might be fine to keep them though, so that every instruction
 // is executed the same way - through a function for it
 void ld_r8_r8(uint8_t *dest, uint8_t *src);
-void ld_r8_r8(uint8_t *dest, uint8_t *src);
 void ld_r16_n16(uint16_t *dest, uint16_t src);
 void ld_aHL_r8(uint8_t *src);
 void ld_aHL_n8(uint8_t src);

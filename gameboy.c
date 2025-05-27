@@ -35,3 +35,40 @@ void set_carry_flag(bool f) {
   else
     regs[AF].low &= ~0x10;
 }
+
+void ld_r8_r8(uint8_t *dest, uint8_t *src);
+
+void ld_r16_n16(uint16_t *dest, uint16_t src) {
+  *dest = src;
+  cycle += 3;
+}
+
+void ld_aHL_r8(uint8_t *src);
+void ld_aHL_n8(uint8_t src);
+void ld_r8_aHL(uint8_t *dest);
+
+void ld_a16_A(uint16_t *dest) {
+  ram[dest] = regs[AF].high;
+  cycle += 2;
+}
+
+void ld_addr16_A(uint16_t dest);
+void ldh_addr16_A(uint16_t dest);
+void ldh_aC_A();
+void ld_A_a16(uint16_t *src);
+void ld_A_addr16(uint16_t src);
+void ldh_A_addr16(uint16_t src);
+void ldh_A_aC();
+void ld_aHLi_A();
+void ld_aHLd_A();
+void ld_A_aHLi();
+void ld_A_aHLd();
+void ld_SP_n16(uint16_t src);
+
+void ld_addr16_SP(uint16_t dest) {
+  ram[dest] = regs[SP].full;
+  cycle += 4;
+}
+
+void ld_aHL_SPe8();
+void ld_SP_aHL();
