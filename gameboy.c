@@ -36,19 +36,32 @@ void set_carry_flag(bool f) {
     regs[AF].low &= ~0x10;
 }
 
-void ld_r8_r8(uint8_t *dest, uint8_t *src);
+// ================ LOADS ================
+
+void ld_r8_r8(uint8_t *dest, uint8_t *src) {
+  *dest = *src;
+  ++cycle;
+}
 
 void ld_r16_n16(uint16_t *dest, uint16_t src) {
   *dest = src;
   cycle += 3;
 }
 
-void ld_aHL_r8(uint8_t *src);
+void ld_aHL_r8(uint8_t *src) {
+  ram[regs[HL].full] = *src;
+  cycle += 2;
+}
+
 void ld_aHL_n8(uint8_t src);
-void ld_r8_aHL(uint8_t *dest);
+
+void ld_r8_aHL(uint8_t *dest) {
+  *dest = ram[regs[HL].full];
+  cycle += 2;
+}
 
 void ld_a16_A(uint16_t *dest) {
-  ram[dest] = regs[AF].high;
+  ram[*dest] = regs[AF].high;
   cycle += 2;
 }
 
@@ -72,3 +85,10 @@ void ld_addr16_SP(uint16_t dest) {
 
 void ld_aHL_SPe8();
 void ld_SP_aHL();
+
+// ================ INTERRUPTS ================
+
+void int_di();
+void int_ei();
+// TODO: implement this one, since it's already used in main.c
+void int_halt();

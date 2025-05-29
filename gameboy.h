@@ -48,6 +48,8 @@ void set_carry_flag(bool n);
 // be called in one case (loads with no dest or src operands)
 // might be fine to keep them though, so that every instruction
 // is executed the same way - through a function for it
+
+// LOADS
 void ld_r8_r8(uint8_t *dest, uint8_t *src);
 void ld_r16_n16(uint16_t *dest, uint16_t src);
 void ld_aHL_r8(uint8_t *src);
@@ -69,5 +71,10 @@ void ld_SP_n16(uint16_t src);
 void ld_addr16_SP(uint16_t dest);
 void ld_aHL_SPe8();
 void ld_SP_aHL();
+
+// INTERRUPTS
+void int_di();
+void int_ei();
+void int_halt();
 
 #endif
