@@ -1,6 +1,6 @@
-a.out
+*.out
 *.gb
-
+SDL3-win/
 *.exe
 *.obj
 *.dll
