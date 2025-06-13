@@ -256,7 +256,7 @@ int main(int argc, char *argv[]) {
       ld_aHL_r8(&regs[HL].low);
       break;
     case 0x76: // HALT
-      int_halt();
+      // int_halt();
       break;
     case 0x77: // LD [HL], A
       ld_aHL_r8(&regs[AF].high);
