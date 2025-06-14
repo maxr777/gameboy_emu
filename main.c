@@ -11,9 +11,22 @@ int main(int argc, char *argv[]) {
     fprintf(stderr, "No game loaded");
     return 1;
   }
+
   FILE *game = fopen(argv[1], "rb");
+  if (!game) {
+    perror("fopen game fail:");
+    return 1;
+  }
 
   bool debug = false;
+
+  FILE *boot_rom = fopen("bootix_dmg.bin", "rb");
+  if (!boot_rom) {
+    perror("fopen bootrom fail:");
+    return 1;
+  }
+  fread(&ram[regs[PC].full], 1, 256, boot_rom);
+  fclose(boot_rom);
 
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
@@ -21,7 +34,6 @@ int main(int argc, char *argv[]) {
   }
 
   SDL_Window *window = SDL_CreateWindow("Gameboy", 160 * DISP_MULTP, 144 * DISP_MULTP, 0);
-
   if (!window) {
     fprintf(stderr, "SDL_CreateWindow failed: %s\n", SDL_GetError());
     SDL_Quit();

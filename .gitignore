@@ -4,3 +4,4 @@ SDL3-win/
 *.exe
 *.obj
 *.dll
+tests/
