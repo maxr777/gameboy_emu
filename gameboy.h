@@ -25,6 +25,23 @@ union Register {
   };
 };
 
+typedef struct {
+  uint8_t entry_point[4];
+  uint8_t nitendo_logo[48];
+  char title[16]; // already includes manufacturer code
+  uint8_t cgb_flag;
+  uint16_t new_license_code;
+  uint8_t sgb_flag;
+  uint8_t cartridge_type;
+  uint8_t rom_size;
+  uint8_t ram_size;
+  uint8_t destination_code;
+  uint8_t old_licensee_code;
+  uint8_t mask_rom_version_number;
+  uint8_t header_checksum;
+  uint16_t global_checksum;
+} CartridgeHeader;
+
 extern union Register regs[REGISTER_COUNT];
 extern bool display[160][144];
 extern uint8_t ram[8192];
