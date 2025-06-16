@@ -45,17 +45,30 @@ int main(int argc, char *argv[]) {
 
   while (running) {
     while (SDL_PollEvent(&event)) {
-      if (event.type == SDL_EVENT_QUIT)
+      if (event.type == SDL_EVENT_QUIT) {
         running = false;
+      }
     }
 
-    if (regs[PC].full < 0x0100)
+    if (regs[PC].full < 0x0100) {
       fread(&byte, sizeof(byte), 1, boot_rom);
-    else if (regs[PC].full == 0x0100)
-      // TODO: this probably doesn't work because of padding
-      fread(&cartridge_header, sizeof(cartridge_header), 1, game_rom);
-    else
+    } else if (regs[PC].full == 0x0100) {
+      fread(&cartridge_header.entry_point, sizeof(cartridge_header.entry_point), 1, game_rom);
+      fread(&cartridge_header.nintendo_logo, sizeof(cartridge_header.nintendo_logo), 1, game_rom);
+      fread(&cartridge_header.cgb_flag, sizeof(cartridge_header.cgb_flag), 1, game_rom);
+      fread(&cartridge_header.new_license_code, sizeof(cartridge_header.new_license_code), 1, game_rom);
+      fread(&cartridge_header.sgb_flag, sizeof(cartridge_header.sgb_flag), 1, game_rom);
+      fread(&cartridge_header.cartridge_type, sizeof(cartridge_header.cartridge_type), 1, game_rom);
+      fread(&cartridge_header.rom_size, sizeof(cartridge_header.rom_size), 1, game_rom);
+      fread(&cartridge_header.ram_size, sizeof(cartridge_header.ram_size), 1, game_rom);
+      fread(&cartridge_header.destination_code, sizeof(cartridge_header.destination_code), 1, game_rom);
+      fread(&cartridge_header.old_licensee_code, sizeof(cartridge_header.old_licensee_code), 1, game_rom);
+      fread(&cartridge_header.mask_rom_version_number, sizeof(cartridge_header.mask_rom_version_number), 1, game_rom);
+      fread(&cartridge_header.header_checksum, sizeof(cartridge_header.header_checksum), 1, game_rom);
+      fread(&cartridge_header.global_checksum, sizeof(cartridge_header.global_checksum), 1, game_rom);
+    } else {
       fread(&byte, sizeof(byte), 1, game_rom);
+    }
 
     switch (byte) {
     case 0x00: // NOP

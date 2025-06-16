@@ -27,7 +27,7 @@ typedef union {
 
 typedef struct {
   uint8_t entry_point[4];
-  uint8_t nitendo_logo[48];
+  uint8_t nintendo_logo[48];
   char title[16]; // already includes manufacturer code
   uint8_t cgb_flag;
   uint16_t new_license_code;
