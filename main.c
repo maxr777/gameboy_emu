@@ -126,195 +126,259 @@ int main(int argc, char *argv[]) {
     case 0x09:
       break;
     case 0x40: // LD B, B
+      if (debug) printf("0x%02X\t%s\n", byte, "LD B, B");
       ld_r8_r8(&regs[BC].high, &regs[BC].high);
       break;
     case 0x41: // LD B, C
+      if (debug) printf("0x%02X\t%s\n", byte, "LD B, C");
       ld_r8_r8(&regs[BC].high, &regs[BC].low);
       break;
     case 0x42: // LD B, D
+      if (debug) printf("0x%02X\t%s\n", byte, "LD B, D");
       ld_r8_r8(&regs[BC].high, &regs[DE].high);
       break;
     case 0x43: // LD B, E
+      if (debug) printf("0x%02X\t%s\n", byte, "LD B, E");
       ld_r8_r8(&regs[BC].high, &regs[DE].low);
       break;
     case 0x44: // LD B, H
+      if (debug) printf("0x%02X\t%s\n", byte, "LD B, H");
       ld_r8_r8(&regs[BC].high, &regs[HL].high);
       break;
     case 0x45: // LD B, L
+      if (debug) printf("0x%02X\t%s\n", byte, "LD B, L");
       ld_r8_r8(&regs[BC].high, &regs[HL].low);
       break;
     case 0x46: // LD B, [HL]
+      if (debug) printf("0x%02X\t%s\n", byte, "LD B, [HL]");
       ld_r8_aHL(&regs[BC].high);
       break;
     case 0x47: // LD B, A
+      if (debug) printf("0x%02X\t%s\n", byte, "LD B, A");
       ld_r8_r8(&regs[BC].high, &regs[AF].high);
       break;
     case 0x48: // LD C, B
+      if (debug) printf("0x%02X\t%s\n", byte, "LD C, B");
       ld_r8_r8(&regs[BC].low, &regs[BC].high);
       break;
     case 0x49: // LD C, C
+      if (debug) printf("0x%02X\t%s\n", byte, "LD C, C");
       ld_r8_r8(&regs[BC].low, &regs[BC].low);
       break;
     case 0x4A: // LD C, D
+      if (debug) printf("0x%02X\t%s\n", byte, "LD C, D");
       ld_r8_r8(&regs[BC].low, &regs[DE].high);
       break;
     case 0x4B: // LD C, E
+      if (debug) printf("0x%02X\t%s\n", byte, "LD C, E");
       ld_r8_r8(&regs[BC].low, &regs[DE].low);
       break;
     case 0x4C: // LD C, H
+      if (debug) printf("0x%02X\t%s\n", byte, "LD C, H");
       ld_r8_r8(&regs[BC].low, &regs[HL].high);
       break;
     case 0x4D: // LD C, L
+      if (debug) printf("0x%02X\t%s\n", byte, "LD C, L");
       ld_r8_r8(&regs[BC].low, &regs[HL].low);
       break;
     case 0x4E: // LD C, [HL]
+      if (debug) printf("0x%02X\t%s\n", byte, "LD C, [HL]");
       ld_r8_aHL(&regs[BC].low);
       break;
     case 0x4F: // LD C, A
+      if (debug) printf("0x%02X\t%s\n", byte, "LD C, A");
       ld_r8_r8(&regs[BC].low, &regs[AF].high);
       break;
     case 0x50: // LD D, B
+      if (debug) printf("0x%02X\t%s\n", byte, "LD D, B");
       ld_r8_r8(&regs[DE].high, &regs[BC].high);
       break;
     case 0x51: // LD D, C
+      if (debug) printf("0x%02X\t%s\n", byte, "LD D, C");
       ld_r8_r8(&regs[DE].high, &regs[BC].low);
       break;
     case 0x52: // LD D, D
+      if (debug) printf("0x%02X\t%s\n", byte, "LD D, D");
       ld_r8_r8(&regs[DE].high, &regs[DE].high);
       break;
     case 0x53: // LD D, E
+      if (debug) printf("0x%02X\t%s\n", byte, "LD D, E");
       ld_r8_r8(&regs[DE].high, &regs[DE].low);
       break;
     case 0x54: // LD D, H
+      if (debug) printf("0x%02X\t%s\n", byte, "LD D, H");
       ld_r8_r8(&regs[DE].high, &regs[HL].high);
       break;
     case 0x55: // LD D, L
+      if (debug) printf("0x%02X\t%s\n", byte, "LD D, L");
       ld_r8_r8(&regs[DE].high, &regs[HL].low);
       break;
     case 0x56: // LD D, [HL]
+      if (debug) printf("0x%02X\t%s\n", byte, "LD D, [HL]");
       ld_r8_aHL(&regs[DE].high);
       break;
     case 0x57: // LD D, A
+      if (debug) printf("0x%02X\t%s\n", byte, "LD D, A");
       ld_r8_r8(&regs[DE].high, &regs[AF].high);
       break;
     case 0x58: // LD E, B
+      if (debug) printf("0x%02X\t%s\n", byte, "LD E, B");
       ld_r8_r8(&regs[DE].low, &regs[BC].high);
       break;
     case 0x59: // LD E, C
+      if (debug) printf("0x%02X\t%s\n", byte, "LD E, C");
       ld_r8_r8(&regs[DE].low, &regs[BC].low);
       break;
     case 0x5A: // LD E, D
+      if (debug) printf("0x%02X\t%s\n", byte, "LD E, D");
       ld_r8_r8(&regs[DE].low, &regs[DE].high);
       break;
     case 0x5B: // LD E, E
+      if (debug) printf("0x%02X\t%s\n", byte, "LD E, E");
       ld_r8_r8(&regs[DE].low, &regs[DE].low);
       break;
     case 0x5C: // LD E, H
+      if (debug) printf("0x%02X\t%s\n", byte, "LD E, H");
       ld_r8_r8(&regs[DE].low, &regs[HL].high);
       break;
     case 0x5D: // LD E, L
+      if (debug) printf("0x%02X\t%s\n", byte, "LD E, L");
       ld_r8_r8(&regs[DE].low, &regs[HL].low);
       break;
     case 0x5E: // LD E, [HL]
+      if (debug) printf("0x%02X\t%s\n", byte, "LD E, [HL]");
       ld_r8_aHL(&regs[DE].low);
       break;
     case 0x5F: // LD E, A
+      if (debug) printf("0x%02X\t%s\n", byte, "LD E, A");
       ld_r8_r8(&regs[DE].low, &regs[AF].high);
       break;
     case 0x60: // LD H, B
+      if (debug) printf("0x%02X\t%s\n", byte, "LD H, B");
       ld_r8_r8(&regs[HL].high, &regs[BC].high);
       break;
     case 0x61: // LD H, C
+      if (debug) printf("0x%02X\t%s\n", byte, "LD H, C");
       ld_r8_r8(&regs[HL].high, &regs[BC].low);
       break;
     case 0x62: // LD H, D
+      if (debug) printf("0x%02X\t%s\n", byte, "LD H, D");
       ld_r8_r8(&regs[HL].high, &regs[DE].high);
       break;
     case 0x63: // LD H, E
+      if (debug) printf("0x%02X\t%s\n", byte, "LD H, E");
       ld_r8_r8(&regs[HL].high, &regs[DE].low);
       break;
     case 0x64: // LD H, H
+      if (debug) printf("0x%02X\t%s\n", byte, "LD H, H");
       ld_r8_r8(&regs[HL].high, &regs[HL].high);
       break;
     case 0x65: // LD H, L
+      if (debug) printf("0x%02X\t%s\n", byte, "LD H, L");
       ld_r8_r8(&regs[HL].high, &regs[HL].low);
       break;
     case 0x66: // LD H, [HL]
+      if (debug) printf("0x%02X\t%s\n", byte, "LD H, [HL]");
       ld_r8_aHL(&regs[HL].high);
       break;
     case 0x67: // LD H, A
+      if (debug) printf("0x%02X\t%s\n", byte, "LD H, A");
       ld_r8_r8(&regs[HL].high, &regs[AF].high);
       break;
     case 0x68: // LD L, B
+      if (debug) printf("0x%02X\t%s\n", byte, "LD L, B");
       ld_r8_r8(&regs[HL].low, &regs[BC].high);
       break;
     case 0x69: // LD L, C
+      if (debug) printf("0x%02X\t%s\n", byte, "LD L, C");
       ld_r8_r8(&regs[HL].low, &regs[BC].low);
       break;
     case 0x6A: // LD L, D
+      if (debug) printf("0x%02X\t%s\n", byte, "LD L, D");
       ld_r8_r8(&regs[HL].low, &regs[DE].high);
       break;
     case 0x6B: // LD L, E
+      if (debug) printf("0x%02X\t%s\n", byte, "LD L, E");
       ld_r8_r8(&regs[HL].low, &regs[DE].low);
       break;
     case 0x6C: // LD L, H
+      if (debug) printf("0x%02X\t%s\n", byte, "LD L, H");
       ld_r8_r8(&regs[HL].low, &regs[HL].high);
       break;
     case 0x6D: // LD L, L
+      if (debug) printf("0x%02X\t%s\n", byte, "LD L, L");
       ld_r8_r8(&regs[HL].low, &regs[HL].low);
       break;
     case 0x6E: // LD L, [HL]
+      if (debug) printf("0x%02X\t%s\n", byte, "LD L, [HL]");
       ld_r8_aHL(&regs[HL].low);
       break;
     case 0x6F: // LD L, A
+      if (debug) printf("0x%02X\t%s\n", byte, "LD L, A");
       ld_r8_r8(&regs[HL].low, &regs[AF].high);
       break;
     case 0x70: // LD [HL], B
+      if (debug) printf("0x%02X\t%s\n", byte, "LD [HL], B");
       ld_aHL_r8(&regs[BC].high);
       break;
     case 0x71: // LD [HL], C
+      if (debug) printf("0x%02X\t%s\n", byte, "LD [HL], C");
       ld_aHL_r8(&regs[BC].low);
       break;
     case 0x72: // LD [HL], D
+      if (debug) printf("0x%02X\t%s\n", byte, "LD [HL], D");
       ld_aHL_r8(&regs[DE].high);
       break;
     case 0x73: // LD [HL], E
+      if (debug) printf("0x%02X\t%s\n", byte, "LD [HL], E");
       ld_aHL_r8(&regs[DE].low);
       break;
     case 0x74: // LD [HL], H
+      if (debug) printf("0x%02X\t%s\n", byte, "LD [HL], H");
       ld_aHL_r8(&regs[HL].high);
       break;
     case 0x75: // LD [HL], L
+      if (debug) printf("0x%02X\t%s\n", byte, "LD [HL], L");
       ld_aHL_r8(&regs[HL].low);
       break;
     case 0x76: // HALT
+      if (debug) printf("0x%02X\t%s\n", byte, "HALT");
       // int_halt();
       break;
     case 0x77: // LD [HL], A
+      if (debug) printf("0x%02X\t%s\n", byte, "LD [HL], A");
       ld_aHL_r8(&regs[AF].high);
       break;
     case 0x78: // LD A, B
+      if (debug) printf("0x%02X\t%s\n", byte, "LD A, B");
       ld_r8_r8(&regs[AF].high, &regs[BC].high);
       break;
     case 0x79: // LD A, C
+      if (debug) printf("0x%02X\t%s\n", byte, "LD A, C");
       ld_r8_r8(&regs[AF].high, &regs[BC].low);
       break;
     case 0x7A: // LD A, D
+      if (debug) printf("0x%02X\t%s\n", byte, "LD A, D");
       ld_r8_r8(&regs[AF].high, &regs[DE].high);
       break;
     case 0x7B: // LD A, E
+      if (debug) printf("0x%02X\t%s\n", byte, "LD A, E");
       ld_r8_r8(&regs[AF].high, &regs[DE].low);
       break;
     case 0x7C: // LD A, H
+      if (debug) printf("0x%02X\t%s\n", byte, "LD A, H");
       ld_r8_r8(&regs[AF].high, &regs[HL].high);
       break;
     case 0x7D: // LD A, L
+      if (debug) printf("0x%02X\t%s\n", byte, "LD A, L");
       ld_r8_r8(&regs[AF].high, &regs[HL].low);
       break;
     case 0x7E: // LD A, [HL]
+      if (debug) printf("0x%02X\t%s\n", byte, "LD A, [HL]");
       ld_r8_aHL(&regs[AF].high);
       break;
     case 0x7F: // LD A, A
+      if (debug) printf("0x%02X\t%s\n", byte, "LD A, A");
       ld_r8_r8(&regs[AF].high, &regs[AF].high);
       break;
     default:
