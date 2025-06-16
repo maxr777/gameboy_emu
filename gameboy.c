@@ -10,31 +10,35 @@ uint8_t vram[8192] = {0};
 int cycle = 0;
 
 void set_zero_flag(bool f) {
-  if (f)
+  if (f) {
     regs[AF].low |= 0x80;
-  else
+  } else {
     regs[AF].low &= ~0x80;
+  }
 }
 
 void set_subtraction_flag(bool f) {
-  if (f)
+  if (f) {
     regs[AF].low |= 0x40;
-  else
+  } else {
     regs[AF].low &= ~0x40;
+  }
 }
 
 void set_half_carry_flag(bool f) {
-  if (f)
+  if (f) {
     regs[AF].low |= 0x20;
-  else
+  } else {
     regs[AF].low &= ~0x20;
+  }
 }
 
 void set_carry_flag(bool f) {
-  if (f)
+  if (f) {
     regs[AF].low |= 0x10;
-  else
+  } else {
     regs[AF].low &= ~0x10;
+  }
 }
 
 // ================ LOADS ================
