@@ -2,7 +2,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-union Register regs[REGISTER_COUNT] = {0};
+Register regs[REGISTER_COUNT] = {0};
+CartridgeHeader cartridge_header = {0};
 bool display[160][144] = {0};
 uint8_t ram[8192] = {0};
 uint8_t vram[8192] = {0};

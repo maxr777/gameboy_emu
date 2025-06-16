@@ -17,13 +17,13 @@ enum RegisterNames {
 // BC = Full 16 bit register
 // B = High 8 bits
 // C = Low 8 bits
-union Register {
+typedef union {
   uint16_t full;
   struct {
     uint8_t low;
     uint8_t high;
   };
-};
+} Register;
 
 typedef struct {
   uint8_t entry_point[4];
@@ -42,11 +42,12 @@ typedef struct {
   uint16_t global_checksum;
 } CartridgeHeader;
 
-extern union Register regs[REGISTER_COUNT];
+extern Register regs[REGISTER_COUNT];
 extern bool display[160][144];
 extern uint8_t ram[8192];
 extern uint8_t vram[8192];
 extern int cycle;
+extern CartridgeHeader cartridge_header;
 
 void set_zero_flag(bool n);
 void set_subtraction_flag(bool n);
