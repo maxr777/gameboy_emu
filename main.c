@@ -52,6 +52,7 @@ int main(int argc, char *argv[]) {
 
     if (regs[PC].full < 0x0100) {
       fread(&byte, sizeof(byte), 1, boot_rom);
+      byte = boot_rom[regs[PC].full];
     } else if (regs[PC].full == 0x0100) {
       fread(&cartridge_header.entry_point, sizeof(cartridge_header.entry_point), 1, game_rom);
       fread(&cartridge_header.nintendo_logo, sizeof(cartridge_header.nintendo_logo), 1, game_rom);
