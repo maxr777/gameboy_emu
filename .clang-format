@@ -1,2 +1,2 @@
 ColumnLimit: 0
-AllowShortIfStatementsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse

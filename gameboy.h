@@ -48,6 +48,7 @@ extern uint8_t ram[8192];
 extern uint8_t vram[8192];
 extern int cycle;
 extern CartridgeHeader cartridge_header;
+extern uint8_t boot_rom[256];
 
 void set_zero_flag(bool n);
 void set_subtraction_flag(bool n);
