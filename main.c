@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define DISP_MULTP 4
 
@@ -14,18 +15,52 @@ int main(int argc, char *argv[]) {
 
   bool debug = false;
 
-  FILE *game_rom = fopen(argv[1], "rb");
-  if (!game_rom) {
+  FILE *game_file = fopen(argv[1], "rb");
+  if (!game_file) {
     perror("fopen game fail:");
     return 1;
   }
-  fseek(game_rom, 256, SEEK_SET);
 
-  FILE *boot_rom = fopen("bootix_dmg.bin", "rb");
-  if (!boot_rom) {
-    perror("fopen bootrom fail:");
+  // the cartridge header itself goes to 0x014F (inclusive), so if the rom
+  // is smaller that 0x0150, it's not a correct ROM
+  fseek(game_file, 0, SEEK_END);
+  long game_size = ftell(game_file);
+  if(game_size < 0x0150){
+    fprintf(stderr, "The ROM is too small");
     return 1;
   }
+
+  uint8_t *game_rom = calloc(game_size, sizeof(uint8_t));
+  if(!game_rom){
+    perror("game rom calloc fail:");
+    fclose(game_file);
+    return 1;
+  }
+
+  fread(game_rom, sizeof(uint8_t), game_size, game_file);
+
+  fclose(game_file);
+  
+  // the boot rom replaces everything up to 0x0100 in the game rom
+  for(int i = 0; i < sizeof(boot_rom); ++i){
+    game_rom[i] = boot_rom[i];
+  }
+
+  // for exact locations: https://gbdev.io/pandocs/The_Cartridge_Header.html
+  memcpy(cartridge_header.entry_point, &game_rom[0x0100], sizeof(cartridge_header.entry_point));
+  memcpy(cartridge_header.nintendo_logo, &game_rom[0x0104], sizeof(cartridge_header.nintendo_logo));
+  memcpy(cartridge_header.title, &game_rom[0x0134], sizeof(cartridge_header.title));
+  memcpy(&cartridge_header.cgb_flag, &game_rom[0x0143], sizeof(cartridge_header.cgb_flag));
+  memcpy(&cartridge_header.new_license_code, &game_rom[0x0144], sizeof(cartridge_header.new_license_code));
+  memcpy(&cartridge_header.sgb_flag, &game_rom[0x0146], sizeof(cartridge_header.sgb_flag));
+  memcpy(&cartridge_header.cartridge_type, &game_rom[0x0147], sizeof(cartridge_header.cartridge_type));
+  memcpy(&cartridge_header.rom_size, &game_rom[0x0148], sizeof(cartridge_header.rom_size));
+  memcpy(&cartridge_header.ram_size, &game_rom[0x0149], sizeof(cartridge_header.ram_size));
+  memcpy(&cartridge_header.destination_code, &game_rom[0x014A], sizeof(cartridge_header.destination_code));
+  memcpy(&cartridge_header.old_licensee_code, &game_rom[0x014B], sizeof(cartridge_header.old_licensee_code));
+  memcpy(&cartridge_header.mask_rom_version_number, &game_rom[0x014C], sizeof(cartridge_header.mask_rom_version_number));
+  memcpy(&cartridge_header.header_checksum, &game_rom[0x014D], sizeof(cartridge_header.header_checksum));
+  memcpy(&cartridge_header.global_checksum, &game_rom[0x014E], sizeof(cartridge_header.global_checksum));
 
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
@@ -50,82 +85,61 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    if (regs[PC].full < 0x0100) {
-      fread(&byte, sizeof(byte), 1, boot_rom);
-      byte = boot_rom[regs[PC].full];
-    } else if (regs[PC].full == 0x0100) {
-      fread(&cartridge_header.entry_point, sizeof(cartridge_header.entry_point), 1, game_rom);
-      fread(&cartridge_header.nintendo_logo, sizeof(cartridge_header.nintendo_logo), 1, game_rom);
-      fread(&cartridge_header.cgb_flag, sizeof(cartridge_header.cgb_flag), 1, game_rom);
-      fread(&cartridge_header.new_license_code, sizeof(cartridge_header.new_license_code), 1, game_rom);
-      fread(&cartridge_header.sgb_flag, sizeof(cartridge_header.sgb_flag), 1, game_rom);
-      fread(&cartridge_header.cartridge_type, sizeof(cartridge_header.cartridge_type), 1, game_rom);
-      fread(&cartridge_header.rom_size, sizeof(cartridge_header.rom_size), 1, game_rom);
-      fread(&cartridge_header.ram_size, sizeof(cartridge_header.ram_size), 1, game_rom);
-      fread(&cartridge_header.destination_code, sizeof(cartridge_header.destination_code), 1, game_rom);
-      fread(&cartridge_header.old_licensee_code, sizeof(cartridge_header.old_licensee_code), 1, game_rom);
-      fread(&cartridge_header.mask_rom_version_number, sizeof(cartridge_header.mask_rom_version_number), 1, game_rom);
-      fread(&cartridge_header.header_checksum, sizeof(cartridge_header.header_checksum), 1, game_rom);
-      fread(&cartridge_header.global_checksum, sizeof(cartridge_header.global_checksum), 1, game_rom);
-    } else {
-      fread(&byte, sizeof(byte), 1, game_rom);
-    }
-
     switch (byte) {
     case 0x00: // NOP
       if (debug) printf("0x%02X\t%s\n", byte, "NOP");
       ++cycle;
       break;
-    case 0x01: // LD BC, n16
-    {
-      uint16_t n16;
-      fread(&n16, 2, 1, game_rom);
-      if (debug) printf("0x%02X %04X\t%s\n", byte, n16, "LD BC, n16");
-      ld_r16_n16(&regs[BC].full, n16);
-    } break;
-    case 0x02: // LD [BC], A
-      ld_a16_A(&regs[BC].full);
-      break;
-    case 0x03: // INC BC
-      ++regs[BC].full;
-      cycle += 2;
-      break;
-    case 0x04: // INC B
-      ++regs[BC].high;
-      ++cycle;
-      break;
-    case 0x05: // DEC B
-    {
-      uint8_t old = regs[BC].high;
-      uint8_t result = --regs[BC].high;
-      set_half_carry_flag((old & 0x0f) < (result & 0x0f));
-      set_zero_flag(result == 0);
-      set_subtraction_flag(true);
-      ++cycle;
-    } break;
-    case 0x06: // LD B, n8
-      fread(&regs[BC].high, 1, 1, game_rom);
-      cycle += 2;
-      break;
-    case 0x07: // RLCA
-    {
-      bool result = regs[AF].high & 0x80;
-      set_carry_flag(result);
-      regs[AF].high <<= 1;
-      regs[AF].high = regs[AF].high | result;
-      set_zero_flag(false);
-      set_subtraction_flag(false);
-      set_half_carry_flag(false);
-      ++cycle;
-    } break;
-    case 0x08: // LD [n16], SP
-    {
-      uint16_t address;
-      fread(&address, 2, 1, game_rom);
-      ld_addr16_SP(address);
-    } break;
-    case 0x09:
-      break;
+    // case 0x01: // LD BC, n16
+    // {
+    //   uint16_t n16;
+    //   fread(&n16, 2, 1, game_rom);
+    //   if (debug) printf("0x%02X %04X\t%s\n", byte, n16, "LD BC, n16");
+    //   ld_r16_n16(&regs[BC].full, n16);
+    // } break;
+    // case 0x02: // LD [BC], A
+    //   ld_a16_A(&regs[BC].full);
+    //   break;
+    // case 0x03: // INC BC
+    //   ++regs[BC].full;
+    //   cycle += 2;
+    //   break;
+    // case 0x04: // INC B
+    //   ++regs[BC].high;
+    //   ++cycle;
+    //   break;
+    // case 0x05: // DEC B
+    // {
+    //   uint8_t old = regs[BC].high;
+    //   uint8_t result = --regs[BC].high;
+    //   set_half_carry_flag((old & 0x0f) < (result & 0x0f));
+    //   set_zero_flag(result == 0);
+    //   set_subtraction_flag(true);
+    //   ++cycle;
+    // } break;
+    // case 0x06: // LD B, n8
+    //   fread(&regs[BC].high, 1, 1, game_rom);
+    //   cycle += 2;
+    //   break;
+    // case 0x07: // RLCA
+    // {
+    //   bool result = regs[AF].high & 0x80;
+    //   set_carry_flag(result);
+    //   regs[AF].high <<= 1;
+    //   regs[AF].high = regs[AF].high | result;
+    //   set_zero_flag(false);
+    //   set_subtraction_flag(false);
+    //   set_half_carry_flag(false);
+    //   ++cycle;
+    // } break;
+    // case 0x08: // LD [n16], SP
+    // {
+    //   uint16_t address;
+    //   fread(&address, 2, 1, game_rom);
+    //   ld_addr16_SP(address);
+    // } break;
+    // case 0x09:
+    //   break;
     case 0x40: // LD B, B
       if (debug) printf("0x%02X\t%s\n", byte, "LD B, B");
       ld_r8_r8(&regs[BC].high, &regs[BC].high);
@@ -387,8 +401,6 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  fclose(boot_rom);
-  fclose(game_rom);
   SDL_DestroyWindow(window);
   SDL_Quit();
   return 0;
