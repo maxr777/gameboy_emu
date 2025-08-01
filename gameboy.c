@@ -7,6 +7,7 @@ CartridgeHeader cartridge_header = {0};
 bool display[160][144] = {0};
 uint8_t ram[8192] = {0};
 uint8_t vram[8192] = {0};
+uint8_t io_registers[128] = {0};
 int cycle = 0;
 
 uint8_t boot_rom[256] = {
@@ -80,12 +81,20 @@ void ld_aHL_r8(uint8_t *src) {
 
 void ld_aHL_n8(uint8_t src);
 
+// TODO: check for the address (0x8000-0x9FFF = VRAM, 0xA000-0xBFFF - ROM, etc.)
+// need to check what it's reading from and then use the correct array (ram, vram, etc.)
 void ld_r8_aHL(uint8_t *dest) {
+  // if dest < 0xA000
+  // read from VRAM
+  // else if dest < 0xC000
+  // read from the ROM
+  // etc.
   *dest = ram[regs[HL].full];
   cycle += 2;
 }
 
 void ld_a16_A(uint16_t *dest) {
+  // need to do the same as in the above ld r6, [HL] insturction
   ram[*dest] = regs[AF].high;
   cycle += 2;
 }

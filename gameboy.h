@@ -4,6 +4,88 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+// ================ IO REGISTERS ================
+
+// io base address (for array access)
+#define IO_BASE 0xFF00
+
+// joypad input
+#define JOYPAD_INPUT 0xFF00
+
+// serial transfer
+#define SERIAL_TRANSFER 0xFF01
+#define SERIAL_CONTROL  0xFF02
+
+// timer and divider
+#define DIVIDER_CONTROL 0xFF04
+#define TIMER_COUNTER   0xFF05
+#define TIMER_MOD       0xFF06
+#define TIMER_CONTROL   0xFF07
+
+// interrputs
+#define INTERRUPT_FLAG 0xFF0F
+
+// audio
+#define CH1_SWEEP       0xFF10
+#define CH1_TIMER       0xFF11
+#define CH1_VOLUME      0xFF12
+#define CH1_PERIOD_LOW  0xFF13
+#define CH1_PERIOD_HIGH 0xFF14
+#define CH2_TIMER       0xFF16
+#define CH2_VOLUME      0xFF17
+#define CH2_PERIOD_LOW  0xFF18
+#define CH2_PERIOD_HIGH 0xFF19
+#define CH3_DAC_ENABLE  0xFF1A
+#define CH3_LEN_TIMER   0xFF1B
+#define CH3_OUTPUT_LVL  0xFF1C
+#define CH3_PERIOD_LOW  0xFF1D
+#define CH3_PERIOD_HIGH 0xFF1E
+#define CH4_LEN_TIMER   0xFF20
+#define CH4_VOLUME      0xFF21
+#define CH4_FREQUENCY   0xFF22
+#define CH4_CONTROL     0xFF23
+#define MASTER_VOLUME   0xFF24
+#define SOUND_PANNING   0xFF25
+#define AUDIO_CONTROL   0xFF26
+
+// wave pattern
+#define WAVE_PATTERN_RAM 0xFF30
+
+// lcd control, status, position, scrolling, palettes
+#define LCD_CONTROL       0xFF40
+#define LCD_STATUS        0xFF41
+#define BG_VIEWPORT_Y     0xFF42
+#define BG_VIEWPORT_X     0xFF43
+#define LCD_Y             0xFF44
+#define LCD_LY_CMP        0xFF45
+#define BG_PALETTE_DATA   0xFF47
+#define OBJ_PALETTE0_DATA 0xFF48
+#define OBJ_PALETTE1_DATA 0xFF49
+#define WINDOW_Y7         0xFF4A
+#define WINDOW_X7         0xFF4B
+
+// vram bank select
+#define VRAM_BANK 0xFF4F
+
+// boot rom mapping control
+#define BOOT_ROM_DISABLE 0xFF50
+
+// vram dma
+#define VRAM_DMA_SRC_HIGH  0xFF51
+#define VRAM_DMA_SRC_LOW   0xFF52
+#define VRAM_DMA_DEST_HIGH 0xFF53
+#define VRAM_DMA_DEST_LOW  0xFF54
+#define VRAM_DMA_START     0xFF55
+
+// bg/obj palettes
+#define CGB_BG_PALETTE_SPEC        0xFF68
+#define CGB_BG_PALETTE_DATA        0xFF69
+#define CGB_OBJ_COLOR_PALETTE_SPEC 0xFF6A
+#define CGB_OBJ_COLOR_PALETTE_DATA 0xFF6B
+
+// wram bank select
+#define WRAM_BANK 0xFF70
+
 enum RegisterNames {
   AF,
   BC,
@@ -46,6 +128,7 @@ extern Register regs[REGISTER_COUNT];
 extern bool display[160][144];
 extern uint8_t ram[8192];
 extern uint8_t vram[8192];
+extern uint8_t io_registers[128];
 extern int cycle;
 extern CartridgeHeader cartridge_header;
 extern uint8_t boot_rom[256];

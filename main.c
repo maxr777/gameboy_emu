@@ -25,26 +25,20 @@ int main(int argc, char *argv[]) {
   // is smaller that 0x0150, it's not a correct ROM
   fseek(game_file, 0, SEEK_END);
   long game_size = ftell(game_file);
-  if(game_size < 0x0150){
+  if (game_size < 0x0150) {
     fprintf(stderr, "The ROM is too small");
     return 1;
   }
 
-  uint8_t *game_rom = calloc(game_size, sizeof(uint8_t));
-  if(!game_rom){
+  uint8_t *game_rom = malloc(game_size);
+  if (!game_rom) {
     perror("game rom calloc fail:");
     fclose(game_file);
     return 1;
   }
 
   fread(game_rom, sizeof(uint8_t), game_size, game_file);
-
   fclose(game_file);
-  
-  // the boot rom replaces everything up to 0x0100 in the game rom
-  for(int i = 0; i < sizeof(boot_rom); ++i){
-    game_rom[i] = boot_rom[i];
-  }
 
   // for exact locations: https://gbdev.io/pandocs/The_Cartridge_Header.html
   memcpy(cartridge_header.entry_point, &game_rom[0x0100], sizeof(cartridge_header.entry_point));
@@ -75,7 +69,7 @@ int main(int argc, char *argv[]) {
   }
 
   SDL_Event event;
-  bool running = true;
+  bool running = true, boot_rom_enabled = true;
   uint8_t byte = 0;
 
   while (running) {
@@ -84,6 +78,17 @@ int main(int argc, char *argv[]) {
         running = false;
       }
     }
+
+    // the boot rom gets mapped over the game rom until the BOOT_ROM_DISABLE address is 1
+    if (io_registers[BOOT_ROM_DISABLE - IO_BASE] == 1)
+      boot_rom_enabled = false;
+
+    if (boot_rom_enabled)
+      byte = boot_rom[regs[PC].full];
+    else
+      byte = game_rom[regs[PC].full];
+
+    regs[PC].full += 1;
 
     switch (byte) {
     case 0x00: // NOP
