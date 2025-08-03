@@ -21,8 +21,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  // the cartridge header itself goes to 0x014F (inclusive), so if the rom
-  // is smaller that 0x0150, it's not a correct ROM
+  // the cartridge header itself goes to 0x014F (inclusive),
+  // so if the rom is smaller than 0x0150 it's not a correct ROM
   fseek(game_file, 0, SEEK_END);
   long game_size = ftell(game_file);
   if (game_size < 0x0150) {
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
   uint8_t *game_rom = malloc(game_size);
   if (!game_rom) {
-    perror("game rom calloc fail:");
+    perror("game rom malloc fail:");
     fclose(game_file);
     return 1;
   }

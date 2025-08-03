@@ -90,12 +90,61 @@ void ld_r8_aHL(uint8_t *dest) {
   // else if dest < 0xC000
   // read from the ROM
   // etc.
+  if (*dest < 0x4000)
+    ;
+  else if (*dest < 0x8000)
+    ;
+  else if (*dest < 0xA000)
+    ;
+  else if (*dest < 0xC000)
+    ;
+  else if (*dest < 0xD000)
+    ;
+  else if (*dest < 0xE000)
+    ;
+  else if (*dest < 0xFE00)
+    ;
+  else if (*dest < 0xFEA0)
+    ;
+  else if (*dest < 0xFF00)
+    ;
+  else if (*dest < 0xFF80)
+    ;
+  else if (*dest < 0xFFFF)
+    ;
+  else
+    ;
+
   *dest = ram[regs[HL].full];
   cycle += 2;
 }
 
 void ld_a16_A(uint16_t *dest) {
-  // need to do the same as in the above ld r6, [HL] insturction
+  if (*dest < 0x4000)
+    ;
+  else if (*dest < 0x8000)
+    ;
+  else if (*dest < 0xA000)
+    ;
+  else if (*dest < 0xC000)
+    ;
+  else if (*dest < 0xD000)
+    ;
+  else if (*dest < 0xE000)
+    ;
+  else if (*dest < 0xFE00)
+    ;
+  else if (*dest < 0xFEA0)
+    ;
+  else if (*dest < 0xFF00)
+    ;
+  else if (*dest < 0xFF80)
+    io_registers[*dest - IO_BASE] = regs[AF].high;
+  else if (*dest < 0xFFFF)
+    ;
+  else
+    ;
+
   ram[*dest] = regs[AF].high;
   cycle += 2;
 }
