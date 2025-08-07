@@ -1,6 +1,7 @@
 #include "gameboy.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 
 Register regs[REGISTER_COUNT] = {0};
 CartridgeHeader cartridge_header = {0};
@@ -67,16 +68,19 @@ void set_carry_flag(bool f) {
 
 void ld_r8_r8(uint8_t *dest, uint8_t *src) {
   *dest = *src;
+  regs[PC].full += 1;
   ++cycle;
 }
 
 void ld_r16_n16(uint16_t *dest, uint16_t src) {
   *dest = src;
+  regs[PC].full += 3;
   cycle += 3;
 }
 
 void ld_aHL_r8(uint8_t *src) {
   ram[regs[HL].full] = *src;
+  regs[PC].full += 1;
   cycle += 2;
 }
 
@@ -116,6 +120,7 @@ void ld_r8_aHL(uint8_t *dest) {
     ;
 
   *dest = ram[regs[HL].full];
+  regs[PC].full += 1;
   cycle += 2;
 }
 
@@ -138,14 +143,17 @@ void ld_a16_A(uint16_t *dest) {
     ;
   else if (*dest < 0xFF00)
     ;
-  else if (*dest < 0xFF80)
+  else if (*dest < 0xFF80) {
     io_registers[*dest - IO_BASE] = regs[AF].high;
-  else if (*dest < 0xFFFF)
+    if (*dest == SERIAL_TRANSFER)
+      printf("%c", regs[AF].high);
+  } else if (*dest < 0xFFFF)
     ;
   else
     ;
 
   ram[*dest] = regs[AF].high;
+  regs[PC].full += 1;
   cycle += 2;
 }
 
@@ -160,15 +168,27 @@ void ld_aHLi_A();
 void ld_aHLd_A();
 void ld_A_aHLi();
 void ld_A_aHLd();
-void ld_SP_n16(uint16_t src);
+
+void ld_SP_n16(uint16_t src) {
+  regs[SP].full = src;
+  regs[PC].full += 3;
+  cycle += 3;
+}
 
 void ld_addr16_SP(uint16_t dest) {
   ram[dest] = regs[SP].full;
-  cycle += 4;
+  regs[PC].full += 3;
+  cycle += 5;
 }
 
 void ld_aHL_SPe8();
 void ld_SP_aHL();
+
+// ================ JUMPS ================
+
+void jr_n16(uint16_t dest) {
+  cycle += 3;
+}
 
 // ================ INTERRUPTS ================
 

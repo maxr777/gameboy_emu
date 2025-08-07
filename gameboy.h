@@ -174,6 +174,9 @@ void ld_addr16_SP(uint16_t dest);
 void ld_aHL_SPe8();
 void ld_SP_aHL();
 
+// JUMPS
+void jr_n16(uint16_t dest);
+
 // INTERRUPTS
 void int_di();
 void int_ei();
