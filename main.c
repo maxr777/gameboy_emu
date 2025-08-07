@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  bool debug = false;
+  bool debug = true;
 
   FILE *game_file = fopen(argv[1], "rb");
   if (!game_file) {
@@ -88,8 +88,6 @@ int main(int argc, char *argv[]) {
     else
       byte = game_rom[regs[PC].full];
 
-    regs[PC].full += 1;
-
     switch (byte) {
     case 0x00: // NOP
       if (debug) printf("0x%02X\t%s\n", byte, "NOP");
@@ -145,6 +143,12 @@ int main(int argc, char *argv[]) {
     // } break;
     // case 0x09:
     //   break;
+    case 0x31: // LD SP, n16
+      if (debug) printf("0x%02X\t%s\n", byte, "LD SP, n16");
+      uint16_t n16;
+      memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+      ld_SP_n16(n16);
+      break;
     case 0x40: // LD B, B
       if (debug) printf("0x%02X\t%s\n", byte, "LD B, B");
       ld_r8_r8(&regs[BC].high, &regs[BC].high);
@@ -402,6 +406,8 @@ int main(int argc, char *argv[]) {
       ld_r8_r8(&regs[AF].high, &regs[AF].high);
       break;
     default:
+      printf("Unimplemented opcode: 0x%02X at PC: 0x%04X\n", byte, regs[PC].full - 1);
+      regs[PC].full += 1;
       break;
     }
   }
