@@ -1,305 +1,305 @@
-PC: 0x0000	0x31	LD SP, n16
-PC: 0x0003	0x21	LD HL, n16
-PC: 0x0006	0xAF	Unimplemented opcode
-PC: 0x0007	0x32	Unimplemented opcode
-PC: 0x0008	0xCB	Unimplemented opcode
-PC: 0x0009	0x7C	LD A, H
-PC: 0x000A	0x20	Unimplemented opcode
-PC: 0x000B	0xFA	Unimplemented opcode
-PC: 0x000C	0x0E	Unimplemented opcode
-PC: 0x000D	0x11	Unimplemented opcode
-PC: 0x000E	0x21	LD HL, n16
-PC: 0x0011	0x3E	Unimplemented opcode
-PC: 0x0012	0x80	Unimplemented opcode
-PC: 0x0013	0x32	Unimplemented opcode
-PC: 0x0014	0xE2	Unimplemented opcode
-PC: 0x0015	0x0C	Unimplemented opcode
-PC: 0x0016	0x3E	Unimplemented opcode
-PC: 0x0017	0xF3	Unimplemented opcode
-PC: 0x0018	0x32	Unimplemented opcode
-PC: 0x0019	0xE2	Unimplemented opcode
-PC: 0x001A	0x0C	Unimplemented opcode
-PC: 0x001B	0x3E	Unimplemented opcode
-PC: 0x001C	0x77	LD [HL], A
-PC: 0x001D	0x32	Unimplemented opcode
-PC: 0x001E	0xE2	Unimplemented opcode
-PC: 0x001F	0x11	Unimplemented opcode
-PC: 0x0020	0x04	Unimplemented opcode
-PC: 0x0021	0x01	Unimplemented opcode
-PC: 0x0022	0x21	LD HL, n16
-PC: 0x0025	0x1A	Unimplemented opcode
-PC: 0x0026	0xCD	Unimplemented opcode
-PC: 0x0027	0xB8	Unimplemented opcode
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
-PC: 0x0028	0x00	NOP
+Cycle: 0	PC: 0x0000	Opcode: 0x31	LD SP, n16  	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 3	PC: 0x0003	Opcode: 0x21	LD HL, n16  	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 6	PC: 0x0006	Opcode: 0xAF	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 6	PC: 0x0007	Opcode: 0x32	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 6	PC: 0x0008	Opcode: 0xCB	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 6	PC: 0x0009	Opcode: 0x7C	LD A, H     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 7	PC: 0x000A	Opcode: 0x20	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 7	PC: 0x000B	Opcode: 0xFA	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 7	PC: 0x000C	Opcode: 0x0E	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 7	PC: 0x000D	Opcode: 0x11	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 7	PC: 0x000E	Opcode: 0x21	LD HL, n16  	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x0011	Opcode: 0x3E	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x0012	Opcode: 0x80	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x0013	Opcode: 0x32	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x0014	Opcode: 0xE2	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x0015	Opcode: 0x0C	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x0016	Opcode: 0x3E	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x0017	Opcode: 0xF3	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x0018	Opcode: 0x32	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x0019	Opcode: 0xE2	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x001A	Opcode: 0x0C	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x001B	Opcode: 0x3E	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 10	PC: 0x001C	Opcode: 0x77	LD [HL], A  	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 12	PC: 0x001D	Opcode: 0x32	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 12	PC: 0x001E	Opcode: 0xE2	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 12	PC: 0x001F	Opcode: 0x11	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 12	PC: 0x0020	Opcode: 0x04	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 12	PC: 0x0021	Opcode: 0x01	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 12	PC: 0x0022	Opcode: 0x21	LD HL, n16  	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 15	PC: 0x0025	Opcode: 0x1A	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 15	PC: 0x0026	Opcode: 0xCD	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 15	PC: 0x0027	Opcode: 0xB8	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 15	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 16	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 17	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 18	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 19	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 20	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 21	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 22	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 23	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 24	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 25	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 26	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 27	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 28	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 29	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 30	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 31	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 32	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 33	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 34	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 35	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 36	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 37	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 38	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 39	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 40	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 41	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 42	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 43	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 44	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 45	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 46	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 47	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 48	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 49	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 50	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 51	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 52	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 53	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 54	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 55	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 56	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 57	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 58	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 59	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 60	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 61	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 62	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 63	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 64	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 65	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 66	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 67	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 68	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 69	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 70	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 71	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 72	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 73	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 74	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 75	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 76	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 77	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 78	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 79	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 80	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 81	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 82	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 83	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 84	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 85	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 86	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 87	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 88	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 89	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 90	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 91	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 92	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 93	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 94	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 95	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 96	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 97	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 98	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 99	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 100	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 101	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 102	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 103	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 104	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 105	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 106	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 107	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 108	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 109	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 110	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 111	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 112	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 113	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 114	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 115	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 116	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 117	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 118	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 119	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 120	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 121	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 122	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 123	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 124	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 125	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 126	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 127	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 128	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 129	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 130	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 131	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 132	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 133	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 134	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 135	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 136	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 137	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 138	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 139	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 140	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 141	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 142	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 143	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 144	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 145	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 146	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 147	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 148	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 149	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 150	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 151	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 152	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 153	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 154	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 155	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 156	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 157	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 158	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 159	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 160	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 161	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 162	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 163	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 164	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 165	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 166	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 167	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 168	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 169	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 170	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 171	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 172	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 173	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 174	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 175	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 176	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 177	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 178	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 179	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 180	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 181	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 182	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 183	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 184	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 185	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 186	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 187	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 188	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 189	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 190	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 191	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 192	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 193	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 194	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 195	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 196	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 197	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 198	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 199	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 200	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 201	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 202	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 203	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 204	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 205	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 206	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 207	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 208	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 209	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 210	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 211	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 212	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 213	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 214	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 215	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 216	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 217	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 218	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 219	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 220	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 221	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 222	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 223	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 224	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 225	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 226	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 227	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 228	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 229	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 230	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 231	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 232	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 233	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 234	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 235	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 236	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 237	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 238	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 239	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 240	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 241	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 242	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 243	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 244	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 245	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 246	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 247	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 248	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 249	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 250	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 251	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 252	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 253	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 254	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 255	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 256	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 257	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 258	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 259	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 260	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 261	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 262	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 263	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 264	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 265	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 266	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 267	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 268	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 269	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 270	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 271	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 272	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 273	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 274	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 275	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 276	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 277	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 278	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 279	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 280	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 281	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 282	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 283	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 284	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 285	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 286	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
+Cycle: 287	PC: 0x0028	Opcode: 0x00	NOP         	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
