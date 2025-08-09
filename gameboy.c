@@ -64,95 +64,108 @@ void set_carry_flag(bool f) {
     regs[AF].low &= ~0x10;
 }
 
+// TODO: change all writes/reads to/from ram to these
+void write16(uint16_t addr, uint16_t value) {
+  if (addr < 0x4000)
+    ;
+  else if (addr < 0x8000)
+    ;
+  else if (addr < 0xA000)
+    ;
+  else if (addr < 0xC000)
+    ;
+  else if (addr < 0xD000)
+    ;
+  else if (addr < 0xE000)
+    ;
+  else if (addr < 0xFE00)
+    ;
+  else if (addr < 0xFEA0)
+    ;
+  else if (addr < 0xFF00)
+    ;
+  else if (addr < 0xFF80)
+    ;
+  else if (addr < 0xFFFF)
+    ;
+  else
+    ;
+}
+
+void write8(uint16_t address, uint8_t value);
+uint16_t read16(uint16_t address);
+uint8_t read8(uint16_t address);
+
+// https://rgbds.gbdev.io/docs/v0.9.2/gbz80.7
+// naming is instruction_destination_source
+// r8 - 8 bit register, r16 - 16 bit
+// HL, A, C, SP - hard set registers
+// a16 == [r16], addr16 == [n16]
+// aHL = [HL], aC = [C]
+
 // ================ LOADS ================
 
 void ld_r8_r8(uint8_t *dest, uint8_t *src) {
   *dest = *src;
+
   regs[PC].full += 1;
-  ++cycle;
+  cycle += 1;
 }
 
 void ld_r16_n16(uint16_t *dest, uint16_t src) {
   *dest = src;
+
   regs[PC].full += 3;
   cycle += 3;
 }
 
 void ld_aHL_r8(uint8_t *src) {
-  ram[regs[HL].full] = *src;
+  write8(regs[HL].full, *src);
+
   regs[PC].full += 1;
   cycle += 2;
 }
 
 void ld_aHL_n8(uint8_t src);
 
-// TODO: check for the address (0x8000-0x9FFF = VRAM, 0xA000-0xBFFF - ROM, etc.)
-// need to check what it's reading from and then use the correct array (ram, vram, etc.)
 void ld_r8_aHL(uint8_t *dest) {
-  // if dest < 0xA000
-  // read from VRAM
-  // else if dest < 0xC000
-  // read from the ROM
-  // etc.
-  if (*dest < 0x4000)
-    ;
-  else if (*dest < 0x8000)
-    ;
-  else if (*dest < 0xA000)
-    ;
-  else if (*dest < 0xC000)
-    ;
-  else if (*dest < 0xD000)
-    ;
-  else if (*dest < 0xE000)
-    ;
-  else if (*dest < 0xFE00)
-    ;
-  else if (*dest < 0xFEA0)
-    ;
-  else if (*dest < 0xFF00)
-    ;
-  else if (*dest < 0xFF80)
-    ;
-  else if (*dest < 0xFFFF)
-    ;
-  else
-    ;
+  *dest = read8(regs[HL].full);
 
-  *dest = ram[regs[HL].full];
   regs[PC].full += 1;
   cycle += 2;
 }
 
 void ld_a16_A(uint16_t *dest) {
-  if (*dest < 0x4000)
-    ;
-  else if (*dest < 0x8000)
-    ;
-  else if (*dest < 0xA000)
-    ;
-  else if (*dest < 0xC000)
-    ;
-  else if (*dest < 0xD000)
-    ;
-  else if (*dest < 0xE000)
-    ;
-  else if (*dest < 0xFE00)
-    ;
-  else if (*dest < 0xFEA0)
-    ;
-  else if (*dest < 0xFF00)
-    ;
-  else if (*dest < 0xFF80) {
-    io_registers[*dest - IO_BASE] = regs[AF].high;
-    if (*dest == SERIAL_TRANSFER)
-      printf("%c", regs[AF].high);
-  } else if (*dest < 0xFFFF)
-    ;
-  else
-    ;
+  // TODO: need this one for the serial write - I need to copy it
+  // if (*dest < 0x4000)
+  //   ;
+  // else if (*dest < 0x8000)
+  //   ;
+  // else if (*dest < 0xA000)
+  //   ;
+  // else if (*dest < 0xC000)
+  //   ;
+  // else if (*dest < 0xD000)
+  //   ;
+  // else if (*dest < 0xE000)
+  //   ;
+  // else if (*dest < 0xFE00)
+  //   ;
+  // else if (*dest < 0xFEA0)
+  //   ;
+  // else if (*dest < 0xFF00)
+  //   ;
+  // else if (*dest < 0xFF80) {
+  //   io_registers[*dest - IO_BASE] = regs[AF].high;
+  //   if (*dest == SERIAL_TRANSFER)
+  //     printf("%c", regs[AF].high);
+  // } else if (*dest < 0xFFFF)
+  //   ;
+  // else
+  //   ;
 
-  ram[*dest] = regs[AF].high;
+  write8(*dest, regs[AF].high);
+
   regs[PC].full += 1;
   cycle += 2;
 }
@@ -165,18 +178,28 @@ void ld_A_addr16(uint16_t src);
 void ldh_A_addr16(uint16_t src);
 void ldh_A_aC();
 void ld_aHLi_A();
-void ld_aHLd_A();
+
+void ld_aHLd_A() {
+  write8(regs[HL].full, regs[AF].high);
+  --regs[HL].full;
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
+
 void ld_A_aHLi();
 void ld_A_aHLd();
 
 void ld_SP_n16(uint16_t src) {
   regs[SP].full = src;
+
   regs[PC].full += 3;
   cycle += 3;
 }
 
 void ld_addr16_SP(uint16_t dest) {
-  ram[dest] = regs[SP].full;
+  write16(dest, regs[SP].full);
+
   regs[PC].full += 3;
   cycle += 5;
 }
@@ -184,8 +207,23 @@ void ld_addr16_SP(uint16_t dest) {
 void ld_aHL_SPe8();
 void ld_SP_aHL();
 
+// ================ BITWISE ================
+
+void xor_A_r8(uint8_t *src) {
+  regs[AF].high ^= *src;
+
+  regs[AF].high == 0 ? set_zero_flag(true) : set_zero_flag(false);
+  set_subtraction_flag(false);
+  set_half_carry_flag(false);
+  set_carry_flag(false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 // ================ JUMPS ================
 
+// TODO
 void jr_n16(uint16_t dest) {
   cycle += 3;
 }

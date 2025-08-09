@@ -138,18 +138,10 @@ void set_subtraction_flag(bool n);
 void set_half_carry_flag(bool n);
 void set_carry_flag(bool n);
 
-// https://rgbds.gbdev.io/docs/v0.9.2/gbz80.7
-// naming is instruction_destination_source
-// r8 - 8 bit register, r16 - 16 bit
-// HL, A, C, SP - hard set registers
-// a16 == [r16], addr16 == [n16]
-// aHL = [HL], aC = [C]
-// ==================================================
-// TODO:
-// some of these are probably redundant, since they will only
-// be called in one case (loads with no dest or src operands)
-// might be fine to keep them though, so that every instruction
-// is executed the same way - through a function for it
+void write16(uint16_t addr, uint16_t value);
+void write8(uint16_t addr, uint8_t value);
+uint16_t read16(uint16_t addr);
+uint8_t read8(uint16_t addr);
 
 // LOADS
 void ld_r8_r8(uint8_t *dest, uint8_t *src);
@@ -173,6 +165,9 @@ void ld_SP_n16(uint16_t src);
 void ld_addr16_SP(uint16_t dest);
 void ld_aHL_SPe8();
 void ld_SP_aHL();
+
+// BITWISE
+void xor_A_r8(uint8_t *src);
 
 // JUMPS
 void jr_n16(uint16_t dest);

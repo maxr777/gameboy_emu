@@ -171,6 +171,9 @@ int main(int argc, char *argv[]) {
       memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
       ld_SP_n16(n16);
     } break;
+    case 0x32: // LD HLD, A
+
+      debug_print(byte, "LD HLD, A");
     case 0x40: // LD B, B
       debug_print(byte, "LD B, B");
       ld_r8_r8(&regs[BC].high, &regs[BC].high);
@@ -426,6 +429,10 @@ int main(int argc, char *argv[]) {
     case 0x7F: // LD A, A
       debug_print(byte, "LD A, A");
       ld_r8_r8(&regs[AF].high, &regs[AF].high);
+      break;
+    case 0xAF: // XOR A, A
+      debug_print(byte, "XOR A, A");
+      xor_A_r8(&regs[AF].high);
       break;
     default:
       debug_print(byte, "UNKNOWN");
