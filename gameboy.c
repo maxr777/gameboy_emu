@@ -1,7 +1,8 @@
 #include "gameboy.h"
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
+
+// ================ HARDWARE ================
 
 Register regs[REGISTER_COUNT] = {0};
 CartridgeHeader cartridge_header = {0};
@@ -10,6 +11,7 @@ uint8_t ram[8192] = {0};
 uint8_t vram[8192] = {0};
 uint8_t io_registers[128] = {0};
 int cycle = 0;
+bool prefix = false;
 
 // bootix bootrom: https://github.com/Hacktix/Bootix
 uint8_t boot_rom[256] = {
@@ -35,6 +37,8 @@ uint8_t boot_rom[256] = {
     0x31, 0x2e, 0x32, 0x00, 0x3e, 0xff, 0xc6, 0x01, 0x0b, 0x1e, 0xd8, 0x21,
     0x4d, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x3e, 0x01, 0xe0, 0x50};
+
+// ================ HELPER FUNCTIONS ================
 
 void set_zero_flag(bool f) {
   if (f)
@@ -64,7 +68,6 @@ void set_carry_flag(bool f) {
     regs[AF].low &= ~0x10;
 }
 
-// TODO: change all writes/reads to/from ram to these
 void write16(uint16_t addr, uint16_t value) {
   if (addr < 0x4000)
     ;
@@ -92,9 +95,92 @@ void write16(uint16_t addr, uint16_t value) {
     ;
 }
 
-void write8(uint16_t address, uint8_t value);
-uint16_t read16(uint16_t address);
-uint8_t read8(uint16_t address);
+void write8(uint16_t addr, uint8_t value) {
+  if (addr < 0x4000)
+    ;
+  else if (addr < 0x8000)
+    ;
+  else if (addr < 0xA000)
+    ;
+  else if (addr < 0xC000)
+    ;
+  else if (addr < 0xD000)
+    ;
+  else if (addr < 0xE000)
+    ;
+  else if (addr < 0xFE00)
+    ;
+  else if (addr < 0xFEA0)
+    ;
+  else if (addr < 0xFF00)
+    ;
+  else if (addr < 0xFF80)
+    ;
+  else if (addr < 0xFFFF)
+    ;
+  else
+    ;
+}
+
+uint16_t read16(uint16_t addr) {
+  if (addr < 0x4000)
+    ;
+  else if (addr < 0x8000)
+    ;
+  else if (addr < 0xA000)
+    ;
+  else if (addr < 0xC000)
+    ;
+  else if (addr < 0xD000)
+    ;
+  else if (addr < 0xE000)
+    ;
+  else if (addr < 0xFE00)
+    ;
+  else if (addr < 0xFEA0)
+    ;
+  else if (addr < 0xFF00)
+    ;
+  else if (addr < 0xFF80)
+    ;
+  else if (addr < 0xFFFF)
+    ;
+  else
+    ;
+
+  return 0;
+}
+
+uint8_t read8(uint16_t addr) {
+  if (addr < 0x4000)
+    ;
+  else if (addr < 0x8000)
+    ;
+  else if (addr < 0xA000)
+    ;
+  else if (addr < 0xC000)
+    ;
+  else if (addr < 0xD000)
+    ;
+  else if (addr < 0xE000)
+    ;
+  else if (addr < 0xFE00)
+    ;
+  else if (addr < 0xFEA0)
+    ;
+  else if (addr < 0xFF00)
+    ;
+  else if (addr < 0xFF80)
+    ;
+  else if (addr < 0xFFFF)
+    ;
+  else
+    ;
+
+  return 0;
+}
+
+// ================ OPCODES ================
 
 // https://rgbds.gbdev.io/docs/v0.9.2/gbz80.7
 // naming is instruction_destination_source
@@ -234,3 +320,9 @@ void int_di();
 void int_ei();
 // TODO: implement this one, since it's already used in main.c
 void int_halt();
+
+// ================ MISC ================
+void nop() {
+  regs[PC].full += 1;
+  cycle += 1;
+}

@@ -86,6 +86,8 @@
 // wram bank select
 #define WRAM_BANK 0xFF70
 
+// ================ HARDWARE ================
+
 enum RegisterNames {
   AF,
   BC,
@@ -132,6 +134,9 @@ extern uint8_t io_registers[128];
 extern int cycle;
 extern CartridgeHeader cartridge_header;
 extern uint8_t boot_rom[256];
+extern bool prefix;
+
+// ================ HELPER FUNCTIONS ================
 
 void set_zero_flag(bool n);
 void set_subtraction_flag(bool n);
@@ -142,6 +147,8 @@ void write16(uint16_t addr, uint16_t value);
 void write8(uint16_t addr, uint8_t value);
 uint16_t read16(uint16_t addr);
 uint8_t read8(uint16_t addr);
+
+// ================ OPCODES ================
 
 // LOADS
 void ld_r8_r8(uint8_t *dest, uint8_t *src);
@@ -176,5 +183,8 @@ void jr_n16(uint16_t dest);
 void int_di();
 void int_ei();
 void int_halt();
+
+// MISC
+void nop();
 
 #endif

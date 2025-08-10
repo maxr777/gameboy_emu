@@ -10,8 +10,8 @@ bool debug = false;
 
 void debug_print(uint8_t opcode, const char *instruction) {
   if (debug) {
-    printf("Cycle: %d\tPC: 0x%04X\tOpcode: 0x%02X\t%-12s\tA: %02X\tBC: %04X\tDE: %04X\tHL: %04X\tSP: %04X\tFlags: %c%c%c%c\n", cycle,
-           regs[PC].full, opcode, instruction,
+    printf("Cycle: %d\tPC: 0x%04X\tOpcode: 0x%02X\t%-12s\tA: %02X\tBC: %04X\tDE: %04X\tHL: %04X\tSP: %04X\tFlags: %c%c%c%c\n",
+           cycle, regs[PC].full, opcode, instruction,
            regs[AF].high, regs[BC].full, regs[DE].full, regs[HL].full, regs[SP].full,
            (regs[AF].low & 0x80) ? 'Z' : '-',
            (regs[AF].low & 0x40) ? 'N' : '-',
@@ -20,14 +20,16 @@ void debug_print(uint8_t opcode, const char *instruction) {
   }
 }
 
-// TODO: add debug mode argument
 int main(int argc, char *argv[]) {
   if (argc < 2) {
     fprintf(stderr, "No game loaded");
     return 1;
   }
 
-  debug = true; // TODO: set based on command line argument
+  for (int i = 2; i < argc; ++i) {
+    if (strcmp(argv[i], "-d") == 0)
+      debug = true;
+  }
 
   FILE *game_file = fopen(argv[1], "rb");
   if (!game_file) {
@@ -105,58 +107,8 @@ int main(int argc, char *argv[]) {
     switch (byte) {
     case 0x00: // NOP
       debug_print(byte, "NOP");
-      ++cycle;
+      nop();
       break;
-    // case 0x01: // LD BC, n16
-    // {
-    //   uint16_t n16;
-    //   fread(&n16, 2, 1, game_rom);
-    //   if (debug) printf("0x%02X %04X\t%s\tPC: 0x%04X\n", byte, n16, "LD BC, n16");
-    //   ld_r16_n16(&regs[BC].full, n16);
-    // } break;
-    // case 0x02: // LD [BC], A
-    //   ld_a16_A(&regs[BC].full);
-    //   break;
-    // case 0x03: // INC BC
-    //   ++regs[BC].full;
-    //   cycle += 2;
-    //   break;
-    // case 0x04: // INC B
-    //   ++regs[BC].high;
-    //   ++cycle;
-    //   break;
-    // case 0x05: // DEC B
-    // {
-    //   uint8_t old = regs[BC].high;
-    //   uint8_t result = --regs[BC].high;
-    //   set_half_carry_flag((old & 0x0f) < (result & 0x0f));
-    //   set_zero_flag(result == 0);
-    //   set_subtraction_flag(true);
-    //   ++cycle;
-    // } break;
-    // case 0x06: // LD B, n8
-    //   fread(&regs[BC].high, 1, 1, game_rom);
-    //   cycle += 2;
-    //   break;
-    // case 0x07: // RLCA
-    // {
-    //   bool result = regs[AF].high & 0x80;
-    //   set_carry_flag(result);
-    //   regs[AF].high <<= 1;
-    //   regs[AF].high = regs[AF].high | result;
-    //   set_zero_flag(false);
-    //   set_subtraction_flag(false);
-    //   set_half_carry_flag(false);
-    //   ++cycle;
-    // } break;
-    // case 0x08: // LD [n16], SP
-    // {
-    //   uint16_t address;
-    //   fread(&address, 2, 1, game_rom);
-    //   ld_addr16_SP(address);
-    // } break;
-    // case 0x09:
-    //   break;
     case 0x21: // LD HL, n16
     {
       debug_print(byte, "LD HL, n16");
@@ -172,8 +124,9 @@ int main(int argc, char *argv[]) {
       ld_SP_n16(n16);
     } break;
     case 0x32: // LD HLD, A
-
       debug_print(byte, "LD HLD, A");
+      ld_aHLd_A();
+      break;
     case 0x40: // LD B, B
       debug_print(byte, "LD B, B");
       ld_r8_r8(&regs[BC].high, &regs[BC].high);
@@ -437,8 +390,11 @@ int main(int argc, char *argv[]) {
     default:
       debug_print(byte, "UNKNOWN");
       regs[PC].full += 1;
+      cycle += 1;
       break;
     }
+    if (cycle >= 13)
+      running = false;
   }
 
   SDL_DestroyWindow(window);
