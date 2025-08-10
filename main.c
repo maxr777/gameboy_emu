@@ -106,6 +106,262 @@ int main(int argc, char *argv[]) {
 
     if (prefix) {
       switch (byte) {
+      case 0x40:
+        debug_print(byte, "BIT 0, B");
+        bit_u3_r8(0, &regs[BC].high);
+        break;
+      case 0x41:
+        debug_print(byte, "BIT 0, C");
+        bit_u3_r8(0, &regs[BC].low);
+        break;
+      case 0x42:
+        debug_print(byte, "BIT 0, D");
+        bit_u3_r8(0, &regs[DE].high);
+        break;
+      case 0x43:
+        debug_print(byte, "BIT 0, E");
+        bit_u3_r8(0, &regs[DE].low);
+        break;
+      case 0x44:
+        debug_print(byte, "BIT 0, H");
+        bit_u3_r8(0, &regs[HL].high);
+        break;
+      case 0x45:
+        debug_print(byte, "BIT 0, L");
+        bit_u3_r8(0, &regs[HL].low);
+        break;
+      case 0x46:
+        debug_print(byte, "BIT 0, [HL]");
+        bit_u3_aHL(0);
+        break;
+      case 0x47:
+        debug_print(byte, "BIT 0, A");
+        bit_u3_r8(0, &regs[AF].high);
+        break;
+      case 0x48:
+        debug_print(byte, "BIT 1, B");
+        bit_u3_r8(1, &regs[BC].high);
+        break;
+      case 0x49:
+        debug_print(byte, "BIT 1, C");
+        bit_u3_r8(1, &regs[BC].low);
+        break;
+      case 0x4A:
+        debug_print(byte, "BIT 1, D");
+        bit_u3_r8(1, &regs[DE].high);
+        break;
+      case 0x4B:
+        debug_print(byte, "BIT 1, E");
+        bit_u3_r8(1, &regs[DE].low);
+        break;
+      case 0x4C:
+        debug_print(byte, "BIT 1, H");
+        bit_u3_r8(1, &regs[HL].high);
+        break;
+      case 0x4D:
+        debug_print(byte, "BIT 1, L");
+        bit_u3_r8(1, &regs[HL].low);
+        break;
+      case 0x4E:
+        debug_print(byte, "BIT 1, [HL]");
+        bit_u3_aHL(1);
+        break;
+      case 0x4F:
+        debug_print(byte, "BIT 1, A");
+        bit_u3_r8(1, &regs[AF].high);
+        break;
+      case 0x50:
+        debug_print(byte, "BIT 2, B");
+        bit_u3_r8(2, &regs[BC].high);
+        break;
+      case 0x51:
+        debug_print(byte, "BIT 2, C");
+        bit_u3_r8(2, &regs[BC].low);
+        break;
+      case 0x52:
+        debug_print(byte, "BIT 2, D");
+        bit_u3_r8(2, &regs[DE].high);
+        break;
+      case 0x53:
+        debug_print(byte, "BIT 2, E");
+        bit_u3_r8(2, &regs[DE].low);
+        break;
+      case 0x54:
+        debug_print(byte, "BIT 2, H");
+        bit_u3_r8(2, &regs[HL].high);
+        break;
+      case 0x55:
+        debug_print(byte, "BIT 2, L");
+        bit_u3_r8(2, &regs[HL].low);
+        break;
+      case 0x56:
+        debug_print(byte, "BIT 2, [HL]");
+        bit_u3_aHL(2);
+        break;
+      case 0x57:
+        debug_print(byte, "BIT 2, A");
+        bit_u3_r8(2, &regs[AF].high);
+        break;
+      case 0x58:
+        debug_print(byte, "BIT 3, B");
+        bit_u3_r8(3, &regs[BC].high);
+        break;
+      case 0x59:
+        debug_print(byte, "BIT 3, C");
+        bit_u3_r8(3, &regs[BC].low);
+        break;
+      case 0x5A:
+        debug_print(byte, "BIT 3, D");
+        bit_u3_r8(3, &regs[DE].high);
+        break;
+      case 0x5B:
+        debug_print(byte, "BIT 3, E");
+        bit_u3_r8(3, &regs[DE].low);
+        break;
+      case 0x5C:
+        debug_print(byte, "BIT 3, H");
+        bit_u3_r8(3, &regs[HL].high);
+        break;
+      case 0x5D:
+        debug_print(byte, "BIT 3, L");
+        bit_u3_r8(3, &regs[HL].low);
+        break;
+      case 0x5E:
+        debug_print(byte, "BIT 3, [HL]");
+        bit_u3_aHL(3);
+        break;
+      case 0x5F:
+        debug_print(byte, "BIT 3, A");
+        bit_u3_r8(3, &regs[AF].high);
+        break;
+      case 0x60:
+        debug_print(byte, "BIT 4, B");
+        bit_u3_r8(4, &regs[BC].high);
+        break;
+      case 0x61:
+        debug_print(byte, "BIT 4, C");
+        bit_u3_r8(4, &regs[BC].low);
+        break;
+      case 0x62:
+        debug_print(byte, "BIT 4, D");
+        bit_u3_r8(4, &regs[DE].high);
+        break;
+      case 0x63:
+        debug_print(byte, "BIT 4, E");
+        bit_u3_r8(4, &regs[DE].low);
+        break;
+      case 0x64:
+        debug_print(byte, "BIT 4, H");
+        bit_u3_r8(4, &regs[HL].high);
+        break;
+      case 0x65:
+        debug_print(byte, "BIT 4, L");
+        bit_u3_r8(4, &regs[HL].low);
+        break;
+      case 0x66:
+        debug_print(byte, "BIT 4, [HL]");
+        bit_u3_aHL(4);
+        break;
+      case 0x67:
+        debug_print(byte, "BIT 4, A");
+        bit_u3_r8(4, &regs[AF].high);
+        break;
+      case 0x68:
+        debug_print(byte, "BIT 5, B");
+        bit_u3_r8(5, &regs[BC].high);
+        break;
+      case 0x69:
+        debug_print(byte, "BIT 5, C");
+        bit_u3_r8(5, &regs[BC].low);
+        break;
+      case 0x6A:
+        debug_print(byte, "BIT 5, D");
+        bit_u3_r8(5, &regs[DE].high);
+        break;
+      case 0x6B:
+        debug_print(byte, "BIT 5, E");
+        bit_u3_r8(5, &regs[DE].low);
+        break;
+      case 0x6C:
+        debug_print(byte, "BIT 5, H");
+        bit_u3_r8(5, &regs[HL].high);
+        break;
+      case 0x6D:
+        debug_print(byte, "BIT 5, L");
+        bit_u3_r8(5, &regs[HL].low);
+        break;
+      case 0x6E:
+        debug_print(byte, "BIT 5, [HL]");
+        bit_u3_aHL(5);
+        break;
+      case 0x6F:
+        debug_print(byte, "BIT 5, A");
+        bit_u3_r8(5, &regs[AF].high);
+        break;
+      case 0x70:
+        debug_print(byte, "BIT 6, B");
+        bit_u3_r8(6, &regs[BC].high);
+        break;
+      case 0x71:
+        debug_print(byte, "BIT 6, C");
+        bit_u3_r8(6, &regs[BC].low);
+        break;
+      case 0x72:
+        debug_print(byte, "BIT 6, D");
+        bit_u3_r8(6, &regs[DE].high);
+        break;
+      case 0x73:
+        debug_print(byte, "BIT 6, E");
+        bit_u3_r8(6, &regs[DE].low);
+        break;
+      case 0x74:
+        debug_print(byte, "BIT 6, H");
+        bit_u3_r8(6, &regs[HL].high);
+        break;
+      case 0x75:
+        debug_print(byte, "BIT 6, L");
+        bit_u3_r8(6, &regs[HL].low);
+        break;
+      case 0x76:
+        debug_print(byte, "BIT 6, [HL]");
+        bit_u3_aHL(6);
+        break;
+      case 0x77:
+        debug_print(byte, "BIT 6, A");
+        bit_u3_r8(6, &regs[AF].high);
+        break;
+      case 0x78:
+        debug_print(byte, "BIT 7, B");
+        bit_u3_r8(7, &regs[BC].high);
+        break;
+      case 0x79:
+        debug_print(byte, "BIT 7, C");
+        bit_u3_r8(7, &regs[BC].low);
+        break;
+      case 0x7A:
+        debug_print(byte, "BIT 7, D");
+        bit_u3_r8(7, &regs[DE].high);
+        break;
+      case 0x7B:
+        debug_print(byte, "BIT 7, E");
+        bit_u3_r8(7, &regs[DE].low);
+        break;
+      case 0x7C:
+        debug_print(byte, "BIT 7, H");
+        bit_u3_r8(7, &regs[HL].high);
+        break;
+      case 0x7D:
+        debug_print(byte, "BIT 7, L");
+        bit_u3_r8(7, &regs[HL].low);
+        break;
+      case 0x7E:
+        debug_print(byte, "BIT 7, [HL]");
+        bit_u3_aHL(7);
+        break;
+      case 0x7F:
+        debug_print(byte, "BIT 7, A");
+        bit_u3_r8(7, &regs[AF].high);
+        break;
       default:
         debug_print(byte, "UNKNOWN PREFIX");
         regs[PC].full += 2;
@@ -398,6 +654,7 @@ int main(int argc, char *argv[]) {
         xor_A_r8(&regs[AF].high);
         break;
       case 0xCB: // PREFIX TOGGLE
+        debug_print(byte, "PREFIX TOGGLE");
         prefix = true;
         regs[PC].full += 1;
         break;

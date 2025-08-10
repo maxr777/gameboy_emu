@@ -1,8 +1,11 @@
+true
+false
 Cycle: 0	PC: 0x0000	Opcode: 0x31	LD SP, n16  	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
 Cycle: 3	PC: 0x0003	Opcode: 0x21	LD HL, n16  	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
 Cycle: 6	PC: 0x0006	Opcode: 0xAF	XOR A, A    	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: ----
 Cycle: 7	PC: 0x0007	Opcode: 0x32	LD HLD, A   	A: 00	BC: 0000	DE: 0000	HL: 0000	SP: 0000	Flags: Z---
-Cycle: 9	PC: 0x0008	Opcode: 0xCB	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: FFFF	SP: 0000	Flags: Z---
-Cycle: 10	PC: 0x0009	Opcode: 0x7C	LD A, H     	A: 00	BC: 0000	DE: 0000	HL: FFFF	SP: 0000	Flags: Z---
-Cycle: 11	PC: 0x000A	Opcode: 0x20	UNKNOWN     	A: FF	BC: 0000	DE: 0000	HL: FFFF	SP: 0000	Flags: Z---
-Cycle: 12	PC: 0x000B	Opcode: 0xFA	UNKNOWN     	A: FF	BC: 0000	DE: 0000	HL: FFFF	SP: 0000	Flags: Z---
+Cycle: 9	PC: 0x0008	Opcode: 0xCB	PREFIX TOGGLE	A: 00	BC: 0000	DE: 0000	HL: FFFF	SP: 0000	Flags: Z---
+Cycle: 9	PC: 0x0009	Opcode: 0x7C	UNKNOWN PREFIX	A: 00	BC: 0000	DE: 0000	HL: FFFF	SP: 0000	Flags: Z---
+Cycle: 10	PC: 0x000B	Opcode: 0xFA	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: FFFF	SP: 0000	Flags: Z---
+Cycle: 11	PC: 0x000C	Opcode: 0x0E	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: FFFF	SP: 0000	Flags: Z---
+Cycle: 12	PC: 0x000D	Opcode: 0x11	UNKNOWN     	A: 00	BC: 0000	DE: 0000	HL: FFFF	SP: 0000	Flags: Z---

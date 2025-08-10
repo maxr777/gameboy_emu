@@ -176,6 +176,10 @@ void ld_SP_aHL();
 // BITWISE
 void xor_A_r8(uint8_t *src);
 
+// BIT FLAGS
+void bit_u3_r8(int bit_num, uint8_t *src);
+void bit_u3_aHL(int bit_num);
+
 // JUMPS
 void jr_n16(uint16_t dest);
 

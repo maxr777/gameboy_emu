@@ -189,6 +189,13 @@ uint8_t read8(uint16_t addr) {
 // a16 == [r16], addr16 == [n16]
 // aHL = [HL], aC = [C]
 
+// The prefix instructions have one less PC increment
+// than in the documentation, because I increment the PC
+// when the prefix gets toggled.
+// So, if the documentation says "bytes: 2," then I
+// increment the PC by one, since I already incremented
+// it before (at 0xCB no-prefix)
+
 // ================ LOADS ================
 
 void ld_r8_r8(uint8_t *dest, uint8_t *src) {
@@ -305,6 +312,29 @@ void xor_A_r8(uint8_t *src) {
 
   regs[PC].full += 1;
   cycle += 1;
+}
+
+// ================ BIT FLAGS ================
+
+void bit_u3_r8(int bit_num, uint8_t *src) {
+  *src & (1 << bit_num) ? set_zero_flag(false) : set_zero_flag(true);
+
+  set_subtraction_flag(false);
+  set_half_carry_flag(true);
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
+
+void bit_u3_aHL(int bit_num) {
+
+  read8(regs[HL].full) & (1 << bit_num) ? set_zero_flag(false) : set_zero_flag(true);
+
+  set_subtraction_flag(false);
+  set_half_carry_flag(true);
+
+  regs[PC].full += 1;
+  cycle += 2;
 }
 
 // ================ JUMPS ================
