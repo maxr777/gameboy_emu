@@ -157,10 +157,14 @@ extern CartridgeHeader cartridge_header;
 extern int cycle;
 extern bool prefix;
 
+// ================ ROM STUFF ================
+
 extern uint8_t *game_rom;
 extern size_t game_size;
 extern int current_rom_bank;
 extern uint8_t boot_rom[256];
+
+void switch_rom_bank();
 
 // ================ HELPER FUNCTIONS ================
 
