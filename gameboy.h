@@ -188,7 +188,7 @@ void bit_u3_aHL(int bit_num);
 
 // JUMPS
 void jr_n16(uint16_t dest);
-void jr_cc_n16(int flag, uint8_t offset);
+void jr_cc_n16(int flag, bool flag_state, int8_t offset);
 
 // INTERRUPTS
 void int_di();

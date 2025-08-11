@@ -368,13 +368,14 @@ void jr_n16(uint16_t dest) {
 // naming might be weird but that's how it's named in rgbds, so I went
 // with that for consistency (it's easier to search in the docs this way)
 // it's n16 because it jumps to address n16, but it uses an 8-bit offset instead
-void jr_cc_n16(int flag, uint8_t offset) {
-  if (get_flag(flag)) {
-    cycle += 3;
-  } else
-    cycle += 2;
-
+void jr_cc_n16(int flag, bool flag_state, int8_t offset) {
   regs[PC].full += 2;
+  if (get_flag(flag) == flag_state) {
+    regs[PC].full += offset;
+    cycle += 3;
+  } else {
+    cycle += 2;
+  }
 }
 
 // ================ INTERRUPTS ================

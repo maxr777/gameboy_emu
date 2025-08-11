@@ -376,7 +376,10 @@ int main(int argc, char *argv[]) {
         nop();
         break;
       case 0x20:
-        debug_print(byte, "JR cc, n16");
+        debug_print(byte, "JR NZ, n16");
+        int8_t offset;
+        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        jr_cc_n16(Z, false, offset);
         break;
       case 0x21: {
         debug_print(byte, "LD HL, n16");
