@@ -375,18 +375,40 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "NOP");
         nop();
         break;
-      case 0x20:
+      case 0x20: {
         debug_print(byte, "JR NZ, n16");
         int8_t offset;
         memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
         jr_cc_n16(Z, false, offset);
         break;
+      }
       case 0x21: {
         debug_print(byte, "LD HL, n16");
         uint16_t n16;
         memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
         ld_r16_n16(&regs[HL].full, n16);
       } break;
+      case 0x28: {
+        debug_print(byte, "JR Z, n16");
+        int8_t offset;
+        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        jr_cc_n16(Z, true, offset);
+        break;
+      }
+      case 0x30: {
+        debug_print(byte, "JR NC, n16");
+        int8_t offset;
+        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        jr_cc_n16(C, false, offset);
+        break;
+      }
+      case 0x38: {
+        debug_print(byte, "JR C, n16");
+        int8_t offset;
+        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        jr_cc_n16(C, true, offset);
+        break;
+      }
       case 0x31: {
         debug_print(byte, "LD SP, n16");
         uint16_t n16;
@@ -669,7 +691,7 @@ int main(int argc, char *argv[]) {
         break;
       }
     }
-    if (cycle >= 13)
+    if (cycle >= 20)
       running = false;
   }
 
