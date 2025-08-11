@@ -10,7 +10,7 @@ bool debug = false;
 
 void debug_print(uint8_t opcode, const char *instruction) {
   if (debug) {
-    printf("Cycle: %d\tPC: 0x%04X\tOpcode: 0x%02X\t%-12s\tA: %02X\tBC: %04X\tDE: %04X\tHL: %04X\tSP: %04X\tFlags: %c%c%c%c\n",
+    printf("Cycle: %d\tPC: 0x%04X\tOpcode: 0x%02X\t%-12s\tA: %02X\t\tBC: %04X\tDE: %04X\tHL: %04X\tSP: %04X\tFlags: %c%c%c%c\n",
            cycle, regs[PC].full, opcode, instruction,
            regs[AF].high, regs[BC].full, regs[DE].full, regs[HL].full, regs[SP].full,
            (regs[AF].low & 0x80) ? 'Z' : '-',
@@ -40,13 +40,13 @@ int main(int argc, char *argv[]) {
   // the cartridge header itself goes to 0x014F (inclusive),
   // so if the rom is smaller than 0x0150 it's not a correct ROM
   fseek(game_file, 0, SEEK_END);
-  long game_size = ftell(game_file);
+  game_size = ftell(game_file);
   if (game_size < 0x0150) {
     fprintf(stderr, "The ROM is too small");
     return 1;
   }
 
-  uint8_t *game_rom = malloc(game_size);
+  game_rom = malloc(game_size);
   if (!game_rom) {
     perror("game rom malloc fail:");
     fclose(game_file);
@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
     }
 
     // the boot rom gets mapped over the game rom until the BOOT_ROM_DISABLE address is 1
-    if (io_registers[BOOT_ROM_DISABLE - IO_BASE] == 1)
+    if (io_registers[BOOT_ROM_DISABLE - IO_REGS_ADDR] == 1)
       boot_rom_enabled = false;
 
     if (boot_rom_enabled)
@@ -733,7 +733,7 @@ int main(int argc, char *argv[]) {
         break;
       }
     }
-    if (cycle >= 20)
+    if (cycle >= 100)
       running = false;
   }
 

@@ -2,12 +2,25 @@
 #define GAMEBOY_H
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
-// ================ IO REGISTERS ================
+// ================ MEMORY MAP ================
 
-// io base address (for array access)
-#define IO_BASE 0xFF00
+#define ROM_BANK_0_ADDR 0x0000
+#define ROM_BANK_N_ADDR 0x4000
+#define VRAM_ADDR       0x8000
+#define EXTERN_RAM_ADDR 0xA000
+#define WRAM_0_ADDR     0xC000
+#define WRAM_N_ADDR     0xD000 // DMG = extension of WRAM_0, CGB = switchable bank 1-7
+#define ECHO_RAM_ADDR   0xE000 // Prohibited, mirror of both WRAMs
+#define OAM_ADDR        0xFE00
+#define INVAL_MEM_ADDR  0xFEA0 // Prohibited
+#define IO_REGS_ADDR    0xFF00
+#define HRAM_ADDR       0xFF80
+#define INT_ENABLE_ADDR 0xFFFF
+
+// ================ IO REGISTERS ================
 
 // joypad input
 #define JOYPAD_INPUT 0xFF00
@@ -93,8 +106,8 @@ enum RegisterNames {
   BC,
   DE,
   HL,
-  SP,
-  PC,
+  SP, // always accessed as 16-bits
+  PC, // always accessed as 16-bits
   REGISTER_COUNT
 };
 
@@ -139,18 +152,23 @@ extern bool display[160][144];
 extern uint8_t ram[8192];
 extern uint8_t vram[8192];
 extern uint8_t io_registers[128];
-extern int cycle;
+extern uint8_t oam[160];
 extern CartridgeHeader cartridge_header;
-extern uint8_t boot_rom[256];
+extern int cycle;
 extern bool prefix;
+
+extern uint8_t *game_rom;
+extern size_t game_size;
+extern int current_rom_bank;
+extern uint8_t boot_rom[256];
 
 // ================ HELPER FUNCTIONS ================
 
 bool get_flag(int flag);
 void set_flag(int flag, bool value);
 
-void write16(uint16_t addr, uint16_t value);
-void write8(uint16_t addr, uint8_t value);
+void write16(uint16_t addr, uint16_t val);
+void write8(uint16_t addr, uint8_t val);
 uint16_t read16(uint16_t addr);
 uint8_t read8(uint16_t addr);
 

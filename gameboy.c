@@ -6,11 +6,12 @@
 // ================ HARDWARE ================
 
 Register regs[REGISTER_COUNT] = {0};
-CartridgeHeader cartridge_header = {0};
 bool display[160][144] = {0};
 uint8_t ram[8192] = {0};
 uint8_t vram[8192] = {0};
 uint8_t io_registers[128] = {0};
+uint8_t oam[160] = {0};
+CartridgeHeader cartridge_header = {0};
 int cycle = 0;
 bool prefix = false;
 
@@ -89,111 +90,66 @@ void set_flag(int flag, bool value) {
   }
 }
 
-void write16(uint16_t addr, uint16_t value) {
-  if (addr < 0x4000)
-    ;
-  else if (addr < 0x8000)
-    ;
-  else if (addr < 0xA000)
-    ;
-  else if (addr < 0xC000)
-    ;
-  else if (addr < 0xD000)
-    ;
-  else if (addr < 0xE000)
-    ;
-  else if (addr < 0xFE00)
-    ;
-  else if (addr < 0xFEA0)
-    ;
-  else if (addr < 0xFF00)
-    ;
-  else if (addr < 0xFF80)
-    ;
-  else if (addr < 0xFFFF)
-    ;
-  else
-    ;
-}
-
-void write8(uint16_t addr, uint8_t value) {
-  if (addr < 0x4000)
-    ;
-  else if (addr < 0x8000)
-    ;
-  else if (addr < 0xA000)
-    ;
-  else if (addr < 0xC000)
-    ;
-  else if (addr < 0xD000)
-    ;
-  else if (addr < 0xE000)
-    ;
-  else if (addr < 0xFE00)
-    ;
-  else if (addr < 0xFEA0)
-    ;
-  else if (addr < 0xFF00)
-    ;
-  else if (addr < 0xFF80)
-    ;
-  else if (addr < 0xFFFF)
-    ;
-  else
-    ;
+void write16(uint16_t addr, uint16_t val) {
+  write8(addr, val);
+  write8(addr + 1, val >> 8);
 }
 
 uint16_t read16(uint16_t addr) {
-  if (addr < 0x4000)
+  return read8(addr) | (read8(addr + 1) << 8);
+}
+
+void write8(uint16_t addr, uint8_t val) {
+  if (addr < ROM_BANK_N_ADDR)
     ;
-  else if (addr < 0x8000)
+  else if (addr < VRAM_ADDR)
     ;
-  else if (addr < 0xA000)
+  else if (addr < EXTERN_RAM_ADDR)
+    vram[addr - VRAM_ADDR] = val;
+  else if (addr < WRAM_0_ADDR)
     ;
-  else if (addr < 0xC000)
+  else if (addr < WRAM_N_ADDR)
+    ram[addr - WRAM_0_ADDR] = val;
+  else if (addr < ECHO_RAM_ADDR)
+    ram[addr - WRAM_0_ADDR] = val;
+  else if (addr < OAM_ADDR)
+    fprintf(stderr, "write8: use of echo ram is prohibited\n");
+  else if (addr < INVAL_MEM_ADDR)
+    oam[addr - OAM_ADDR] = val;
+  else if (addr < IO_REGS_ADDR)
+    fprintf(stderr, "write8: use of 0xFEA0-0xFEFF is prohibited\n");
+  else if (addr < HRAM_ADDR)
     ;
-  else if (addr < 0xD000)
-    ;
-  else if (addr < 0xE000)
-    ;
-  else if (addr < 0xFE00)
-    ;
-  else if (addr < 0xFEA0)
-    ;
-  else if (addr < 0xFF00)
-    ;
-  else if (addr < 0xFF80)
-    ;
-  else if (addr < 0xFFFF)
+  else if (addr < INT_ENABLE_ADDR)
     ;
   else
     ;
-
-  return 0;
 }
 
 uint8_t read8(uint16_t addr) {
-  if (addr < 0x4000)
+  if (addr < ROM_BANK_N_ADDR)
     ;
-  else if (addr < 0x8000)
+  else if (addr < VRAM_ADDR)
     ;
-  else if (addr < 0xA000)
+  else if (addr < EXTERN_RAM_ADDR)
+    return vram[addr - VRAM_ADDR];
+  else if (addr < WRAM_0_ADDR)
     ;
-  else if (addr < 0xC000)
-    ;
-  else if (addr < 0xD000)
-    ;
-  else if (addr < 0xE000)
-    ;
-  else if (addr < 0xFE00)
-    ;
-  else if (addr < 0xFEA0)
-    ;
-  else if (addr < 0xFF00)
-    ;
-  else if (addr < 0xFF80)
-    ;
-  else if (addr < 0xFFFF)
+  else if (addr < WRAM_N_ADDR)
+    return ram[addr - WRAM_0_ADDR];
+  else if (addr < ECHO_RAM_ADDR)
+    return ram[addr - WRAM_0_ADDR];
+  else if (addr < OAM_ADDR) {
+    fprintf(stderr, "read8: use of echo ram is prohibited\n");
+    return 0;
+  } else if (addr < INVAL_MEM_ADDR)
+    return oam[addr - OAM_ADDR];
+  else if (addr < IO_REGS_ADDR) {
+    fprintf(stderr, "read8: use of 0xFEA0-0xFEFF is prohibited\n");
+    return 0;
+  } else if (addr < HRAM_ADDR)
+    return io_registers[addr - IO_REGS_ADDR];
+  else if (addr < INT_ENABLE_ADDR)
     ;
   else
     ;
@@ -277,7 +233,7 @@ void ld_a16_A(uint16_t addr) {
   // else if (addr < 0xFF00)
   //   ;
   // else if (addr < 0xFF80) {
-  //   io_registers[addr - IO_BASE] = regs[AF].high;
+  //   io_registers[addr - IO_REGS] = regs[AF].high;
   //   if (addr == SERIAL_TRANSFER)
   //     printf("%c", regs[AF].high);
   // } else if (addr < 0xFFFF)
@@ -293,7 +249,10 @@ void ld_a16_A(uint16_t addr) {
 
 void ld_addr16_A(uint16_t addr);
 void ldh_addr16_A(uint16_t addr);
-void ldh_aC_A();
+
+void ldh_aC_A() {
+}
+
 void ld_A_a16(uint16_t addr);
 void ld_A_addr16(uint16_t addr);
 void ldh_A_addr16(uint16_t addr);
