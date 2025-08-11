@@ -375,6 +375,30 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "NOP");
         nop();
         break;
+      case 0x06: {
+        debug_print(byte, "LD B, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_r8_n8(&regs[BC].high, n8);
+      } break;
+      case 0x0E: {
+        debug_print(byte, "LD C, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_r8_n8(&regs[BC].low, n8);
+      } break;
+      case 0x16: {
+        debug_print(byte, "LD D, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_r8_n8(&regs[DE].high, n8);
+      } break;
+      case 0x1E: {
+        debug_print(byte, "LD E, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_r8_n8(&regs[DE].low, n8);
+      } break;
       case 0x20: {
         debug_print(byte, "JR NZ, n16");
         int8_t offset;
@@ -395,6 +419,18 @@ int main(int argc, char *argv[]) {
         jr_cc_n16(Z, true, offset);
         break;
       }
+      case 0x26: {
+        debug_print(byte, "LD H, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_r8_n8(&regs[HL].high, n8);
+      } break;
+      case 0x2E: {
+        debug_print(byte, "LD L, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_r8_n8(&regs[HL].low, n8);
+      } break;
       case 0x30: {
         debug_print(byte, "JR NC, n16");
         int8_t offset;
@@ -419,6 +455,12 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "LD HLD, A");
         ld_aHLd_A();
         break;
+      case 0x3E: {
+        debug_print(byte, "LD A, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_r8_n8(&regs[AF].high, n8);
+      } break;
       case 0x40:
         debug_print(byte, "LD B, B");
         ld_r8_r8(&regs[BC].high, &regs[BC].high);
