@@ -636,7 +636,7 @@ int main(int argc, char *argv[]) {
         ld_aHL_r8(&regs[HL].low);
         break;
       case 0x76:
-        debug_print(byte, "HALT");
+        debug_print(byte, "HALT (todo)");
         // int_halt();
         break;
       case 0x77:

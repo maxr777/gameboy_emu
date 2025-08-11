@@ -226,8 +226,15 @@ void ld_r8_r8(uint8_t *dest, uint8_t *src) {
   cycle += 1;
 }
 
-void ld_r16_n16(uint16_t *dest, uint16_t src) {
-  *dest = src;
+void ld_r8_n8(uint8_t *dest, uint8_t val) {
+  *dest = val;
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void ld_r16_n16(uint16_t *dest, uint16_t val) {
+  *dest = val;
 
   regs[PC].full += 3;
   cycle += 3;
@@ -249,47 +256,47 @@ void ld_r8_aHL(uint8_t *dest) {
   cycle += 2;
 }
 
-void ld_a16_A(uint16_t *dest) {
+void ld_a16_A(uint16_t addr) {
   // TODO: need this one for the serial write - I need to copy it
-  // if (*dest < 0x4000)
+  // if (addr < 0x4000)
   //   ;
-  // else if (*dest < 0x8000)
+  // else if (addr < 0x8000)
   //   ;
-  // else if (*dest < 0xA000)
+  // else if (addr < 0xA000)
   //   ;
-  // else if (*dest < 0xC000)
+  // else if (addr < 0xC000)
   //   ;
-  // else if (*dest < 0xD000)
+  // else if (addr < 0xD000)
   //   ;
-  // else if (*dest < 0xE000)
+  // else if (addr < 0xE000)
   //   ;
-  // else if (*dest < 0xFE00)
+  // else if (addr < 0xFE00)
   //   ;
-  // else if (*dest < 0xFEA0)
+  // else if (addr < 0xFEA0)
   //   ;
-  // else if (*dest < 0xFF00)
+  // else if (addr < 0xFF00)
   //   ;
-  // else if (*dest < 0xFF80) {
-  //   io_registers[*dest - IO_BASE] = regs[AF].high;
-  //   if (*dest == SERIAL_TRANSFER)
+  // else if (addr < 0xFF80) {
+  //   io_registers[addr - IO_BASE] = regs[AF].high;
+  //   if (addr == SERIAL_TRANSFER)
   //     printf("%c", regs[AF].high);
-  // } else if (*dest < 0xFFFF)
+  // } else if (addr < 0xFFFF)
   //   ;
   // else
   //   ;
 
-  write8(*dest, regs[AF].high);
+  write8(addr, regs[AF].high);
 
   regs[PC].full += 1;
   cycle += 2;
 }
 
-void ld_addr16_A(uint16_t dest);
-void ldh_addr16_A(uint16_t dest);
+void ld_addr16_A(uint16_t addr);
+void ldh_addr16_A(uint16_t addr);
 void ldh_aC_A();
-void ld_A_a16(uint16_t *src);
-void ld_A_addr16(uint16_t src);
-void ldh_A_addr16(uint16_t src);
+void ld_A_a16(uint16_t addr);
+void ld_A_addr16(uint16_t addr);
+void ldh_A_addr16(uint16_t addr);
 void ldh_A_aC();
 void ld_aHLi_A();
 
@@ -304,15 +311,15 @@ void ld_aHLd_A() {
 void ld_A_aHLi();
 void ld_A_aHLd();
 
-void ld_SP_n16(uint16_t src) {
-  regs[SP].full = src;
+void ld_SP_n16(uint16_t val) {
+  regs[SP].full = val;
 
   regs[PC].full += 3;
   cycle += 3;
 }
 
-void ld_addr16_SP(uint16_t dest) {
-  write16(dest, regs[SP].full);
+void ld_addr16_SP(uint16_t addr) {
+  write16(addr, regs[SP].full);
 
   regs[PC].full += 3;
   cycle += 5;
