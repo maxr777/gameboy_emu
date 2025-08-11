@@ -375,15 +375,16 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "NOP");
         nop();
         break;
-      case 0x21:
-      {
+      case 0x20:
+        debug_print(byte, "JR cc, n16");
+        break;
+      case 0x21: {
         debug_print(byte, "LD HL, n16");
         uint16_t n16;
         memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
         ld_r16_n16(&regs[HL].full, n16);
       } break;
-      case 0x31:
-      {
+      case 0x31: {
         debug_print(byte, "LD SP, n16");
         uint16_t n16;
         memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));

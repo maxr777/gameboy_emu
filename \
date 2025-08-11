@@ -41,7 +41,7 @@ uint8_t boot_rom[256] = {
 
 // ================ HELPER FUNCTIONS ================
 
-bool get_flag(int flag) {
+bool check_flag(int flag) {
   switch (flag) {
   case Z:
     return (regs[AF].low & 0x80);
@@ -57,36 +57,32 @@ bool get_flag(int flag) {
   }
 }
 
-void set_flag(int flag, bool value) {
-  switch (flag) {
-  case Z:
-    if (value)
-      regs[AF].low |= 0x80;
-    else
-      regs[AF].low &= ~0x80;
-    return;
-  case N:
-    if (value)
-      regs[AF].low |= 0x40;
-    else
-      regs[AF].low &= ~0x40;
-    return;
-  case H:
-    if (value)
-      regs[AF].low |= 0x20;
-    else
-      regs[AF].low &= ~0x20;
-    return;
-  case C:
-    if (value)
-      regs[AF].low |= 0x10;
-    else
-      regs[AF].low &= ~0x10;
-    return;
-  default:
-    fprintf(stderr, "set_flag() got an incorrect flag int (flags are 0-3 in the Flags enum)\n");
-    return;
-  }
+void set_zero_flag(bool f) {
+  if (f)
+    regs[AF].low |= 0x80;
+  else
+    regs[AF].low &= ~0x80;
+}
+
+void set_subtraction_flag(bool f) {
+  if (f)
+    regs[AF].low |= 0x40;
+  else
+    regs[AF].low &= ~0x40;
+}
+
+void set_half_carry_flag(bool f) {
+  if (f)
+    regs[AF].low |= 0x20;
+  else
+    regs[AF].low &= ~0x20;
+}
+
+void set_carry_flag(bool f) {
+  if (f)
+    regs[AF].low |= 0x10;
+  else
+    regs[AF].low &= ~0x10;
 }
 
 void write16(uint16_t addr, uint16_t value) {
@@ -326,10 +322,10 @@ void ld_SP_aHL();
 void xor_A_r8(uint8_t *src) {
   regs[AF].high ^= *src;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
-  set_flag(N, false);
-  set_flag(H, false);
-  set_flag(C, false);
+  regs[AF].high == 0 ? set_zero_flag(true) : set_zero_flag(false);
+  set_subtraction_flag(false);
+  set_half_carry_flag(false);
+  set_carry_flag(false);
 
   regs[PC].full += 1;
   cycle += 1;
@@ -338,10 +334,10 @@ void xor_A_r8(uint8_t *src) {
 // ================ BIT FLAGS ================
 
 void bit_u3_r8(int bit_num, uint8_t *src) {
-  *src & (1 << bit_num) ? set_flag(Z, false) : set_flag(Z, true);
+  *src & (1 << bit_num) ? set_zero_flag(false) : set_zero_flag(true);
 
-  set_flag(N, false);
-  set_flag(H, true);
+  set_subtraction_flag(false);
+  set_half_carry_flag(true);
 
   regs[PC].full += 1;
   cycle += 2;
@@ -349,10 +345,10 @@ void bit_u3_r8(int bit_num, uint8_t *src) {
 
 void bit_u3_aHL(int bit_num) {
 
-  read8(regs[HL].full) & (1 << bit_num) ? set_flag(Z, false) : set_flag(Z, true);
+  read8(regs[HL].full) & (1 << bit_num) ? set_zero_flag(false) : set_zero_flag(true);
 
-  set_flag(N, false);
-  set_flag(H, true);
+  set_subtraction_flag(false);
+  set_half_carry_flag(true);
 
   regs[PC].full += 1;
   cycle += 2;
@@ -365,16 +361,7 @@ void jr_n16(uint16_t dest) {
   cycle += 3;
 }
 
-// naming might be weird but that's how it's named in rgbds, so I went
-// with that for consistency (it's easier to search in the docs this way)
-// it's n16 because it jumps to address n16, but it uses an 8-bit offset instead
-void jr_cc_n16(int flag, uint8_t offset) {
-  if (get_flag(flag)) {
-    cycle += 3;
-  } else
-    cycle += 2;
-
-  regs[PC].full += 2;
+void jr_cc_n16(uint16_t dest) {
 }
 
 // ================ INTERRUPTS ================

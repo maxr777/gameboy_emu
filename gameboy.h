@@ -98,6 +98,14 @@ enum RegisterNames {
   REGISTER_COUNT
 };
 
+enum Flags {
+  Z, // zero flag
+  N, // subtract flag
+  H, // half carry flag
+  C, // carry flag
+  FLAG_COUNT
+};
+
 // BC = Full 16 bit register
 // B = High 8 bits
 // C = Low 8 bits
@@ -138,10 +146,8 @@ extern bool prefix;
 
 // ================ HELPER FUNCTIONS ================
 
-void set_zero_flag(bool n);
-void set_subtraction_flag(bool n);
-void set_half_carry_flag(bool n);
-void set_carry_flag(bool n);
+bool get_flag(int flag);
+void set_flag(int flag, bool value);
 
 void write16(uint16_t addr, uint16_t value);
 void write8(uint16_t addr, uint8_t value);
@@ -182,6 +188,7 @@ void bit_u3_aHL(int bit_num);
 
 // JUMPS
 void jr_n16(uint16_t dest);
+void jr_cc_n16(int flag, uint8_t offset);
 
 // INTERRUPTS
 void int_di();
