@@ -206,7 +206,18 @@ void ld_addr16_SP(uint16_t addr);
 void ld_aHL_SPe8();
 void ld_SP_aHL();
 
+// 8-BIT ARITHMETIC
+
+void dec_r8(uint8_t *dest);
+void inc_r8(uint8_t *dest);
+
+// 16-BIT ARITHMETIC
+
+void dec_r16(uint16_t *dest);
+void inc_r16(uint16_t *dest);
+
 // BITWISE
+void cpl();
 void xor_A_r8(uint8_t *src);
 
 // BIT FLAGS
@@ -216,6 +227,7 @@ void bit_u3_aHL(int bit_num);
 // JUMPS
 void jr_n16(uint16_t dest);
 void jr_cc_n16(int flag, bool flag_state, int8_t offset);
+void rst(uint8_t vec);
 
 // INTERRUPTS
 void int_di();

@@ -320,7 +320,42 @@ void ld_addr16_SP(uint16_t addr) {
 void ld_aHL_SPe8();
 void ld_SP_aHL();
 
+// ================ 8-BIT ARITHMETIC ================
+
+void dec_r8(uint8_t *dest) {
+  // lower 4 bits only borrow if they're 0000
+  ((*dest)-- & 0x0F) == 0x00 ? set_flag(H, true) : set_flag(H, false);
+
+  *dest == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, true);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
+void inc_r8(uint8_t *dest) {
+  ((*dest)++ & 0x0F) == 0x0F ? set_flag(H, true) : set_flag(H, false);
+
+  *dest == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
+// ================ 16-BIT ARITHMETIC ================
+
 // ================ BITWISE ================
+
+void cpl() {
+  regs[AF].high = ~regs[AF].high;
+
+  set_flag(N, true);
+  set_flag(H, true);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
 
 void xor_A_r8(uint8_t *src) {
   regs[AF].high ^= *src;
@@ -375,6 +410,14 @@ void jr_cc_n16(int flag, bool flag_state, int8_t offset) {
   } else {
     cycle += 2;
   }
+}
+
+void rst(uint8_t vec) {
+  regs[SP].full -= 2;
+  write16(regs[SP].full, regs[PC].full + 1);
+
+  regs[PC].full = vec;
+  cycle += 4;
 }
 
 // ================ INTERRUPTS ================

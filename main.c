@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
     // nanosleep(&delay, NULL);
 
     if (prefix) {
-      // ==================== PREFIX ====================
+      // ==================== YES-PREFIX ====================
       switch (byte) {
       case 0x40:
         debug_print(byte, "BIT 0, B");
@@ -385,24 +385,56 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "NOP");
         nop();
         break;
+      case 0x04:
+        debug_print(byte, "INC B");
+        inc_r8(&regs[BC].high);
+        break;
+      case 0x05:
+        debug_print(byte, "DEC B");
+        dec_r8(&regs[BC].high);
+        break;
       case 0x06: {
         debug_print(byte, "LD B, n8");
         uint8_t n8;
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[BC].high, n8);
       } break;
+      case 0x0C:
+        debug_print(byte, "INC C");
+        inc_r8(&regs[BC].low);
+        break;
+      case 0x0D:
+        debug_print(byte, "DEC C");
+        dec_r8(&regs[BC].low);
+        break;
       case 0x0E: {
         debug_print(byte, "LD C, n8");
         uint8_t n8;
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[BC].low, n8);
       } break;
+      case 0x14:
+        debug_print(byte, "INC D");
+        inc_r8(&regs[DE].high);
+        break;
+      case 0x15:
+        debug_print(byte, "DEC D");
+        dec_r8(&regs[DE].high);
+        break;
       case 0x16: {
         debug_print(byte, "LD D, n8");
         uint8_t n8;
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[DE].high, n8);
       } break;
+      case 0x1C:
+        debug_print(byte, "INC E");
+        inc_r8(&regs[DE].low);
+        break;
+      case 0x1D:
+        debug_print(byte, "DEC E");
+        dec_r8(&regs[DE].low);
+        break;
       case 0x1E: {
         debug_print(byte, "LD E, n8");
         uint8_t n8;
@@ -422,6 +454,14 @@ int main(int argc, char *argv[]) {
         memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
         ld_r16_n16(&regs[HL].full, n16);
       } break;
+      case 0x24:
+        debug_print(byte, "INC H");
+        inc_r8(&regs[HL].high);
+        break;
+      case 0x25:
+        debug_print(byte, "DEC H");
+        dec_r8(&regs[HL].high);
+        break;
       case 0x26: {
         debug_print(byte, "LD H, n8");
         uint8_t n8;
@@ -439,12 +479,24 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "LD A, [HLI]");
         ld_A_aHLi();
         break;
+      case 0x2C:
+        debug_print(byte, "INC L");
+        inc_r8(&regs[HL].low);
+        break;
+      case 0x2D:
+        debug_print(byte, "DEC L");
+        dec_r8(&regs[HL].low);
+        break;
       case 0x2E: {
         debug_print(byte, "LD L, n8");
         uint8_t n8;
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[HL].low, n8);
       } break;
+      case 0x2F:
+        debug_print(byte, "JR NC, n16");
+        cpl();
+        break;
       case 0x30: {
         debug_print(byte, "JR NC, n16");
         int8_t offset;
@@ -472,6 +524,14 @@ int main(int argc, char *argv[]) {
       case 0x3A:
         debug_print(byte, "LD A, [HLD]");
         ld_A_aHLd();
+        break;
+      case 0x3C:
+        debug_print(byte, "INC A");
+        inc_r8(&regs[AF].high);
+        break;
+      case 0x3D:
+        debug_print(byte, "DEC A");
+        dec_r8(&regs[AF].high);
         break;
       case 0x3E: {
         debug_print(byte, "LD A, n8");
@@ -739,10 +799,42 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "XOR A, A");
         xor_A_r8(&regs[AF].high);
         break;
+      case 0xC7:
+        debug_print(byte, "RST $00");
+        rst(0x00);
+        break;
       case 0xCB:
         debug_print(byte, "PREFIX TOGGLE");
         prefix = true;
         regs[PC].full += 1;
+        break;
+      case 0xCF:
+        debug_print(byte, "RST $08");
+        rst(0x08);
+        break;
+      case 0xD7:
+        debug_print(byte, "RST $10");
+        rst(0x10);
+        break;
+      case 0xDF:
+        debug_print(byte, "RST $18");
+        rst(0x18);
+        break;
+      case 0xE7:
+        debug_print(byte, "RST $20");
+        rst(0x20);
+        break;
+      case 0xEF:
+        debug_print(byte, "RST $28");
+        rst(0x28);
+        break;
+      case 0xF7:
+        debug_print(byte, "RST $30");
+        rst(0x30);
+        break;
+      case 0xFF:
+        debug_print(byte, "RST $38");
+        rst(0x38);
         break;
       default:
         debug_print(byte, "UNKNOWN");
