@@ -164,7 +164,11 @@ extern size_t game_size;
 extern int current_rom_bank;
 extern uint8_t boot_rom[256];
 
-void switch_rom_bank();
+void rom_write(uint16_t addr, uint8_t val);
+void mcb1_write(uint16_t addr, uint8_t val);
+
+uint8_t rom_read(uint16_t addr);
+uint8_t mcb1_read(uint16_t addr);
 
 // ================ HELPER FUNCTIONS ================
 

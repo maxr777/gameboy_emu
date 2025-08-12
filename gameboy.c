@@ -17,6 +17,9 @@ bool prefix = false;
 
 // ================ ROM STUFF ================
 
+uint8_t *game_rom; // initialized in main.c
+size_t game_size;  // initialized in main.c
+
 // bootix bootrom: https://github.com/Hacktix/Bootix
 uint8_t boot_rom[256] = {
     0x31, 0xfe, 0xff, 0x21, 0xff, 0x9f, 0xaf, 0x32, 0xcb, 0x7c, 0x20, 0xfa,
@@ -44,8 +47,44 @@ uint8_t boot_rom[256] = {
 
 int current_rom_bank = 0;
 
-// TODO
-void switch_rom_bank();
+void rom_write(uint16_t addr, uint8_t val) {
+  switch (cartridge_header.cartridge_type) {
+  case 0x00:
+    fprintf(stderr, "Writing to ROM with MCB0 is prohibited\n");
+    break;
+  case 0x01:
+  case 0x02:
+  case 0x03:
+    mcb1_write(addr, val);
+    break;
+  default:
+    fprintf(stderr, "rom_write(): Unimplemented MCB\n");
+    break;
+  }
+}
+
+void mcb1_write(uint16_t addr, uint8_t val) {
+  fprintf(stderr, "mcb1_write(): Not yet implemented\n");
+}
+
+uint8_t rom_read(uint16_t addr) {
+  switch (cartridge_header.cartridge_type) {
+  case 0x00:
+    return game_rom[addr];
+  case 0x01:
+  case 0x02:
+  case 0x03:
+    return mcb1_read(addr);
+  default:
+    fprintf(stderr, "rom_read(): Unimplemented MCB\n");
+    return 0;
+  }
+}
+
+uint8_t mcb1_read(uint16_t addr) {
+  fprintf(stderr, "mcb1_read(): Not yet implemented\n");
+  return 0;
+}
 
 // ================ HELPER FUNCTIONS ================
 
@@ -108,9 +147,9 @@ uint16_t read16(uint16_t addr) {
 
 void write8(uint16_t addr, uint8_t val) {
   if (addr < ROM_BANK_N_ADDR)
-    ;
+    rom_write(addr, val);
   else if (addr < VRAM_ADDR)
-    ;
+    rom_write(addr, val);
   else if (addr < EXTERN_RAM_ADDR)
     vram[addr - VRAM_ADDR] = val;
   else if (addr < WRAM_0_ADDR)
@@ -125,9 +164,11 @@ void write8(uint16_t addr, uint8_t val) {
     oam[addr - OAM_ADDR] = val;
   else if (addr < IO_REGS_ADDR)
     fprintf(stderr, "write8: use of 0xFEA0-0xFEFF is prohibited\n");
-  else if (addr < HRAM_ADDR)
-    ;
-  else if (addr < INT_ENABLE_ADDR)
+  else if (addr < HRAM_ADDR) {
+    io_registers[addr - IO_REGS_ADDR] = val;
+    if (addr == SERIAL_TRANSFER)
+      printf("%c", val);
+  } else if (addr < INT_ENABLE_ADDR)
     ;
   else
     ;
@@ -135,9 +176,9 @@ void write8(uint16_t addr, uint8_t val) {
 
 uint8_t read8(uint16_t addr) {
   if (addr < ROM_BANK_N_ADDR)
-    ;
+    return rom_read(addr);
   else if (addr < VRAM_ADDR)
-    ;
+    return rom_read(addr);
   else if (addr < EXTERN_RAM_ADDR)
     return vram[addr - VRAM_ADDR];
   else if (addr < WRAM_0_ADDR)
@@ -220,34 +261,6 @@ void ld_r8_aHL(uint8_t *dest) {
 }
 
 void ld_a16_A(uint16_t addr) {
-  // TODO: need this one for the serial write - I need to copy it
-  // if (addr < 0x4000)
-  //   ;
-  // else if (addr < 0x8000)
-  //   ;
-  // else if (addr < 0xA000)
-  //   ;
-  // else if (addr < 0xC000)
-  //   ;
-  // else if (addr < 0xD000)
-  //   ;
-  // else if (addr < 0xE000)
-  //   ;
-  // else if (addr < 0xFE00)
-  //   ;
-  // else if (addr < 0xFEA0)
-  //   ;
-  // else if (addr < 0xFF00)
-  //   ;
-  // else if (addr < 0xFF80) {
-  //   io_registers[addr - IO_REGS] = regs[AF].high;
-  //   if (addr == SERIAL_TRANSFER)
-  //     printf("%c", regs[AF].high);
-  // } else if (addr < 0xFFFF)
-  //   ;
-  // else
-  //   ;
-
   write8(addr, regs[AF].high);
 
   regs[PC].full += 1;
@@ -274,8 +287,21 @@ void ld_aHLd_A() {
   cycle += 2;
 }
 
-void ld_A_aHLi();
-void ld_A_aHLd();
+void ld_A_aHLi() {
+  regs[AF].high = read8(regs[HL].full);
+  ++regs[HL].full;
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
+
+void ld_A_aHLd() {
+  regs[AF].high = read8(regs[HL].full);
+  --regs[HL].full;
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
 
 void ld_SP_n16(uint16_t val) {
   regs[SP].full = val;

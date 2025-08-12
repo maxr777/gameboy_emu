@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define DISP_MULTP 4
 
@@ -88,6 +89,10 @@ int main(int argc, char *argv[]) {
   bool running = true, boot_rom_enabled = true;
   uint8_t byte = 0;
 
+  // TODO: This is for testing only
+  regs[PC].full = 0x0100;
+  boot_rom_enabled = false;
+
   while (running) {
     while (SDL_PollEvent(&event)) {
       if (event.type == SDL_EVENT_QUIT) {
@@ -104,7 +109,11 @@ int main(int argc, char *argv[]) {
     else
       byte = game_rom[regs[PC].full];
 
+    // struct timespec delay = {0, 100000}; // 0 seconds, 100,000 nanoseconds (0.1ms)
+    // nanosleep(&delay, NULL);
+
     if (prefix) {
+      // ==================== PREFIX ====================
       switch (byte) {
       case 0x40:
         debug_print(byte, "BIT 0, B");
@@ -370,6 +379,7 @@ int main(int argc, char *argv[]) {
       }
       prefix = false;
     } else {
+      // ==================== NON-PREFIX ====================
       switch (byte) {
       case 0x00:
         debug_print(byte, "NOP");
@@ -412,6 +422,12 @@ int main(int argc, char *argv[]) {
         memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
         ld_r16_n16(&regs[HL].full, n16);
       } break;
+      case 0x26: {
+        debug_print(byte, "LD H, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_r8_n8(&regs[HL].high, n8);
+      } break;
       case 0x28: {
         debug_print(byte, "JR Z, n16");
         int8_t offset;
@@ -419,12 +435,10 @@ int main(int argc, char *argv[]) {
         jr_cc_n16(Z, true, offset);
         break;
       }
-      case 0x26: {
-        debug_print(byte, "LD H, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
-        ld_r8_n8(&regs[HL].high, n8);
-      } break;
+      case 0x2A:
+        debug_print(byte, "LD A, [HLI]");
+        ld_A_aHLi();
+        break;
       case 0x2E: {
         debug_print(byte, "LD L, n8");
         uint8_t n8;
@@ -438,13 +452,6 @@ int main(int argc, char *argv[]) {
         jr_cc_n16(C, false, offset);
         break;
       }
-      case 0x38: {
-        debug_print(byte, "JR C, n16");
-        int8_t offset;
-        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
-        jr_cc_n16(C, true, offset);
-        break;
-      }
       case 0x31: {
         debug_print(byte, "LD SP, n16");
         uint16_t n16;
@@ -454,6 +461,17 @@ int main(int argc, char *argv[]) {
       case 0x32:
         debug_print(byte, "LD HLD, A");
         ld_aHLd_A();
+        break;
+      case 0x38: {
+        debug_print(byte, "JR C, n16");
+        int8_t offset;
+        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        jr_cc_n16(C, true, offset);
+        break;
+      }
+      case 0x3A:
+        debug_print(byte, "LD A, [HLD]");
+        ld_A_aHLd();
         break;
       case 0x3E: {
         debug_print(byte, "LD A, n8");
@@ -733,7 +751,7 @@ int main(int argc, char *argv[]) {
         break;
       }
     }
-    if (cycle >= 100)
+    if (cycle >= 100000)
       running = false;
   }
 
