@@ -795,6 +795,30 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "LD A, A");
         ld_r8_r8(&regs[AF].high, &regs[AF].high);
         break;
+      case 0xA8:
+        debug_print(byte, "XOR A, B");
+        xor_A_r8(&regs[BC].high);
+        break;
+      case 0xA9:
+        debug_print(byte, "XOR A, C");
+        xor_A_r8(&regs[BC].low);
+        break;
+      case 0xAA:
+        debug_print(byte, "XOR A, D");
+        xor_A_r8(&regs[DE].high);
+        break;
+      case 0xAB:
+        debug_print(byte, "XOR A, E");
+        xor_A_r8(&regs[DE].low);
+        break;
+      case 0xAC:
+        debug_print(byte, "XOR A, H");
+        xor_A_r8(&regs[HL].high);
+        break;
+      case 0xAD:
+        debug_print(byte, "XOR A, L");
+        xor_A_r8(&regs[HL].low);
+        break;
       case 0xAF:
         debug_print(byte, "XOR A, A");
         xor_A_r8(&regs[AF].high);
