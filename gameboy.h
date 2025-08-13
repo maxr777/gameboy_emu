@@ -208,8 +208,11 @@ void ld_SP_aHL();
 
 // 8-BIT ARITHMETIC
 
+void add_A_r8(uint8_t *src);
 void dec_r8(uint8_t *dest);
 void inc_r8(uint8_t *dest);
+void dec_r16(uint16_t *dest);
+void inc_r16(uint16_t *dest);
 
 // 16-BIT ARITHMETIC
 

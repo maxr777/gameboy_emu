@@ -385,6 +385,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "NOP");
         nop();
         break;
+      case 0x03:
+        debug_print(byte, "INC BC");
+        inc_r16(&regs[BC].full);
+        break;
       case 0x04:
         debug_print(byte, "INC B");
         inc_r8(&regs[BC].high);
@@ -399,6 +403,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[BC].high, n8);
       } break;
+      case 0x0B:
+        debug_print(byte, "DEC BC");
+        dec_r16(&regs[BC].full);
+        break;
       case 0x0C:
         debug_print(byte, "INC C");
         inc_r8(&regs[BC].low);
@@ -413,6 +421,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[BC].low, n8);
       } break;
+      case 0x13:
+        debug_print(byte, "INC DE");
+        inc_r16(&regs[DE].full);
+        break;
       case 0x14:
         debug_print(byte, "INC D");
         inc_r8(&regs[DE].high);
@@ -427,6 +439,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[DE].high, n8);
       } break;
+      case 0x1B:
+        debug_print(byte, "DEC DE");
+        dec_r16(&regs[DE].full);
+        break;
       case 0x1C:
         debug_print(byte, "INC E");
         inc_r8(&regs[DE].low);
@@ -454,6 +470,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
         ld_r16_n16(&regs[HL].full, n16);
       } break;
+      case 0x23:
+        debug_print(byte, "INC HL");
+        inc_r16(&regs[HL].full);
+        break;
       case 0x24:
         debug_print(byte, "INC H");
         inc_r8(&regs[HL].high);
@@ -478,6 +498,10 @@ int main(int argc, char *argv[]) {
       case 0x2A:
         debug_print(byte, "LD A, [HLI]");
         ld_A_aHLi();
+        break;
+      case 0x2B:
+        debug_print(byte, "DEC HL");
+        dec_r16(&regs[HL].full);
         break;
       case 0x2C:
         debug_print(byte, "INC L");
@@ -514,6 +538,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "LD HLD, A");
         ld_aHLd_A();
         break;
+      case 0x33:
+        debug_print(byte, "INC SP");
+        inc_r16(&regs[SP].full);
+        break;
       case 0x38: {
         debug_print(byte, "JR C, n16");
         int8_t offset;
@@ -524,6 +552,10 @@ int main(int argc, char *argv[]) {
       case 0x3A:
         debug_print(byte, "LD A, [HLD]");
         ld_A_aHLd();
+        break;
+      case 0x3B:
+        debug_print(byte, "DEC SP");
+        dec_r16(&regs[SP].full);
         break;
       case 0x3C:
         debug_print(byte, "INC A");
@@ -794,6 +826,34 @@ int main(int argc, char *argv[]) {
       case 0x7F:
         debug_print(byte, "LD A, A");
         ld_r8_r8(&regs[AF].high, &regs[AF].high);
+        break;
+      case 0x80:
+        debug_print(byte, "ADD A, B");
+        add_A_r8(&regs[BC].high);
+        break;
+      case 0x81:
+        debug_print(byte, "ADD A, C");
+        add_A_r8(&regs[BC].low);
+        break;
+      case 0x82:
+        debug_print(byte, "ADD A, D");
+        add_A_r8(&regs[DE].high);
+        break;
+      case 0x83:
+        debug_print(byte, "ADD A, E");
+        add_A_r8(&regs[DE].low);
+        break;
+      case 0x84:
+        debug_print(byte, "ADD A, H");
+        add_A_r8(&regs[HL].high);
+        break;
+      case 0x85:
+        debug_print(byte, "ADD A, L");
+        add_A_r8(&regs[HL].low);
+        break;
+      case 0x87:
+        debug_print(byte, "ADD A, A");
+        add_A_r8(&regs[AF].high);
         break;
       case 0xA8:
         debug_print(byte, "XOR A, B");
