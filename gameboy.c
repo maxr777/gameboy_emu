@@ -251,7 +251,12 @@ void ld_aHL_r8(uint8_t *src) {
   cycle += 2;
 }
 
-void ld_aHL_n8(uint8_t src);
+void ld_aHL_n8(uint8_t val) {
+  write8(regs[HL].full, val);
+
+  regs[PC].full += 2;
+  cycle += 3;
+}
 
 void ld_r8_aHL(uint8_t *dest) {
   *dest = read8(regs[HL].full);
@@ -471,6 +476,28 @@ void rst(uint8_t vec) {
 
   regs[PC].full = vec;
   cycle += 4;
+}
+
+void ret() {
+  regs[PC].low = read8(regs[SP].full);
+  ++regs[SP].full;
+  regs[PC].high = read8(regs[SP].full);
+  ++regs[SP].full;
+
+  cycle += 4;
+}
+
+// ================ STACK INSTRUCTIONS ================
+
+void pop_r16(uint16_t *src) {
+  uint8_t low = read8(regs[SP].full);
+  ++regs[SP].full;
+  uint8_t high = read8(regs[SP].full);
+  ++regs[SP].full;
+  *src = low | (high << 8);
+
+  regs[PC].full += 1;
+  cycle += 3;
 }
 
 // ================ INTERRUPTS ================

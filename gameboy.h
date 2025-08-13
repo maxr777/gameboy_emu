@@ -187,7 +187,7 @@ void ld_r8_r8(uint8_t *dest, uint8_t *src);
 void ld_r8_n8(uint8_t *dest, uint8_t val);
 void ld_r16_n16(uint16_t *dest, uint16_t val);
 void ld_aHL_r8(uint8_t *src);
-void ld_aHL_n8(uint8_t src);
+void ld_aHL_n8(uint8_t val);
 void ld_r8_aHL(uint8_t *dest);
 void ld_a16_A(uint16_t addr);
 void ld_addr16_A(uint16_t addr);
@@ -207,14 +207,12 @@ void ld_aHL_SPe8();
 void ld_SP_aHL();
 
 // 8-BIT ARITHMETIC
-
 void add_A_r8(uint8_t *src);
 void dec_r8(uint8_t *dest);
 void inc_r8(uint8_t *dest);
 void sbc_A_r8(uint8_t *src);
 
 // 16-BIT ARITHMETIC
-
 void add_HL_r16(uint16_t *src);
 void dec_r16(uint16_t *dest);
 void inc_r16(uint16_t *dest);
@@ -231,6 +229,10 @@ void bit_u3_aHL(int bit_num);
 void jr_n16(uint16_t dest);
 void jr_cc_n16(int flag, bool flag_state, int8_t offset);
 void rst(uint8_t vec);
+void ret();
+
+// STACK INSTRUCTIONS
+void pop_r16(uint16_t *src);
 
 // INTERRUPTS
 void int_di();

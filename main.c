@@ -554,6 +554,12 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "INC SP");
         inc_r16(&regs[SP].full);
         break;
+      case 0x36: {
+        debug_print(byte, "LD [HL], n8");
+        int8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_aHL_n8(n8);
+      } break;
       case 0x38: {
         debug_print(byte, "JR C, n16");
         int8_t offset;
@@ -927,9 +933,17 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "XOR A, A");
         xor_A_r8(&regs[AF].high);
         break;
+      case 0xC1:
+        debug_print(byte, "POP BC");
+        pop_r16(&regs[BC].full);
+        break;
       case 0xC7:
         debug_print(byte, "RST $00");
         rst(0x00);
+        break;
+      case 0xC9:
+        debug_print(byte, "RET");
+        ret();
         break;
       case 0xCB:
         debug_print(byte, "PREFIX TOGGLE");
@@ -940,6 +954,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RST $08");
         rst(0x08);
         break;
+      case 0xD1:
+        debug_print(byte, "POP DE");
+        pop_r16(&regs[DE].full);
+        break;
       case 0xD7:
         debug_print(byte, "RST $10");
         rst(0x10);
@@ -948,6 +966,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RST $18");
         rst(0x18);
         break;
+      case 0xE1:
+        debug_print(byte, "POP HL");
+        pop_r16(&regs[HL].full);
+        break;
       case 0xE7:
         debug_print(byte, "RST $20");
         rst(0x20);
@@ -955,6 +977,10 @@ int main(int argc, char *argv[]) {
       case 0xEF:
         debug_print(byte, "RST $28");
         rst(0x28);
+        break;
+      case 0xF1:
+        debug_print(byte, "POP AF");
+        pop_r16(&regs[AF].full);
         break;
       case 0xF7:
         debug_print(byte, "RST $30");
