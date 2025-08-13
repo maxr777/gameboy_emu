@@ -211,12 +211,11 @@ void ld_SP_aHL();
 void add_A_r8(uint8_t *src);
 void dec_r8(uint8_t *dest);
 void inc_r8(uint8_t *dest);
-void dec_r16(uint16_t *dest);
-void inc_r16(uint16_t *dest);
 void sbc_A_r8(uint8_t *src);
 
 // 16-BIT ARITHMETIC
 
+void add_HL_r16(uint16_t *src);
 void dec_r16(uint16_t *dest);
 void inc_r16(uint16_t *dest);
 

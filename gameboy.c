@@ -357,20 +357,6 @@ void inc_r8(uint8_t *dest) {
   cycle += 1;
 }
 
-void dec_r16(uint16_t *dest) {
-  --(*dest);
-
-  regs[PC].full += 1;
-  cycle += 2;
-}
-
-void inc_r16(uint16_t *dest) {
-  ++(*dest);
-
-  regs[PC].full += 1;
-  cycle += 2;
-}
-
 void sbc_A_r8(uint8_t *src) {
   set_flag(N, true);
 
@@ -385,6 +371,32 @@ void sbc_A_r8(uint8_t *src) {
 }
 
 // ================ 16-BIT ARITHMETIC ================
+
+void add_HL_r16(uint16_t *src) {
+  set_flag(N, false);
+
+  (regs[HL].full + *src) > regs[HL].full ? set_flag(C, true) : set_flag(C, false);
+  (regs[HL].full & 0x0FFF) + ((*src) & 0x0FFF) > 0x0FFF ? set_flag(H, true) : set_flag(H, false);
+
+  regs[HL].full += *src;
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
+
+void dec_r16(uint16_t *dest) {
+  --(*dest);
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
+
+void inc_r16(uint16_t *dest) {
+  ++(*dest);
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
 
 // ================ BITWISE ================
 

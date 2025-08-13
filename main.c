@@ -403,6 +403,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[BC].high, n8);
       } break;
+      case 0x09:
+        debug_print(byte, "ADD HL, BC");
+        add_HL_r16(&regs[BC].full);
+        break;
       case 0x0B:
         debug_print(byte, "DEC BC");
         dec_r16(&regs[BC].full);
@@ -439,6 +443,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[DE].high, n8);
       } break;
+      case 0x19:
+        debug_print(byte, "ADD HL, DE");
+        add_HL_r16(&regs[DE].full);
+        break;
       case 0x1B:
         debug_print(byte, "DEC DE");
         dec_r16(&regs[DE].full);
@@ -495,6 +503,10 @@ int main(int argc, char *argv[]) {
         jr_cc_n16(Z, true, offset);
         break;
       }
+      case 0x29:
+        debug_print(byte, "ADD HL, HL");
+        add_HL_r16(&regs[HL].full);
+        break;
       case 0x2A:
         debug_print(byte, "LD A, [HLI]");
         ld_A_aHLi();
@@ -549,6 +561,10 @@ int main(int argc, char *argv[]) {
         jr_cc_n16(C, true, offset);
         break;
       }
+      case 0x39:
+        debug_print(byte, "ADD HL, SP");
+        add_HL_r16(&regs[SP].full);
+        break;
       case 0x3A:
         debug_print(byte, "LD A, [HLD]");
         ld_A_aHLd();
