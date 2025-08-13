@@ -371,6 +371,19 @@ void inc_r16(uint16_t *dest) {
   cycle += 2;
 }
 
+void sbc_A_r8(uint8_t *src) {
+  set_flag(N, true);
+
+  *src + get_flag(C) > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+  *src + get_flag(C) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+
+  regs[AF].high -= (*src + get_flag(C));
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 // ================ 16-BIT ARITHMETIC ================
 
 // ================ BITWISE ================
