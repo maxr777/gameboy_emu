@@ -1028,6 +1028,62 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "XOR A, A");
         xor_A_r8(regs[AF].high);
         break;
+      case 0xB0:
+        debug_print(byte, "OR A, B");
+        or_A_r8(regs[BC].high);
+        break;
+      case 0xB1:
+        debug_print(byte, "OR A, C");
+        or_A_r8(regs[BC].low);
+        break;
+      case 0xB2:
+        debug_print(byte, "OR A, D");
+        or_A_r8(regs[DE].high);
+        break;
+      case 0xB3:
+        debug_print(byte, "OR A, E");
+        or_A_r8(regs[DE].low);
+        break;
+      case 0xB4:
+        debug_print(byte, "OR A, H");
+        or_A_r8(regs[HL].high);
+        break;
+      case 0xB5:
+        debug_print(byte, "OR A, L");
+        or_A_r8(regs[HL].low);
+        break;
+      case 0xB7:
+        debug_print(byte, "OR A, A");
+        or_A_r8(regs[AF].high);
+        break;
+      case 0xB8:
+        debug_print(byte, "CP A, B");
+        cp_A_r8(regs[BC].high);
+        break;
+      case 0xB9:
+        debug_print(byte, "CP A, C");
+        cp_A_r8(regs[BC].low);
+        break;
+      case 0xBA:
+        debug_print(byte, "CP A, D");
+        cp_A_r8(regs[DE].high);
+        break;
+      case 0xBB:
+        debug_print(byte, "CP A, E");
+        cp_A_r8(regs[DE].low);
+        break;
+      case 0xBC:
+        debug_print(byte, "CP A, H");
+        cp_A_r8(regs[HL].high);
+        break;
+      case 0xBD:
+        debug_print(byte, "CP A, L");
+        cp_A_r8(regs[HL].low);
+        break;
+      case 0xBF:
+        debug_print(byte, "CP A, A");
+        cp_A_r8(regs[AF].high);
+        break;
       case 0xC1:
         debug_print(byte, "POP BC");
         pop_r16(&regs[BC].full);

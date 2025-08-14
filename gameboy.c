@@ -414,6 +414,18 @@ void inc_aHL() {
   cycle += 3;
 }
 
+void cp_A_r8(const uint8_t src) {
+  uint8_t result = regs[AF].high - src;
+
+  result == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, true);
+  src > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+  src > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 // ================ 16-BIT ARITHMETIC ================
 
 void add_HL_r16(const uint16_t src) {
@@ -450,6 +462,18 @@ void and_A_r8(const uint8_t src) {
   regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
   set_flag(N, false);
   set_flag(H, true);
+  set_flag(C, false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
+void or_A_r8(const uint8_t src) {
+  regs[AF].high |= src;
+
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
   set_flag(C, false);
 
   regs[PC].full += 1;
