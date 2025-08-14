@@ -183,52 +183,52 @@ uint8_t read8(uint16_t addr);
 // ================ OPCODES ================
 
 // LOADS
-void ld_r8_r8(uint8_t *dest, uint8_t *src);
-void ld_r8_n8(uint8_t *dest, uint8_t val);
-void ld_r16_n16(uint16_t *dest, uint16_t val);
-void ld_aHL_r8(uint8_t *src);
-void ld_aHL_n8(uint8_t val);
+void ld_r8_r8(uint8_t *dest, const uint8_t src);
+void ld_r8_n8(uint8_t *dest, const uint8_t val);
+void ld_r16_n16(uint16_t *dest, const uint16_t val);
+void ld_aHL_r8(const uint8_t src);
+void ld_aHL_n8(const uint8_t val);
 void ld_r8_aHL(uint8_t *dest);
-void ld_a16_A(uint16_t addr);
-void ld_addr16_A(uint16_t addr);
-void ldh_addr16_A(uint16_t addr);
+void ld_a16_A(const uint16_t addr);
+void ld_addr16_A(const uint16_t addr);
+void ldh_addr16_A(const uint16_t addr);
 void ldh_aC_A();
-void ld_A_a16(uint16_t addr);
-void ld_A_addr16(uint16_t addr);
-void ldh_A_addr16(uint16_t addr);
+void ld_A_a16(const uint16_t addr);
+void ld_A_addr16(const uint16_t addr);
+void ldh_A_addr16(const uint16_t addr);
 void ldh_A_aC();
 void ld_aHLi_A();
 void ld_aHLd_A();
 void ld_A_aHLi();
 void ld_A_aHLd();
-void ld_SP_n16(uint16_t val);
-void ld_addr16_SP(uint16_t addr);
+void ld_addr16_SP(const uint16_t addr);
 void ld_aHL_SPe8();
 void ld_SP_aHL();
 
 // 8-BIT ARITHMETIC
-void add_A_r8(uint8_t *src);
+void add_A_r8(const uint8_t src);
+void sub_A_r8(const uint8_t src);
 void dec_r8(uint8_t *dest);
 void inc_r8(uint8_t *dest);
-void sbc_A_r8(uint8_t *src);
+void sbc_A_r8(const uint8_t src);
 
 // 16-BIT ARITHMETIC
-void add_HL_r16(uint16_t *src);
+void add_HL_r16(const uint16_t src);
 void dec_r16(uint16_t *dest);
 void inc_r16(uint16_t *dest);
 
 // BITWISE
 void cpl();
-void xor_A_r8(uint8_t *src);
+void xor_A_r8(const uint8_t src);
 
 // BIT FLAGS
-void bit_u3_r8(int bit_num, uint8_t *src);
-void bit_u3_aHL(int bit_num);
+void bit_u3_r8(const int bit_num, const uint8_t src);
+void bit_u3_aHL(const int bit_num);
 
 // JUMPS
-void jr_n16(uint16_t dest);
-void jr_cc_n16(int flag, bool flag_state, int8_t offset);
-void rst(uint8_t vec);
+void jr_n16(const uint16_t dest);
+void jr_cc_n16(const int flag, const bool flag_state, const int8_t offset);
+void rst(const uint8_t vec);
 void ret();
 
 // STACK INSTRUCTIONS

@@ -223,35 +223,35 @@ uint8_t read8(uint16_t addr) {
 
 // ================ LOADS ================
 
-void ld_r8_r8(uint8_t *dest, uint8_t *src) {
-  *dest = *src;
+void ld_r8_r8(uint8_t *dest, const uint8_t src) {
+  *dest = src;
 
   regs[PC].full += 1;
   cycle += 1;
 }
 
-void ld_r8_n8(uint8_t *dest, uint8_t val) {
+void ld_r8_n8(uint8_t *dest, const uint8_t val) {
   *dest = val;
 
   regs[PC].full += 2;
   cycle += 2;
 }
 
-void ld_r16_n16(uint16_t *dest, uint16_t val) {
+void ld_r16_n16(uint16_t *dest, const uint16_t val) {
   *dest = val;
 
   regs[PC].full += 3;
   cycle += 3;
 }
 
-void ld_aHL_r8(uint8_t *src) {
-  write8(regs[HL].full, *src);
+void ld_aHL_r8(const uint8_t src) {
+  write8(regs[HL].full, src);
 
   regs[PC].full += 1;
   cycle += 2;
 }
 
-void ld_aHL_n8(uint8_t val) {
+void ld_aHL_n8(const uint8_t val) {
   write8(regs[HL].full, val);
 
   regs[PC].full += 2;
@@ -265,7 +265,7 @@ void ld_r8_aHL(uint8_t *dest) {
   cycle += 2;
 }
 
-void ld_a16_A(uint16_t addr) {
+void ld_a16_A(const uint16_t addr) {
   write8(addr, regs[AF].high);
 
   regs[PC].full += 1;
@@ -282,7 +282,14 @@ void ld_A_a16(uint16_t addr);
 void ld_A_addr16(uint16_t addr);
 void ldh_A_addr16(uint16_t addr);
 void ldh_A_aC();
-void ld_aHLi_A();
+
+void ld_aHLi_A() {
+  write8(regs[HL].full, regs[AF].high);
+  ++regs[HL].full;
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
 
 void ld_aHLd_A() {
   write8(regs[HL].full, regs[AF].high);
@@ -308,14 +315,7 @@ void ld_A_aHLd() {
   cycle += 2;
 }
 
-void ld_SP_n16(uint16_t val) {
-  regs[SP].full = val;
-
-  regs[PC].full += 3;
-  cycle += 3;
-}
-
-void ld_addr16_SP(uint16_t addr) {
+void ld_addr16_SP(const uint16_t addr) {
   write16(addr, regs[SP].full);
 
   regs[PC].full += 3;
@@ -327,14 +327,14 @@ void ld_SP_aHL();
 
 // ================ 8-BIT ARITHMETIC ================
 
-void add_A_r8(uint8_t *src) {
+void add_A_r8(const uint8_t src) {
   set_flag(N, false);
 
-  (regs[AF].high & 0x0F) + ((*src) & 0x0F) > 0x0F ? set_flag(H, true) : set_flag(H, false);
+  (regs[AF].high & 0x0F) + (src & 0x0F) > 0x0F ? set_flag(H, true) : set_flag(H, false);
 
-  (regs[AF].high + *src) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+  (regs[AF].high + src) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
-  regs[AF].high += *src;
+  regs[AF].high += src;
   regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
 
   regs[PC].full += 1;
@@ -362,13 +362,13 @@ void inc_r8(uint8_t *dest) {
   cycle += 1;
 }
 
-void sbc_A_r8(uint8_t *src) {
+void sbc_A_r8(const uint8_t src) {
   set_flag(N, true);
 
-  *src + get_flag(C) > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
-  *src + get_flag(C) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+  src + get_flag(C) > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+  src + get_flag(C) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
-  regs[AF].high -= (*src + get_flag(C));
+  regs[AF].high -= (src + get_flag(C));
   regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
 
   regs[PC].full += 1;
@@ -377,13 +377,13 @@ void sbc_A_r8(uint8_t *src) {
 
 // ================ 16-BIT ARITHMETIC ================
 
-void add_HL_r16(uint16_t *src) {
+void add_HL_r16(const uint16_t src) {
   set_flag(N, false);
 
-  (regs[HL].full + *src) > regs[HL].full ? set_flag(C, true) : set_flag(C, false);
-  (regs[HL].full & 0x0FFF) + ((*src) & 0x0FFF) > 0x0FFF ? set_flag(H, true) : set_flag(H, false);
+  (regs[HL].full + src) > regs[HL].full ? set_flag(C, true) : set_flag(C, false);
+  (regs[HL].full & 0x0FFF) + (src & 0x0FFF) > 0x0FFF ? set_flag(H, true) : set_flag(H, false);
 
-  regs[HL].full += *src;
+  regs[HL].full += src;
 
   regs[PC].full += 1;
   cycle += 2;
@@ -415,8 +415,8 @@ void cpl() {
   cycle += 1;
 }
 
-void xor_A_r8(uint8_t *src) {
-  regs[AF].high ^= *src;
+void xor_A_r8(const uint8_t src) {
+  regs[AF].high ^= src;
 
   regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
   set_flag(N, false);
@@ -429,8 +429,8 @@ void xor_A_r8(uint8_t *src) {
 
 // ================ BIT FLAGS ================
 
-void bit_u3_r8(int bit_num, uint8_t *src) {
-  *src & (1 << bit_num) ? set_flag(Z, false) : set_flag(Z, true);
+void bit_u3_r8(const int bit_num, const uint8_t src) {
+  src & (1 << bit_num) ? set_flag(Z, false) : set_flag(Z, true);
 
   set_flag(N, false);
   set_flag(H, true);
@@ -439,7 +439,7 @@ void bit_u3_r8(int bit_num, uint8_t *src) {
   cycle += 2;
 }
 
-void bit_u3_aHL(int bit_num) {
+void bit_u3_aHL(const int bit_num) {
 
   read8(regs[HL].full) & (1 << bit_num) ? set_flag(Z, false) : set_flag(Z, true);
 
@@ -460,7 +460,7 @@ void jr_n16(uint16_t dest) {
 // naming might be weird but that's how it's named in rgbds, so I went
 // with that for consistency (it's easier to search in the docs this way)
 // it's n16 because it jumps to address n16, but it uses an 8-bit offset instead
-void jr_cc_n16(int flag, bool flag_state, int8_t offset) {
+void jr_cc_n16(const int flag, const bool flag_state, const int8_t offset) {
   regs[PC].full += 2;
   if (get_flag(flag) == flag_state) {
     regs[PC].full += offset;
@@ -470,7 +470,7 @@ void jr_cc_n16(int flag, bool flag_state, int8_t offset) {
   }
 }
 
-void rst(uint8_t vec) {
+void rst(const uint8_t vec) {
   regs[SP].full -= 2;
   write16(regs[SP].full, regs[PC].full + 1);
 
