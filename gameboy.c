@@ -341,6 +341,20 @@ void add_A_r8(const uint8_t src) {
   cycle += 1;
 }
 
+void adc_A_r8(const uint8_t src) {
+  set_flag(N, false);
+  bool c = get_flag(C);
+
+  (regs[AF].high & 0x0F) + (src & 0x0F) + c > 0x0F ? set_flag(H, true) : set_flag(H, false);
+  (uint16_t)regs[AF].high + src + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
+
+  regs[AF].high += src + c;
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 void sub_A_r8(const uint8_t src) {
   set_flag(N, true);
 
@@ -356,11 +370,12 @@ void sub_A_r8(const uint8_t src) {
 
 void sbc_A_r8(const uint8_t src) {
   set_flag(N, true);
+  bool c = get_flag(C);
 
-  src + get_flag(C) > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
-  src + get_flag(C) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+  src + c > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+  src + c > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
-  regs[AF].high -= (src + get_flag(C));
+  regs[AF].high -= (src + c);
   regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
 
   regs[PC].full += 1;

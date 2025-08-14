@@ -916,6 +916,34 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "ADD A, A");
         add_A_r8(regs[AF].high);
         break;
+      case 0x88:
+        debug_print(byte, "ADC A, B");
+        adc_A_r8(regs[BC].high);
+        break;
+      case 0x89:
+        debug_print(byte, "ADC A, C");
+        adc_A_r8(regs[BC].low);
+        break;
+      case 0x8A:
+        debug_print(byte, "ADC A, D");
+        adc_A_r8(regs[DE].high);
+        break;
+      case 0x8B:
+        debug_print(byte, "ADC A, E");
+        adc_A_r8(regs[DE].low);
+        break;
+      case 0x8C:
+        debug_print(byte, "ADC A, H");
+        adc_A_r8(regs[HL].high);
+        break;
+      case 0x8D:
+        debug_print(byte, "ADC A, L");
+        adc_A_r8(regs[HL].low);
+        break;
+      case 0x8F:
+        debug_print(byte, "ADC A, A");
+        adc_A_r8(regs[AF].high);
+        break;
       case 0x90:
         debug_print(byte, "SUB A, B");
         sub_A_r8(regs[BC].high);

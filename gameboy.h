@@ -207,6 +207,7 @@ void ld_SP_aHL();
 
 // 8-BIT ARITHMETIC
 void add_A_r8(const uint8_t src);
+void adc_A_r8(const uint8_t src);
 void sub_A_r8(const uint8_t src);
 void sbc_A_r8(const uint8_t src);
 void dec_r8(uint8_t *dest);
