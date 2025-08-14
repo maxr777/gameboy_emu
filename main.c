@@ -916,6 +916,34 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "ADD A, A");
         add_A_r8(regs[AF].high);
         break;
+      case 0x90:
+        debug_print(byte, "SUB A, B");
+        sub_A_r8(regs[BC].high);
+        break;
+      case 0x91:
+        debug_print(byte, "SUB A, C");
+        sub_A_r8(regs[BC].low);
+        break;
+      case 0x92:
+        debug_print(byte, "SUB A, D");
+        sub_A_r8(regs[DE].high);
+        break;
+      case 0x93:
+        debug_print(byte, "SUB A, E");
+        sub_A_r8(regs[DE].low);
+        break;
+      case 0x94:
+        debug_print(byte, "SUB A, H");
+        sub_A_r8(regs[HL].high);
+        break;
+      case 0x95:
+        debug_print(byte, "SUB A, L");
+        sub_A_r8(regs[HL].low);
+        break;
+      case 0x97:
+        debug_print(byte, "SUB A, A");
+        sub_A_r8(regs[AL].high);
+        break;
       case 0x98:
         debug_print(byte, "SBC A, B");
         sbc_A_r8(regs[BC].high);
@@ -943,6 +971,34 @@ int main(int argc, char *argv[]) {
       case 0x9F:
         debug_print(byte, "SBC A, A");
         sbc_A_r8(regs[AF].high);
+        break;
+      case 0xA0:
+        debug_print(byte, "AND A, B");
+        and_A_r8(regs[BC].high);
+        break;
+      case 0xA1:
+        debug_print(byte, "AND A, C");
+        and_A_r8(regs[BC].low);
+        break;
+      case 0xA2:
+        debug_print(byte, "AND A, D");
+        and_A_r8(regs[DE].high);
+        break;
+      case 0xA3:
+        debug_print(byte, "AND A, E");
+        and_A_r8(regs[DE].low);
+        break;
+      case 0xA4:
+        debug_print(byte, "AND A, H");
+        and_A_r8(regs[HL].high);
+        break;
+      case 0xA5:
+        debug_print(byte, "AND A, L");
+        and_A_r8(regs[HL].low);
+        break;
+      case 0xA7:
+        debug_print(byte, "AND A, A");
+        and_A_r8(regs[AF].high);
         break;
       case 0xA8:
         debug_print(byte, "XOR A, B");

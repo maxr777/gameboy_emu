@@ -220,6 +220,7 @@ void dec_r16(uint16_t *dest);
 void inc_r16(uint16_t *dest);
 
 // BITWISE LOGIC
+void and_A_r8(const uint8_t src);
 void cpl();
 void xor_A_r8(const uint8_t src);
 

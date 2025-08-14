@@ -341,6 +341,19 @@ void add_A_r8(const uint8_t src) {
   cycle += 1;
 }
 
+void sub_A_r8(const uint8_t src) {
+  set_flag(N, true);
+
+  src > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+  src > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+
+  regs[AF].high -= src;
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 void sbc_A_r8(const uint8_t src) {
   set_flag(N, true);
 
@@ -430,6 +443,18 @@ void inc_r16(uint16_t *dest) {
 }
 
 // ================ BITWISE LOGIC ================
+
+void and_A_r8(const uint8_t src) {
+  regs[AF].high &= src;
+
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, true);
+  set_flag(C, false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
 
 void cpl() {
   regs[AF].high = ~regs[AF].high;
