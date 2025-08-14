@@ -467,6 +467,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[DE].high, n8);
       } break;
+      case 0x17:
+        debug_print(byte, "RLA");
+        rla();
+        break;
       case 0x19:
         debug_print(byte, "ADD HL, DE");
         add_HL_r16(regs[DE].full);

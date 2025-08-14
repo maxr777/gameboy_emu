@@ -47,7 +47,7 @@ uint8_t boot_rom[256] = {
 
 int current_rom_bank = 0;
 
-void rom_write(uint16_t addr, uint8_t val) {
+void rom_write(const uint16_t addr, const uint8_t val) {
   switch (cartridge_header.cartridge_type) {
   case 0x00:
     fprintf(stderr, "Writing to ROM with MCB0 is prohibited\n");
@@ -63,11 +63,11 @@ void rom_write(uint16_t addr, uint8_t val) {
   }
 }
 
-void mcb1_write(uint16_t addr, uint8_t val) {
+void mcb1_write(const uint16_t addr, const uint8_t val) {
   fprintf(stderr, "mcb1_write(): Not yet implemented\n");
 }
 
-uint8_t rom_read(uint16_t addr) {
+uint8_t rom_read(const uint16_t addr) {
   switch (cartridge_header.cartridge_type) {
   case 0x00:
     return game_rom[addr];
@@ -81,14 +81,14 @@ uint8_t rom_read(uint16_t addr) {
   }
 }
 
-uint8_t mcb1_read(uint16_t addr) {
+uint8_t mcb1_read(const uint16_t addr) {
   fprintf(stderr, "mcb1_read(): Not yet implemented\n");
   return 0;
 }
 
 // ================ HELPER FUNCTIONS ================
 
-bool get_flag(int flag) {
+bool get_flag(const int flag) {
   switch (flag) {
   case Z:
     return (regs[AF].low & 0x80);
@@ -104,7 +104,7 @@ bool get_flag(int flag) {
   }
 }
 
-void set_flag(int flag, bool value) {
+void set_flag(const int flag, const bool value) {
   switch (flag) {
   case Z:
     if (value)
@@ -136,16 +136,16 @@ void set_flag(int flag, bool value) {
   }
 }
 
-void write16(uint16_t addr, uint16_t val) {
+void write16(const uint16_t addr, const uint16_t val) {
   write8(addr, val);
   write8(addr + 1, val >> 8);
 }
 
-uint16_t read16(uint16_t addr) {
+uint16_t read16(const uint16_t addr) {
   return read8(addr) | (read8(addr + 1) << 8);
 }
 
-void write8(uint16_t addr, uint8_t val) {
+void write8(const uint16_t addr, const uint8_t val) {
   if (addr < ROM_BANK_N_ADDR)
     rom_write(addr, val);
   else if (addr < VRAM_ADDR)
@@ -174,7 +174,7 @@ void write8(uint16_t addr, uint8_t val) {
     ;
 }
 
-uint8_t read8(uint16_t addr) {
+uint8_t read8(const uint16_t addr) {
   if (addr < ROM_BANK_N_ADDR)
     return rom_read(addr);
   else if (addr < VRAM_ADDR)
@@ -477,6 +477,26 @@ void bit_u3_aHL(const int bit_num) {
 }
 
 // ================ BIT SHIFTS ================
+
+void rla() {
+  set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+
+  bool old_carry = get_flag(C);
+  bool new_carry = (regs[AF].high & 0x80) == 0x80;
+  set_flag(C, new_carry);
+
+  regs[AF].high <<= 1;
+
+  if (old_carry)
+    regs[AF].high |= 1;
+  else
+    regs[AF].high &= ~1;
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
 
 void rlca() {
   set_flag(Z, false);

@@ -164,21 +164,21 @@ extern size_t game_size;
 extern int current_rom_bank;
 extern uint8_t boot_rom[256];
 
-void rom_write(uint16_t addr, uint8_t val);
-void mcb1_write(uint16_t addr, uint8_t val);
+void rom_write(const uint16_t addr, const uint8_t val);
+void mcb1_write(const uint16_t addr, const uint8_t val);
 
-uint8_t rom_read(uint16_t addr);
-uint8_t mcb1_read(uint16_t addr);
+uint8_t rom_read(const uint16_t addr);
+uint8_t mcb1_read(const uint16_t addr);
 
 // ================ HELPER FUNCTIONS ================
 
-bool get_flag(int flag);
-void set_flag(int flag, bool value);
+bool get_flag(const int flag);
+void set_flag(const int flag, const bool value);
 
-void write16(uint16_t addr, uint16_t val);
-void write8(uint16_t addr, uint8_t val);
-uint16_t read16(uint16_t addr);
-uint8_t read8(uint16_t addr);
+void write16(const uint16_t addr, const uint16_t val);
+void write8(const uint16_t addr, const uint8_t val);
+uint16_t read16(const uint16_t addr);
+uint8_t read8(const uint16_t addr);
 
 // ================ OPCODES ================
 
@@ -228,6 +228,7 @@ void bit_u3_r8(const int bit_num, const uint8_t src);
 void bit_u3_aHL(const int bit_num);
 
 // BIT SHIFTS
+void rla();
 void rlca();
 
 // JUMPS
