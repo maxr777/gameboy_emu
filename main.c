@@ -577,6 +577,14 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "INC SP");
         inc_r16(&regs[SP].full);
         break;
+      case 0x34:
+        debug_print(byte, "INC [HL]");
+        inc_aHL();
+        break;
+      case 0x35:
+        debug_print(byte, "DEC [HL]");
+        dec_aHL();
+        break;
       case 0x36: {
         debug_print(byte, "LD [HL], n8");
         int8_t n8;

@@ -341,6 +341,19 @@ void add_A_r8(const uint8_t src) {
   cycle += 1;
 }
 
+void sbc_A_r8(const uint8_t src) {
+  set_flag(N, true);
+
+  src + get_flag(C) > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+  src + get_flag(C) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+
+  regs[AF].high -= (src + get_flag(C));
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 void dec_r8(uint8_t *dest) {
   // lower 4 bits only borrow if they're 0000
   ((*dest)-- & 0x0F) == 0x00 ? set_flag(H, true) : set_flag(H, false);
@@ -350,6 +363,19 @@ void dec_r8(uint8_t *dest) {
 
   regs[PC].full += 1;
   cycle += 1;
+}
+
+void dec_aHL() {
+  uint8_t result = read8(regs[HL].full);
+
+  (result-- & 0x0F) == 0x00 ? set_flag(H, true) : set_flag(H, false);
+  result == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, true);
+
+  write8(regs[HL].full, result);
+
+  regs[PC].full += 1;
+  cycle += 3;
 }
 
 void inc_r8(uint8_t *dest) {
@@ -362,17 +388,17 @@ void inc_r8(uint8_t *dest) {
   cycle += 1;
 }
 
-void sbc_A_r8(const uint8_t src) {
-  set_flag(N, true);
+void inc_aHL() {
+  uint8_t result = read8(regs[HL].full);
 
-  src + get_flag(C) > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
-  src + get_flag(C) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+  (result++ & 0x0F) == 0x0F ? set_flag(H, true) : set_flag(H, false);
+  result == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
 
-  regs[AF].high -= (src + get_flag(C));
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  write8(regs[HL].full, result);
 
   regs[PC].full += 1;
-  cycle += 1;
+  cycle += 3;
 }
 
 // ================ 16-BIT ARITHMETIC ================
