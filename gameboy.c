@@ -583,6 +583,28 @@ void rlca() {
 
 // ================ JUMPS ================
 
+void jp_n16(const uint16_t addr) {
+  regs[PC].full = addr;
+
+  cycle += 4;
+}
+
+void jp_cc_n16(const int flag, const bool flag_state, const uint16_t addr) {
+  if (get_flag(flag) == flag_state) {
+    regs[PC].full = addr;
+    cycle += 4;
+  } else {
+    regs[PC].full += 3;
+    cycle += 3;
+  }
+}
+
+void jp_aHL() {
+  regs[PC].full = regs[HL].full;
+
+  cycle += 1;
+}
+
 // TODO
 void jr_n16(uint16_t dest) {
   cycle += 3;

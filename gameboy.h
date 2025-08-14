@@ -236,6 +236,9 @@ void rla();
 void rlca();
 
 // JUMPS
+void jp_n16(const uint16_t addr);
+void jp_cc_n16(const int flag, const bool flag_state, const uint16_t addr);
+void jp_aHL();
 void jr_n16(const uint16_t dest);
 void jr_cc_n16(const int flag, const bool flag_state, const int8_t offset);
 void rst(const uint8_t vec);

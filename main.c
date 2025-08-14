@@ -506,6 +506,7 @@ int main(int argc, char *argv[]) {
         memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
         ld_r16_n16(&regs[HL].full, n16);
       } break;
+      case 0x22:
         debug_print(byte, "LD [HL+], A");
         ld_aHLi_A();
         break;
@@ -561,7 +562,7 @@ int main(int argc, char *argv[]) {
         ld_r8_n8(&regs[HL].low, n8);
       } break;
       case 0x2F:
-        debug_print(byte, "JR NC, n16");
+        debug_print(byte, "CPL");
         cpl();
         break;
       case 0x30: {
@@ -595,7 +596,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x36: {
         debug_print(byte, "LD [HL], n8");
-        int8_t n8;
+        uint8_t n8;
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_aHL_n8(n8);
       } break;
@@ -970,7 +971,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x97:
         debug_print(byte, "SUB A, A");
-        sub_A_r8(regs[AL].high);
+        sub_A_r8(regs[AF].high);
         break;
       case 0x98:
         debug_print(byte, "SBC A, B");
@@ -1116,6 +1117,20 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "POP BC");
         pop_r16(&regs[BC].full);
         break;
+      case 0xC2: {
+        debug_print(byte, "JP NZ, n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        jp_cc_n16(Z, false, n16);
+        break;
+      }
+      case 0xC3: {
+        debug_print(byte, "JP n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        jp_n16(n16);
+        break;
+      }
       case 0xC7:
         debug_print(byte, "RST $00");
         rst(0x00);
@@ -1124,6 +1139,13 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RET");
         ret();
         break;
+      case 0xCA: {
+        debug_print(byte, "JP Z, n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        jp_cc_n16(Z, true, n16);
+        break;
+      }
       case 0xCB:
         debug_print(byte, "PREFIX TOGGLE");
         prefix = true;
@@ -1137,10 +1159,24 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "POP DE");
         pop_r16(&regs[DE].full);
         break;
+      case 0xD2: {
+        debug_print(byte, "JP NC, n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        jp_cc_n16(C, false, n16);
+        break;
+      }
       case 0xD7:
         debug_print(byte, "RST $10");
         rst(0x10);
         break;
+      case 0xDA: {
+        debug_print(byte, "JP C, n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        jp_cc_n16(C, true, n16);
+        break;
+      }
       case 0xDF:
         debug_print(byte, "RST $18");
         rst(0x18);
@@ -1152,6 +1188,10 @@ int main(int argc, char *argv[]) {
       case 0xE7:
         debug_print(byte, "RST $20");
         rst(0x20);
+        break;
+      case 0xE9:
+        debug_print(byte, "JP HL");
+        jp_aHL();
         break;
       case 0xEF:
         debug_print(byte, "RST $28");
