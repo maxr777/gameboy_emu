@@ -429,7 +429,7 @@ void inc_r16(uint16_t *dest) {
   cycle += 2;
 }
 
-// ================ BITWISE ================
+// ================ BITWISE LOGIC ================
 
 void cpl() {
   regs[AF].high = ~regs[AF].high;
@@ -474,6 +474,27 @@ void bit_u3_aHL(const int bit_num) {
 
   regs[PC].full += 1;
   cycle += 2;
+}
+
+// ================ BIT SHIFTS ================
+
+void rlca() {
+  set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+
+  bool carry = (regs[AF].high & 0x80) == 0x80;
+  set_flag(C, carry);
+
+  regs[AF].high <<= 1;
+
+  if (carry)
+    regs[AF].high |= 1;
+  else
+    regs[AF].high &= ~1;
+
+  regs[PC].full += 1;
+  cycle += 1;
 }
 
 // ================ JUMPS ================

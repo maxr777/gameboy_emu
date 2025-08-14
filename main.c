@@ -413,6 +413,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[BC].high, n8);
       } break;
+      case 0x07:
+        debug_print(byte, "RLCA");
+        rlca();
+        break;
       case 0x09:
         debug_print(byte, "ADD HL, BC");
         add_HL_r16(regs[BC].full);

@@ -219,13 +219,16 @@ void add_HL_r16(const uint16_t src);
 void dec_r16(uint16_t *dest);
 void inc_r16(uint16_t *dest);
 
-// BITWISE
+// BITWISE LOGIC
 void cpl();
 void xor_A_r8(const uint8_t src);
 
 // BIT FLAGS
 void bit_u3_r8(const int bit_num, const uint8_t src);
 void bit_u3_aHL(const int bit_num);
+
+// BIT SHIFTS
+void rlca();
 
 // JUMPS
 void jr_n16(const uint16_t dest);
