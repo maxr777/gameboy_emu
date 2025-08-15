@@ -427,6 +427,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "ADD HL, BC");
         add_HL_r16(regs[BC].full);
         break;
+      case 0x0A:
+        debug_print(byte, "LD A, [BC]");
+        ld_A_a16(regs[BC].full);
+        break;
       case 0x0B:
         debug_print(byte, "DEC BC");
         dec_r16(&regs[BC].full);
@@ -487,6 +491,10 @@ int main(int argc, char *argv[]) {
       case 0x19:
         debug_print(byte, "ADD HL, DE");
         add_HL_r16(regs[DE].full);
+        break;
+      case 0x1A:
+        debug_print(byte, "LD A, [DE]");
+        ld_A_a16(regs[DE].full);
         break;
       case 0x1B:
         debug_print(byte, "DEC DE");
