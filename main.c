@@ -1175,6 +1175,13 @@ int main(int argc, char *argv[]) {
         jp_n16(n16);
         break;
       }
+      case 0xC4: {
+        debug_print(byte, "CALL NZ, n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        call_cc_n16(Z, false, n16);
+        break;
+      }
       case 0xC5:
         debug_print(byte, "PUSH BC");
         push_r16(regs[BC].full);
@@ -1203,6 +1210,20 @@ int main(int argc, char *argv[]) {
         prefix = true;
         regs[PC].full += 1;
         break;
+      case 0xCC: {
+        debug_print(byte, "CALL Z, n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        call_cc_n16(Z, true, n16);
+        break;
+      }
+      case 0xCD: {
+        debug_print(byte, "CALL n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        call_n16(n16);
+        break;
+      }
       case 0xCF:
         debug_print(byte, "RST $08");
         rst(0x08);
@@ -1220,6 +1241,13 @@ int main(int argc, char *argv[]) {
         uint16_t n16;
         memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
         jp_cc_n16(C, false, n16);
+        break;
+      }
+      case 0xD4: {
+        debug_print(byte, "CALL NC, n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        call_cc_n16(C, false, n16);
         break;
       }
       case 0xD5:
@@ -1245,10 +1273,24 @@ int main(int argc, char *argv[]) {
         jp_cc_n16(C, true, n16);
         break;
       }
+      case 0xDC: {
+        debug_print(byte, "CALL C, n16");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        call_cc_n16(C, true, n16);
+        break;
+      }
       case 0xDF:
         debug_print(byte, "RST $18");
         rst(0x18);
         break;
+      case 0xE0: {
+        debug_print(byte, "LDH [n16], A");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        ldh_addr16_A(n16);
+        break;
+      }
       case 0xE1:
         debug_print(byte, "POP HL");
         pop_r16(&regs[HL].full);
@@ -1265,6 +1307,13 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "JP HL");
         jp_aHL();
         break;
+      case 0xEA: {
+        debug_print(byte, "LD [n16], A");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        ld_addr16_A(n16);
+        break;
+      }
       case 0xEF:
         debug_print(byte, "RST $28");
         rst(0x28);

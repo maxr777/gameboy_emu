@@ -282,8 +282,20 @@ void ld_a16_A(const uint16_t addr) {
   cycle += 2;
 }
 
-void ld_addr16_A(uint16_t addr);
-void ldh_addr16_A(uint16_t addr);
+void ld_addr16_A(const uint16_t addr) {
+  write8(addr, regs[AF].high);
+
+  regs[PC].full += 3;
+  cycle += 4;
+}
+
+void ldh_addr16_A(const uint16_t addr) {
+  if (addr >= 0xFF00 && addr <= 0xFFFF)
+    write8(addr, regs[AF].high);
+
+  regs[PC].full += 2;
+  cycle += 3;
+}
 
 void ldh_aC_A() {
 }
@@ -636,6 +648,27 @@ void rrca() {
 }
 
 // ================ JUMPS ================
+
+void call_n16(const uint16_t addr) {
+  regs[SP].full -= 2;
+  write16(regs[SP].full, regs[PC].full + 3);
+
+  regs[PC].full = addr;
+
+  cycle += 6;
+}
+
+void call_cc_n16(const int flag, const bool flag_state, const uint16_t addr) {
+  if (get_flag(flag) == flag_state) {
+    regs[SP].full -= 2;
+    write16(regs[SP].full, regs[PC].full + 3);
+    regs[PC].full = addr;
+    cycle += 6;
+  } else {
+    regs[PC].full += 3;
+    cycle += 3;
+  }
+}
 
 void jp_n16(const uint16_t addr) {
   regs[PC].full = addr;
