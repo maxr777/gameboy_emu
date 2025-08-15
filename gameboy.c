@@ -711,6 +711,17 @@ void ret_cc(const int flag, const bool flag_state) {
   }
 }
 
+void reti() {
+  ime = true;
+
+  regs[PC].low = read8(regs[SP].full);
+  ++regs[SP].full;
+  regs[PC].high = read8(regs[SP].full);
+  ++regs[SP].full;
+
+  cycle += 4;
+}
+
 // ================ CARRY FLAG INSTRUCTIONS ================
 
 void ccf() {

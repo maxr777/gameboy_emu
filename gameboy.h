@@ -251,6 +251,7 @@ void jr_cc_n16(const int flag, const bool flag_state, const int8_t offset);
 void rst(const uint8_t vec);
 void ret();
 void ret_cc(const int flag, const bool flag_state);
+void reti();
 
 // CARRY FLAG INSTRUCTIONS
 void ccf();

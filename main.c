@@ -1226,6 +1226,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RET C");
         ret_cc(C, true);
         break;
+      case 0xD9:
+        debug_print(byte, "RETI");
+        reti();
+        break;
       case 0xDA: {
         debug_print(byte, "JP C, n16");
         uint16_t n16;
