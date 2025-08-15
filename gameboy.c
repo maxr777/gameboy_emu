@@ -688,6 +688,19 @@ void ret() {
   cycle += 4;
 }
 
+void ret_cc(const int flag, const bool flag_state) {
+  if (get_flag(flag) == flag_state) {
+    regs[PC].low = read8(regs[SP].full);
+    ++regs[SP].full;
+    regs[PC].high = read8(regs[SP].full);
+    ++regs[SP].full;
+    cycle += 5;
+  } else {
+    regs[PC].full += 1;
+    cycle += 2;
+  }
+}
+
 // ================ CARRY FLAG INSTRUCTIONS ================
 
 void ccf() {

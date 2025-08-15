@@ -1154,6 +1154,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "CP A, A");
         cp_A_r8(regs[AF].high);
         break;
+      case 0xC0:
+        debug_print(byte, "RET NZ");
+        ret_cc(Z, false);
+        break;
       case 0xC1:
         debug_print(byte, "POP BC");
         pop_r16(&regs[BC].full);
@@ -1176,6 +1180,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RST $00");
         rst(0x00);
         break;
+      case 0xC8:
+        debug_print(byte, "RET Z");
+        ret_cc(Z, true);
+        break;
       case 0xC9:
         debug_print(byte, "RET");
         ret();
@@ -1196,6 +1204,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RST $08");
         rst(0x08);
         break;
+      case 0xD0:
+        debug_print(byte, "RET NC");
+        ret_cc(C, false);
+        break;
       case 0xD1:
         debug_print(byte, "POP DE");
         pop_r16(&regs[DE].full);
@@ -1210,6 +1222,10 @@ int main(int argc, char *argv[]) {
       case 0xD7:
         debug_print(byte, "RST $10");
         rst(0x10);
+        break;
+      case 0xD8:
+        debug_print(byte, "RET C");
+        ret_cc(C, true);
         break;
       case 0xDA: {
         debug_print(byte, "JP C, n16");
