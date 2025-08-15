@@ -298,6 +298,10 @@ void ldh_addr16_A(const uint16_t addr) {
 }
 
 void ldh_aC_A() {
+  write8(0xFF00 + regs[BC].low, regs[AF].high);
+
+  regs[PC].full += 1;
+  cycle += 2;
 }
 
 void ld_A_a16(uint16_t addr) {

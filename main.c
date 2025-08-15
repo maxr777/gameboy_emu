@@ -1295,6 +1295,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "POP HL");
         pop_r16(&regs[HL].full);
         break;
+      case 0xE2:
+        debug_print(byte, "LDH [C], A");
+        ldh_aC_A();
+        break;
       case 0xE5:
         debug_print(byte, "PUSH HL");
         push_r16(regs[HL].full);
