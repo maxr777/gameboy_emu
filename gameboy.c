@@ -812,7 +812,17 @@ void ld_addr16_SP(const uint16_t addr) {
   cycle += 5;
 }
 
-void ld_aHL_SPe8();
+void ld_HL_SPe8(const int8_t val) {
+  set_flag(Z, false);
+  set_flag(N, false);
+  (regs[SP].full & 0x000F) + (val & 0x0F) > 0x000F ? set_flag(H, true) : set_flag(H, false);
+  (regs[SP].full & 0x00FF) + (val & 0xFF) > 0x00FF ? set_flag(C, true) : set_flag(C, false);
+
+  regs[HL].full = regs[SP].full + val;
+
+  regs[PC].full += 2;
+  cycle += 3;
+}
 
 void ld_SP_HL() {
   regs[SP].full = regs[HL].full;

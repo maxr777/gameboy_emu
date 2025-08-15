@@ -1349,6 +1349,12 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RST $30");
         rst(0x30);
         break;
+      case 0xF8: {
+        debug_print(byte, "LD HL, SP+n8");
+        int8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        ld_HL_SPe8(n8);
+      } break;
       case 0xF9:
         debug_print(byte, "LD SP, HL");
         ld_SP_HL();

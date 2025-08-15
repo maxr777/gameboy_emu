@@ -260,7 +260,7 @@ void scf();
 void pop_r16(uint16_t *src);
 void push_r16(const uint16_t src);
 void ld_addr16_SP(const uint16_t addr);
-void ld_aHL_SPe8();
+void ld_HL_SPe8(const int8_t val);
 void ld_SP_HL();
 
 // INTERRUPTS
