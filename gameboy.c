@@ -86,6 +86,16 @@ uint8_t mcb1_read(const uint16_t addr) {
   return 0;
 }
 
+// ================ ROM STUFF ================
+
+bool ime = false;
+// Since EI (ime = true instruction) works after a 1 instruction long delay, there is a need for a counter.
+// If 1, then decrement.
+// If 0, then decrement and set ime to true.
+// If -1, then do nothing.
+// The default state is -1. When EI gets called, it gets set to 1 and decrements from there.
+int ime_enable_counter = -1;
+
 // ================ HELPER FUNCTIONS ================
 
 bool get_flag(const int flag) {
@@ -736,10 +746,22 @@ void pop_r16(uint16_t *src) {
 
 // ================ INTERRUPTS ================
 
-void int_di();
-void int_ei();
+void di() {
+  ime = false;
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
+void ei() {
+  ime_enable_counter = 1;
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 // TODO: implement this one, since it's already used in main.c
-void int_halt();
+void halt();
 
 // ================ MISC ================
 

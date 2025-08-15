@@ -892,7 +892,6 @@ int main(int argc, char *argv[]) {
         break;
       case 0x76:
         debug_print(byte, "HALT (todo)");
-        // int_halt();
         break;
       case 0x77:
         debug_print(byte, "LD [HL], A");
@@ -1258,9 +1257,17 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "POP AF");
         pop_r16(&regs[AF].full);
         break;
+      case 0xF3:
+        debug_print(byte, "DI");
+        di();
+        break;
       case 0xF7:
         debug_print(byte, "RST $30");
         rst(0x30);
+        break;
+      case 0xFB:
+        debug_print(byte, "EI");
+        ei();
         break;
       case 0xFF:
         debug_print(byte, "RST $38");
@@ -1273,6 +1280,19 @@ int main(int argc, char *argv[]) {
         break;
       }
     }
+
+    switch (ime_enable_counter) {
+    case 1:
+      --ime_enable_counter;
+      break;
+    case 0:
+      --ime_enable_counter;
+      ime = true;
+      break;
+    default:
+      break;
+    }
+
     if (cycle >= 100000)
       running = false;
   }

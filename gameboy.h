@@ -170,6 +170,11 @@ void mcb1_write(const uint16_t addr, const uint8_t val);
 uint8_t rom_read(const uint16_t addr);
 uint8_t mcb1_read(const uint16_t addr);
 
+// ================ INTERRUPT STUFF ================
+
+extern bool ime;
+extern int ime_enable_counter;
+
 // ================ HELPER FUNCTIONS ================
 
 bool get_flag(const int flag);
@@ -255,9 +260,9 @@ void scf();
 void pop_r16(uint16_t *src);
 
 // INTERRUPTS
-void int_di();
-void int_ei();
-void int_halt();
+void di();
+void ei();
+void halt();
 
 // MISC
 void daa();
