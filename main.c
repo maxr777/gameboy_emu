@@ -1349,6 +1349,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RST $30");
         rst(0x30);
         break;
+      case 0xF9:
+        debug_print(byte, "LD SP, HL");
+        ld_SP_HL();
+        break;
       case 0xFA: {
         debug_print(byte, "LD A, [n16]");
         uint16_t n16;

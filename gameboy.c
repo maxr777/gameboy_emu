@@ -365,16 +365,6 @@ void ld_A_aHLd() {
   cycle += 2;
 }
 
-void ld_addr16_SP(const uint16_t addr) {
-  write16(addr, regs[SP].full);
-
-  regs[PC].full += 3;
-  cycle += 5;
-}
-
-void ld_aHL_SPe8();
-void ld_SP_aHL();
-
 // ================ 8-BIT ARITHMETIC ================
 
 void add_A_r8(const uint8_t src) {
@@ -813,6 +803,22 @@ void push_r16(const uint16_t src) {
 
   regs[PC].full += 1;
   cycle += 4;
+}
+
+void ld_addr16_SP(const uint16_t addr) {
+  write16(addr, regs[SP].full);
+
+  regs[PC].full += 3;
+  cycle += 5;
+}
+
+void ld_aHL_SPe8();
+
+void ld_SP_HL() {
+  regs[SP].full = regs[HL].full;
+
+  regs[PC].full += 1;
+  cycle += 2;
 }
 
 // ================ INTERRUPTS ================

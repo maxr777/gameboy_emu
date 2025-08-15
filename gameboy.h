@@ -206,9 +206,6 @@ void ld_aHLi_A();
 void ld_aHLd_A();
 void ld_A_aHLi();
 void ld_A_aHLd();
-void ld_addr16_SP(const uint16_t addr);
-void ld_aHL_SPe8();
-void ld_SP_aHL();
 
 // 8-BIT ARITHMETIC
 void add_A_r8(const uint8_t src);
@@ -262,6 +259,9 @@ void scf();
 // STACK INSTRUCTIONS
 void pop_r16(uint16_t *src);
 void push_r16(const uint16_t src);
+void ld_addr16_SP(const uint16_t addr);
+void ld_aHL_SPe8();
+void ld_SP_HL();
 
 // INTERRUPTS
 void di();
