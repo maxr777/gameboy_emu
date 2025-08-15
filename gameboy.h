@@ -244,6 +244,10 @@ void jr_cc_n16(const int flag, const bool flag_state, const int8_t offset);
 void rst(const uint8_t vec);
 void ret();
 
+// CARRY FLAG INSTRUCTIONS
+void ccf();
+void scf();
+
 // STACK INSTRUCTIONS
 void pop_r16(uint16_t *src);
 

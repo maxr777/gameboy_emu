@@ -640,6 +640,26 @@ void ret() {
   cycle += 4;
 }
 
+// ================ CARRY FLAG INSTRUCTIONS ================
+
+void ccf() {
+  set_flag(N, false);
+  set_flag(H, false);
+  get_flag(C) ? set_flag(C, false) : set_flag(C, true);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
+void scf() {
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, true);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 // ================ STACK INSTRUCTIONS ================
 
 void pop_r16(uint16_t *src) {

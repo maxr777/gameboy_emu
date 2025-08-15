@@ -604,6 +604,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_aHL_n8(n8);
       } break;
+      case 0x37:
+        debug_print(byte, "SCF");
+        scf();
+        break;
       case 0x38: {
         debug_print(byte, "JR C, n16");
         int8_t offset;
@@ -637,6 +641,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[AF].high, n8);
       } break;
+      case 0x3F:
+        debug_print(byte, "CCF");
+        ccf();
+        break;
       case 0x40:
         debug_print(byte, "LD B, B");
         ld_r8_r8(&regs[BC].high, regs[BC].high);
