@@ -313,7 +313,13 @@ void ld_A_a16(uint16_t addr) {
 
 void ld_A_addr16(uint16_t addr);
 void ldh_A_addr16(uint16_t addr);
-void ldh_A_aC();
+
+void ldh_A_aC() {
+  regs[AF].high = read8(0xFF00 + regs[BC].low);
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
 
 void ld_aHLi_A() {
   write8(regs[HL].full, regs[AF].high);

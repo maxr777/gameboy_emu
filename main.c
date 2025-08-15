@@ -1326,6 +1326,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "POP AF");
         pop_r16(&regs[AF].full);
         break;
+      case 0xF2:
+        debug_print(byte, "LDH A, [C]");
+        ldh_A_aC();
+        break;
       case 0xF3:
         debug_print(byte, "DI");
         di();
