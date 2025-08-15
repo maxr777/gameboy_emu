@@ -518,6 +518,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[DE].low, n8);
       } break;
+      case 0x1F:
+        debug_print(byte, "RRA");
+        rra();
+        break;
       case 0x20: {
         debug_print(byte, "JR NZ, n16");
         int8_t offset;
