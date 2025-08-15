@@ -259,6 +259,7 @@ void scf();
 
 // STACK INSTRUCTIONS
 void pop_r16(uint16_t *src);
+void push_r16(const uint16_t src);
 
 // INTERRUPTS
 void di();

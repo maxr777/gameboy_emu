@@ -1175,6 +1175,10 @@ int main(int argc, char *argv[]) {
         jp_n16(n16);
         break;
       }
+      case 0xC5:
+        debug_print(byte, "PUSH BC");
+        push_r16(regs[BC].full);
+        break;
       case 0xC7:
         debug_print(byte, "RST $00");
         rst(0x00);
@@ -1218,6 +1222,10 @@ int main(int argc, char *argv[]) {
         jp_cc_n16(C, false, n16);
         break;
       }
+      case 0xD5:
+        debug_print(byte, "PUSH DE");
+        push_r16(regs[DE].full);
+        break;
       case 0xD7:
         debug_print(byte, "RST $10");
         rst(0x10);
@@ -1245,6 +1253,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "POP HL");
         pop_r16(&regs[HL].full);
         break;
+      case 0xE5:
+        debug_print(byte, "PUSH HL");
+        push_r16(regs[HL].full);
+        break;
       case 0xE7:
         debug_print(byte, "RST $20");
         rst(0x20);
@@ -1264,6 +1276,10 @@ int main(int argc, char *argv[]) {
       case 0xF3:
         debug_print(byte, "DI");
         di();
+        break;
+      case 0xF5:
+        debug_print(byte, "PUSH AF");
+        push_r16(regs[AF].full);
         break;
       case 0xF7:
         debug_print(byte, "RST $30");

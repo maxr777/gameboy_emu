@@ -745,14 +745,19 @@ void scf() {
 // ================ STACK INSTRUCTIONS ================
 
 void pop_r16(uint16_t *src) {
-  uint8_t low = read8(regs[SP].full);
-  ++regs[SP].full;
-  uint8_t high = read8(regs[SP].full);
-  ++regs[SP].full;
-  *src = low | (high << 8);
+  *src = read16(regs[SP].full);
+  regs[SP].full += 2;
 
   regs[PC].full += 1;
   cycle += 3;
+}
+
+void push_r16(const uint16_t src) {
+  regs[SP].full -= 2;
+  write16(regs[SP].full, src);
+
+  regs[PC].full += 1;
+  cycle += 4;
 }
 
 // ================ INTERRUPTS ================
