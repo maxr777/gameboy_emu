@@ -1322,6 +1322,13 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RST $28");
         rst(0x28);
         break;
+      case 0xF0: {
+        debug_print(byte, "LDH A, [n16]");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        ldh_A_addr16(n16);
+        break;
+      }
       case 0xF1:
         debug_print(byte, "POP AF");
         pop_r16(&regs[AF].full);
@@ -1342,6 +1349,13 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RST $30");
         rst(0x30);
         break;
+      case 0xFA: {
+        debug_print(byte, "LD A, [n16]");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        ld_A_addr16(n16);
+        break;
+      }
       case 0xFB:
         debug_print(byte, "EI");
         ei();

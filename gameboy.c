@@ -311,8 +311,20 @@ void ld_A_a16(uint16_t addr) {
   cycle += 2;
 }
 
-void ld_A_addr16(uint16_t addr);
-void ldh_A_addr16(uint16_t addr);
+void ld_A_addr16(uint16_t addr) {
+  regs[AF].high = read8(addr);
+
+  regs[PC].full += 3;
+  cycle += 4;
+}
+
+void ldh_A_addr16(const uint16_t addr) {
+  if (addr >= 0xFF00 && addr <= 0xFFFF)
+    regs[AF].high = read8(addr);
+
+  regs[PC].full += 2;
+  cycle += 3;
+}
 
 void ldh_A_aC() {
   regs[AF].high = read8(0xFF00 + regs[BC].low);
