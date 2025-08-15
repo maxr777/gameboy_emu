@@ -449,6 +449,10 @@ int main(int argc, char *argv[]) {
         memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
         ld_r8_n8(&regs[BC].low, n8);
       } break;
+      case 0x0F:
+        debug_print(byte, "RRCA");
+        rrca();
+        break;
       case 0x11: {
         debug_print(byte, "LD DE, n16");
         uint16_t n16;

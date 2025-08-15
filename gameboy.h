@@ -234,6 +234,7 @@ void bit_u3_aHL(const int bit_num);
 // BIT SHIFTS
 void rla();
 void rlca();
+void rrca();
 
 // JUMPS
 void jp_n16(const uint16_t addr);

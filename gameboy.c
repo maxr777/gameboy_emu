@@ -587,6 +587,24 @@ void rlca() {
   cycle += 1;
 }
 
+void rrca() {
+  set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+
+  bool carry = (regs[AF].high & 0x01) == 0x01;
+  set_flag(C, carry);
+
+  regs[AF].high >>= 1;
+  if (carry)
+    regs[AF].high |= (1 << 7);
+  else
+    regs[AF].high &= ~(1 << 7);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 // ================ JUMPS ================
 
 void jp_n16(const uint16_t addr) {
