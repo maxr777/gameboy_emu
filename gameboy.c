@@ -605,14 +605,18 @@ void jp_aHL() {
   cycle += 1;
 }
 
-// TODO
-void jr_n16(uint16_t dest) {
+// Naming might be weird but that's how it's named in rgbds, so I went
+// with that for consistency (it's easier to search in the docs this way).
+// It's n16 because it jumps to address n16, but it uses an 8-bit offset instead.
+void jr_n16(const int8_t offset) {
+  regs[PC].full += 2;
+  regs[PC].full += offset;
   cycle += 3;
 }
 
-// naming might be weird but that's how it's named in rgbds, so I went
-// with that for consistency (it's easier to search in the docs this way)
-// it's n16 because it jumps to address n16, but it uses an 8-bit offset instead
+// Naming might be weird but that's how it's named in rgbds, so I went
+// with that for consistency (it's easier to search in the docs this way).
+// It's n16 because it jumps to address n16, but it uses an 8-bit offset instead.
 void jr_cc_n16(const int flag, const bool flag_state, const int8_t offset) {
   regs[PC].full += 2;
   if (get_flag(flag) == flag_state) {

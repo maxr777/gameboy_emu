@@ -417,6 +417,12 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RLCA");
         rlca();
         break;
+      case 0x08: {
+        debug_print(byte, "LD [n16], SP");
+        uint16_t n16;
+        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        ld_addr16_SP(n16);
+      } break;
       case 0x09:
         debug_print(byte, "ADD HL, BC");
         add_HL_r16(regs[BC].full);
@@ -471,6 +477,13 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RLA");
         rla();
         break;
+      case 0x18: {
+        debug_print(byte, "JR n16");
+        int8_t offset;
+        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        jr_n16(offset);
+        break;
+      }
       case 0x19:
         debug_print(byte, "ADD HL, DE");
         add_HL_r16(regs[DE].full);
