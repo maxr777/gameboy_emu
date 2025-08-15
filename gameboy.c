@@ -662,6 +662,29 @@ void int_halt();
 
 // ================ MISC ================
 
+void daa() {
+  uint8_t adj = 0;
+  bool sub = get_flag(N), hcarry = get_flag(H), carry = get_flag(C);
+
+  if (sub) {
+    if (hcarry) adj += 0x06;
+    if (carry) adj += 0x60;
+    adj > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+    regs[AF].high -= adj;
+  } else {
+    if (hcarry || (regs[AF].high & 0x0F) > 0x09) adj += 0x06;
+    if (carry || regs[AF].high > 0x99) adj += 0x60;
+    regs[AF].high + adj < regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+    regs[AF].high += adj;
+  }
+
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(H, false);
+
+  regs[PC].full += 1;
+  cycle += 1;
+}
+
 void nop() {
   regs[PC].full += 1;
   cycle += 1;

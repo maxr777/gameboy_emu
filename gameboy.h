@@ -253,6 +253,7 @@ void int_ei();
 void int_halt();
 
 // MISC
+void daa();
 void nop();
 
 #endif
