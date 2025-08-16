@@ -1300,6 +1300,13 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "PUSH DE");
         push_r16(regs[DE].full);
         break;
+      case 0xD6: {
+        debug_print(byte, "SUB A, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        sub_A_n8(n8);
+        break;
+      }
       case 0xD7:
         debug_print(byte, "RST $10");
         rst(0x10);
@@ -1324,6 +1331,13 @@ int main(int argc, char *argv[]) {
         uint16_t n16;
         memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
         call_cc_n16(C, true, n16);
+        break;
+      }
+      case 0xDE: {
+        debug_print(byte, "SBC A, n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        sbc_A_n8(n8);
         break;
       }
       case 0xDF:
