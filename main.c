@@ -1145,6 +1145,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "OR A, L");
         or_A_r8(regs[HL].low);
         break;
+      case 0xB6:
+        debug_print(byte, "OR A, [HL]");
+        or_A_aHL();
+        break;
       case 0xB7:
         debug_print(byte, "OR A, A");
         or_A_r8(regs[AF].high);
@@ -1172,6 +1176,10 @@ int main(int argc, char *argv[]) {
       case 0xBD:
         debug_print(byte, "CP A, L");
         cp_A_r8(regs[HL].low);
+        break;
+      case 0xBE:
+        debug_print(byte, "CP A, [HL]");
+        cp_A_aHL();
         break;
       case 0xBF:
         debug_print(byte, "CP A, A");
