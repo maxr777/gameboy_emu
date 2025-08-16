@@ -288,5 +288,6 @@ void halt();
 // MISC
 void daa();
 void nop();
+void stop_n8(const uint8_t val);
 
 #endif

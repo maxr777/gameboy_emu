@@ -453,6 +453,12 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RRCA");
         rrca();
         break;
+      case 0x10: {
+        debug_print(byte, "STOP n8");
+        uint8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        stop_n8(n8);
+      } break;
       case 0x11: {
         debug_print(byte, "LD DE, n16");
         uint16_t n16;
@@ -891,7 +897,8 @@ int main(int argc, char *argv[]) {
         ld_aHL_r8(regs[HL].low);
         break;
       case 0x76:
-        debug_print(byte, "HALT (todo)");
+        debug_print(byte, "HALT");
+        halt();
         break;
       case 0x77:
         debug_print(byte, "LD [HL], A");
@@ -1465,7 +1472,7 @@ int main(int argc, char *argv[]) {
         rst(0x38);
         break;
       default:
-        debug_print(byte, "UNKNOWN");
+        debug_print(byte, "INVALID OPCODE");
         regs[PC].full += 1;
         cycle += 1;
         break;

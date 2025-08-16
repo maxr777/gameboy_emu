@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <unistd.h>
 
 // ================ HARDWARE ================
 
@@ -1067,8 +1068,12 @@ void ei() {
   cycle += 1;
 }
 
-// TODO: implement this one, since it's already used in main.c
-void halt();
+void halt() {
+  fprintf(stderr, "halt() is a stub - TODO implementation\n");
+  usleep(1000); // 1ms
+
+  regs[PC].full += 1;
+}
 
 // ================ MISC ================
 
@@ -1098,4 +1103,11 @@ void daa() {
 void nop() {
   regs[PC].full += 1;
   cycle += 1;
+}
+
+void stop_n8(const uint8_t val) {
+  fprintf(stderr, "stop() is a stub - TODO implementation\n");
+  usleep(1000000); // 1s
+
+  regs[PC].full += 2;
 }
