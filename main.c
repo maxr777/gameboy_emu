@@ -1081,6 +1081,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "AND A, L");
         and_A_r8(regs[HL].low);
         break;
+      case 0xA6:
+        debug_print(byte, "AND A, [HL]");
+        and_A_aHL();
+        break;
       case 0xA7:
         debug_print(byte, "AND A, A");
         and_A_r8(regs[AF].high);
@@ -1108,6 +1112,10 @@ int main(int argc, char *argv[]) {
       case 0xAD:
         debug_print(byte, "XOR A, L");
         xor_A_r8(regs[HL].low);
+        break;
+      case 0xAE:
+        debug_print(byte, "XOR A, [HL]");
+        xor_A_aHL();
         break;
       case 0xAF:
         debug_print(byte, "XOR A, A");

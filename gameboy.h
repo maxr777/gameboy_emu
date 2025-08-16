@@ -229,9 +229,11 @@ void inc_r16(uint16_t *dest);
 
 // BITWISE LOGIC
 void and_A_r8(const uint8_t src);
+void and_A_aHL();
 void or_A_r8(const uint8_t src);
 void cpl();
 void xor_A_r8(const uint8_t src);
+void xor_A_aHL();
 
 // BIT FLAGS
 void bit_u3_r8(const int bit_num, const uint8_t src);

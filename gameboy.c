@@ -579,6 +579,19 @@ void and_A_r8(const uint8_t src) {
   cycle += 1;
 }
 
+void and_A_aHL() {
+  uint8_t val = read8(regs[HL].full);
+  regs[AF].high &= val;
+
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, true);
+  set_flag(C, false);
+
+  regs[PC].full += 1;
+  cycle += 2;
+}
+
 void or_A_r8(const uint8_t src) {
   regs[AF].high |= src;
 
@@ -611,6 +624,19 @@ void xor_A_r8(const uint8_t src) {
 
   regs[PC].full += 1;
   cycle += 1;
+}
+
+void xor_A_aHL() {
+  uint8_t val = read8(regs[HL].full);
+  regs[AF].high ^= val;
+
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, false);
+
+  regs[PC].full += 1;
+  cycle += 2;
 }
 
 // ================ BIT FLAGS ================
