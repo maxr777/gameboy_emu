@@ -627,6 +627,262 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RES 7, A");
         res_u3_r8(7, &regs[AF].high);
         break;
+      case 0xC0:
+        debug_print(byte, "SET 0, B");
+        set_u3_r8(0, &regs[BC].high);
+        break;
+      case 0xC1:
+        debug_print(byte, "SET 0, C");
+        set_u3_r8(0, &regs[BC].low);
+        break;
+      case 0xC2:
+        debug_print(byte, "SET 0, D");
+        set_u3_r8(0, &regs[DE].high);
+        break;
+      case 0xC3:
+        debug_print(byte, "SET 0, E");
+        set_u3_r8(0, &regs[DE].low);
+        break;
+      case 0xC4:
+        debug_print(byte, "SET 0, H");
+        set_u3_r8(0, &regs[HL].high);
+        break;
+      case 0xC5:
+        debug_print(byte, "SET 0, L");
+        set_u3_r8(0, &regs[HL].low);
+        break;
+      case 0xC6:
+        debug_print(byte, "SET 0, [HL]");
+        set_u3_aHL(0);
+        break;
+      case 0xC7:
+        debug_print(byte, "SET 0, A");
+        set_u3_r8(0, &regs[AF].high);
+        break;
+      case 0xC8:
+        debug_print(byte, "SET 1, B");
+        set_u3_r8(1, &regs[BC].high);
+        break;
+      case 0xC9:
+        debug_print(byte, "SET 1, C");
+        set_u3_r8(1, &regs[BC].low);
+        break;
+      case 0xCA:
+        debug_print(byte, "SET 1, D");
+        set_u3_r8(1, &regs[DE].high);
+        break;
+      case 0xCB:
+        debug_print(byte, "SET 1, E");
+        set_u3_r8(1, &regs[DE].low);
+        break;
+      case 0xCC:
+        debug_print(byte, "SET 1, H");
+        set_u3_r8(1, &regs[HL].high);
+        break;
+      case 0xCD:
+        debug_print(byte, "SET 1, L");
+        set_u3_r8(1, &regs[HL].low);
+        break;
+      case 0xCE:
+        debug_print(byte, "SET 1, [HL]");
+        set_u3_aHL(1);
+        break;
+      case 0xCF:
+        debug_print(byte, "SET 1, A");
+        set_u3_r8(1, &regs[AF].high);
+        break;
+      case 0xD0:
+        debug_print(byte, "SET 2, B");
+        set_u3_r8(2, &regs[BC].high);
+        break;
+      case 0xD1:
+        debug_print(byte, "SET 2, C");
+        set_u3_r8(2, &regs[BC].low);
+        break;
+      case 0xD2:
+        debug_print(byte, "SET 2, D");
+        set_u3_r8(2, &regs[DE].high);
+        break;
+      case 0xD3:
+        debug_print(byte, "SET 2, E");
+        set_u3_r8(2, &regs[DE].low);
+        break;
+      case 0xD4:
+        debug_print(byte, "SET 2, H");
+        set_u3_r8(2, &regs[HL].high);
+        break;
+      case 0xD5:
+        debug_print(byte, "SET 2, L");
+        set_u3_r8(2, &regs[HL].low);
+        break;
+      case 0xD6:
+        debug_print(byte, "SET 2, [HL]");
+        set_u3_aHL(2);
+        break;
+      case 0xD7:
+        debug_print(byte, "SET 2, A");
+        set_u3_r8(2, &regs[AF].high);
+        break;
+      case 0xD8:
+        debug_print(byte, "SET 3, B");
+        set_u3_r8(3, &regs[BC].high);
+        break;
+      case 0xD9:
+        debug_print(byte, "SET 3, C");
+        set_u3_r8(3, &regs[BC].low);
+        break;
+      case 0xDA:
+        debug_print(byte, "SET 3, D");
+        set_u3_r8(3, &regs[DE].high);
+        break;
+      case 0xDB:
+        debug_print(byte, "SET 3, E");
+        set_u3_r8(3, &regs[DE].low);
+        break;
+      case 0xDC:
+        debug_print(byte, "SET 3, H");
+        set_u3_r8(3, &regs[HL].high);
+        break;
+      case 0xDD:
+        debug_print(byte, "SET 3, L");
+        set_u3_r8(3, &regs[HL].low);
+        break;
+      case 0xDE:
+        debug_print(byte, "SET 3, [HL]");
+        set_u3_aHL(3);
+        break;
+      case 0xDF:
+        debug_print(byte, "SET 3, A");
+        set_u3_r8(3, &regs[AF].high);
+        break;
+      case 0xE0:
+        debug_print(byte, "SET 4, B");
+        set_u3_r8(4, &regs[BC].high);
+        break;
+      case 0xE1:
+        debug_print(byte, "SET 4, C");
+        set_u3_r8(4, &regs[BC].low);
+        break;
+      case 0xE2:
+        debug_print(byte, "SET 4, D");
+        set_u3_r8(4, &regs[DE].high);
+        break;
+      case 0xE3:
+        debug_print(byte, "SET 4, E");
+        set_u3_r8(4, &regs[DE].low);
+        break;
+      case 0xE4:
+        debug_print(byte, "SET 4, H");
+        set_u3_r8(4, &regs[HL].high);
+        break;
+      case 0xE5:
+        debug_print(byte, "SET 4, L");
+        set_u3_r8(4, &regs[HL].low);
+        break;
+      case 0xE6:
+        debug_print(byte, "SET 4, [HL]");
+        set_u3_aHL(4);
+        break;
+      case 0xE7:
+        debug_print(byte, "SET 4, A");
+        set_u3_r8(4, &regs[AF].high);
+        break;
+      case 0xE8:
+        debug_print(byte, "SET 5, B");
+        set_u3_r8(5, &regs[BC].high);
+        break;
+      case 0xE9:
+        debug_print(byte, "SET 5, C");
+        set_u3_r8(5, &regs[BC].low);
+        break;
+      case 0xEA:
+        debug_print(byte, "SET 5, D");
+        set_u3_r8(5, &regs[DE].high);
+        break;
+      case 0xEB:
+        debug_print(byte, "SET 5, E");
+        set_u3_r8(5, &regs[DE].low);
+        break;
+      case 0xEC:
+        debug_print(byte, "SET 5, H");
+        set_u3_r8(5, &regs[HL].high);
+        break;
+      case 0xED:
+        debug_print(byte, "SET 5, L");
+        set_u3_r8(5, &regs[HL].low);
+        break;
+      case 0xEE:
+        debug_print(byte, "SET 5, [HL]");
+        set_u3_aHL(5);
+        break;
+      case 0xEF:
+        debug_print(byte, "SET 5, A");
+        set_u3_r8(5, &regs[AF].high);
+        break;
+      case 0xF0:
+        debug_print(byte, "SET 6, B");
+        set_u3_r8(6, &regs[BC].high);
+        break;
+      case 0xF1:
+        debug_print(byte, "SET 6, C");
+        set_u3_r8(6, &regs[BC].low);
+        break;
+      case 0xF2:
+        debug_print(byte, "SET 6, D");
+        set_u3_r8(6, &regs[DE].high);
+        break;
+      case 0xF3:
+        debug_print(byte, "SET 6, E");
+        set_u3_r8(6, &regs[DE].low);
+        break;
+      case 0xF4:
+        debug_print(byte, "SET 6, H");
+        set_u3_r8(6, &regs[HL].high);
+        break;
+      case 0xF5:
+        debug_print(byte, "SET 6, L");
+        set_u3_r8(6, &regs[HL].low);
+        break;
+      case 0xF6:
+        debug_print(byte, "SET 6, [HL]");
+        set_u3_aHL(6);
+        break;
+      case 0xF7:
+        debug_print(byte, "SET 6, A");
+        set_u3_r8(6, &regs[AF].high);
+        break;
+      case 0xF8:
+        debug_print(byte, "SET 7, B");
+        set_u3_r8(7, &regs[BC].high);
+        break;
+      case 0xF9:
+        debug_print(byte, "SET 7, C");
+        set_u3_r8(7, &regs[BC].low);
+        break;
+      case 0xFA:
+        debug_print(byte, "SET 7, D");
+        set_u3_r8(7, &regs[DE].high);
+        break;
+      case 0xFB:
+        debug_print(byte, "SET 7, E");
+        set_u3_r8(7, &regs[DE].low);
+        break;
+      case 0xFC:
+        debug_print(byte, "SET 7, H");
+        set_u3_r8(7, &regs[HL].high);
+        break;
+      case 0xFD:
+        debug_print(byte, "SET 7, L");
+        set_u3_r8(7, &regs[HL].low);
+        break;
+      case 0xFE:
+        debug_print(byte, "SET 7, [HL]");
+        set_u3_aHL(7);
+        break;
+      case 0xFF:
+        debug_print(byte, "SET 7, A");
+        set_u3_r8(7, &regs[AF].high);
+        break;
       default:
         debug_print(byte, "UNKNOWN PREFIX");
         regs[PC].full += 2;

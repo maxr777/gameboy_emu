@@ -804,6 +804,22 @@ void res_u3_aHL(const int bit_num) {
   cycle += 4;
 }
 
+void set_u3_r8(const int bit_num, uint8_t *src) {
+  *src |= (1 << bit_num);
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void set_u3_aHL(const int bit_num) {
+  uint8_t val = read8(regs[HL].full);
+  val |= (1 << bit_num);
+  write8(regs[HL].full, val);
+
+  regs[PC].full += 2;
+  cycle += 4;
+}
+
 // ================ BIT SHIFTS ================
 
 void rla() {
