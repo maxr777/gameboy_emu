@@ -1363,6 +1363,12 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "PUSH HL");
         push_r16(regs[HL].full);
         break;
+      case 0xE6: {
+        debug_print(byte, "AND A, n8");
+        int8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        and_A_n8(n8);
+      } break;
       case 0xE7:
         debug_print(byte, "RST $20");
         rst(0x20);
@@ -1384,6 +1390,12 @@ int main(int argc, char *argv[]) {
         ld_addr16_A(n16);
         break;
       }
+      case 0xEE: {
+        debug_print(byte, "XOR A, n8");
+        int8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        xor_A_n8(n8);
+      } break;
       case 0xEF:
         debug_print(byte, "RST $28");
         rst(0x28);
