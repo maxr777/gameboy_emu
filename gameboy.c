@@ -369,9 +369,7 @@ void ld_A_aHLd() {
 
 void add_A_r8(const uint8_t src) {
   set_flag(N, false);
-
   (regs[AF].high & 0x0F) + (src & 0x0F) > 0x0F ? set_flag(H, true) : set_flag(H, false);
-
   (regs[AF].high + src) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += src;
@@ -379,6 +377,20 @@ void add_A_r8(const uint8_t src) {
 
   regs[PC].full += 1;
   cycle += 1;
+}
+
+void add_A_aHL() {
+  uint8_t val = read8(regs[HL].full);
+
+  set_flag(N, false);
+  (regs[AF].high & 0x0F) + (val & 0x0F) > 0x0F ? set_flag(H, true) : set_flag(H, false);
+  (regs[AF].high + val) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+
+  regs[AF].high += val;
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+
+  regs[PC].full += 1;
+  cycle += 2;
 }
 
 void adc_A_r8(const uint8_t src) {
@@ -393,6 +405,21 @@ void adc_A_r8(const uint8_t src) {
 
   regs[PC].full += 1;
   cycle += 1;
+}
+
+void adc_A_aHL() {
+  set_flag(N, false);
+  bool c = get_flag(C);
+  uint8_t val = read8(regs[HL].full);
+
+  (regs[AF].high & 0x0F) + (val & 0x0F) + c > 0x0F ? set_flag(H, true) : set_flag(H, false);
+  (uint16_t)regs[AF].high + val + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
+
+  regs[AF].high += val + c;
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+
+  regs[PC].full += 1;
+  cycle += 2;
 }
 
 void sub_A_r8(const uint8_t src) {
@@ -829,6 +856,18 @@ void ld_SP_HL() {
 
   regs[PC].full += 1;
   cycle += 2;
+}
+
+void add_SP_n8(const int8_t val) {
+  set_flag(Z, false);
+  set_flag(N, false);
+  (regs[SP].full & 0x000F) + (val & 0x0F) > 0x000F ? set_flag(H, true) : set_flag(H, false);
+  (regs[SP].full & 0x00FF) + (val & 0xFF) > 0x00FF ? set_flag(C, true) : set_flag(C, false);
+
+  regs[SP].full += val;
+
+  regs[PC].full += 2;
+  cycle += 4;
 }
 
 // ================ INTERRUPTS ================

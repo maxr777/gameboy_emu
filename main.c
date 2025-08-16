@@ -953,6 +953,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "ADD A, L");
         add_A_r8(regs[HL].low);
         break;
+      case 0x86:
+        debug_print(byte, "ADD A, [HL]");
+        add_A_aHL();
+        break;
       case 0x87:
         debug_print(byte, "ADD A, A");
         add_A_r8(regs[AF].high);
@@ -980,6 +984,10 @@ int main(int argc, char *argv[]) {
       case 0x8D:
         debug_print(byte, "ADC A, L");
         adc_A_r8(regs[HL].low);
+        break;
+      case 0x8E:
+        debug_print(byte, "ADC A, [HL]");
+        adc_A_aHL();
         break;
       case 0x8F:
         debug_print(byte, "ADC A, A");
@@ -1307,6 +1315,12 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RST $20");
         rst(0x20);
         break;
+      case 0xE8: {
+        debug_print(byte, "ADD SP, n8");
+        int8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        add_SP_n8(n8);
+      } break;
       case 0xE9:
         debug_print(byte, "JP HL");
         jp_aHL();
