@@ -393,6 +393,18 @@ void add_A_aHL() {
   cycle += 2;
 }
 
+void add_A_n8(const uint8_t val) {
+  set_flag(N, false);
+  (regs[AF].high & 0x0F) + (val & 0x0F) > 0x0F ? set_flag(H, true) : set_flag(H, false);
+  (regs[AF].high + val) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+
+  regs[AF].high += val;
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
 void adc_A_r8(const uint8_t src) {
   set_flag(N, false);
   bool c = get_flag(C);
@@ -419,6 +431,20 @@ void adc_A_aHL() {
   regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
 
   regs[PC].full += 1;
+  cycle += 2;
+}
+
+void adc_A_n8(const uint8_t val) {
+  set_flag(N, false);
+  bool c = get_flag(C);
+
+  (regs[AF].high & 0x0F) + (val & 0x0F) + c > 0x0F ? set_flag(H, true) : set_flag(H, false);
+  (uint16_t)regs[AF].high + val + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
+
+  regs[AF].high += val + c;
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+
+  regs[PC].full += 2;
   cycle += 2;
 }
 

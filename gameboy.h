@@ -210,8 +210,10 @@ void ld_A_aHLd();
 // 8-BIT ARITHMETIC
 void add_A_r8(const uint8_t src);
 void add_A_aHL();
+void add_A_n8(const uint8_t val);
 void adc_A_r8(const uint8_t src);
 void adc_A_aHL();
+void adc_A_n8(const uint8_t val);
 void sub_A_r8(const uint8_t src);
 void sub_A_aHL();
 void sbc_A_r8(const uint8_t src);
