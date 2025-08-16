@@ -90,8 +90,8 @@ int main(int argc, char *argv[]) {
   uint8_t byte = 0;
 
   // TODO: This is for testing only
-  regs[PC].full = 0x0100;
-  boot_rom_enabled = false;
+  // regs[PC].full = 0x0100;
+  // boot_rom_enabled = false;
 
   while (running) {
     while (SDL_PollEvent(&event)) {
@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
     if (boot_rom_enabled)
       byte = boot_rom[regs[PC].full];
     else
-      byte = game_rom[regs[PC].full];
+      byte = read8(regs[PC].full);
 
     // struct timespec delay = {0, 100000}; // 0 seconds, 100,000 nanoseconds (0.1ms)
     // nanosleep(&delay, NULL);
@@ -387,8 +387,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x01: {
         debug_print(byte, "LD BC, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         ld_r16_n16(&regs[BC].full, n16);
       } break;
       case 0x02:
@@ -409,8 +408,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x06: {
         debug_print(byte, "LD B, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         ld_r8_n8(&regs[BC].high, n8);
       } break;
       case 0x07:
@@ -419,8 +417,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x08: {
         debug_print(byte, "LD [n16], SP");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         ld_addr16_SP(n16);
       } break;
       case 0x09:
@@ -445,8 +442,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x0E: {
         debug_print(byte, "LD C, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         ld_r8_n8(&regs[BC].low, n8);
       } break;
       case 0x0F:
@@ -455,14 +451,12 @@ int main(int argc, char *argv[]) {
         break;
       case 0x10: {
         debug_print(byte, "STOP n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         stop_n8(n8);
       } break;
       case 0x11: {
         debug_print(byte, "LD DE, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         ld_r16_n16(&regs[DE].full, n16);
       } break;
       case 0x12:
@@ -483,8 +477,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x16: {
         debug_print(byte, "LD D, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         ld_r8_n8(&regs[DE].high, n8);
       } break;
       case 0x17:
@@ -493,8 +486,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x18: {
         debug_print(byte, "JR n16");
-        int8_t offset;
-        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        int8_t offset = (int8_t)read8(regs[PC].full + 1);
         jr_n16(offset);
         break;
       }
@@ -520,8 +512,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x1E: {
         debug_print(byte, "LD E, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         ld_r8_n8(&regs[DE].low, n8);
       } break;
       case 0x1F:
@@ -530,15 +521,13 @@ int main(int argc, char *argv[]) {
         break;
       case 0x20: {
         debug_print(byte, "JR NZ, n16");
-        int8_t offset;
-        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        int8_t offset = (int8_t)read8(regs[PC].full + 1);
         jr_cc_n16(Z, false, offset);
         break;
       }
       case 0x21: {
         debug_print(byte, "LD HL, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         ld_r16_n16(&regs[HL].full, n16);
       } break;
       case 0x22:
@@ -559,8 +548,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x26: {
         debug_print(byte, "LD H, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         ld_r8_n8(&regs[HL].high, n8);
       } break;
       case 0x27:
@@ -569,8 +557,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x28: {
         debug_print(byte, "JR Z, n16");
-        int8_t offset;
-        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        int8_t offset = (int8_t)read8(regs[PC].full + 1);
         jr_cc_n16(Z, true, offset);
         break;
       }
@@ -596,8 +583,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x2E: {
         debug_print(byte, "LD L, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         ld_r8_n8(&regs[HL].low, n8);
       } break;
       case 0x2F:
@@ -606,15 +592,13 @@ int main(int argc, char *argv[]) {
         break;
       case 0x30: {
         debug_print(byte, "JR NC, n16");
-        int8_t offset;
-        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        int8_t offset = (int8_t)read8(regs[PC].full + 1);
         jr_cc_n16(C, false, offset);
         break;
       }
       case 0x31: {
         debug_print(byte, "LD SP, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         ld_r16_n16(&regs[SP].full, n16);
       } break;
       case 0x32:
@@ -635,8 +619,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x36: {
         debug_print(byte, "LD [HL], n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         ld_aHL_n8(n8);
       } break;
       case 0x37:
@@ -645,8 +628,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x38: {
         debug_print(byte, "JR C, n16");
-        int8_t offset;
-        memcpy(&offset, &game_rom[regs[PC].full + 1], sizeof(offset));
+        int8_t offset = (int8_t)read8(regs[PC].full + 1);
         jr_cc_n16(C, true, offset);
         break;
       }
@@ -672,8 +654,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x3E: {
         debug_print(byte, "LD A, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         ld_r8_n8(&regs[AF].high, n8);
       } break;
       case 0x3F:
@@ -1202,22 +1183,19 @@ int main(int argc, char *argv[]) {
         break;
       case 0xC2: {
         debug_print(byte, "JP NZ, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         jp_cc_n16(Z, false, n16);
         break;
       }
       case 0xC3: {
         debug_print(byte, "JP n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         jp_n16(n16);
         break;
       }
       case 0xC4: {
         debug_print(byte, "CALL NZ, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         call_cc_n16(Z, false, n16);
         break;
       }
@@ -1227,8 +1205,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xC6: {
         debug_print(byte, "ADD A, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         add_A_n8(n8);
         break;
       }
@@ -1246,8 +1223,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xCA: {
         debug_print(byte, "JP Z, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         jp_cc_n16(Z, true, n16);
         break;
       }
@@ -1258,22 +1234,19 @@ int main(int argc, char *argv[]) {
         break;
       case 0xCC: {
         debug_print(byte, "CALL Z, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         call_cc_n16(Z, true, n16);
         break;
       }
       case 0xCD: {
         debug_print(byte, "CALL n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         call_n16(n16);
         break;
       }
       case 0xCE: {
         debug_print(byte, "ADC A, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         adc_A_n8(n8);
         break;
       }
@@ -1291,15 +1264,13 @@ int main(int argc, char *argv[]) {
         break;
       case 0xD2: {
         debug_print(byte, "JP NC, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         jp_cc_n16(C, false, n16);
         break;
       }
       case 0xD4: {
         debug_print(byte, "CALL NC, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         call_cc_n16(C, false, n16);
         break;
       }
@@ -1309,8 +1280,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xD6: {
         debug_print(byte, "SUB A, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         sub_A_n8(n8);
         break;
       }
@@ -1328,22 +1298,19 @@ int main(int argc, char *argv[]) {
         break;
       case 0xDA: {
         debug_print(byte, "JP C, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         jp_cc_n16(C, true, n16);
         break;
       }
       case 0xDC: {
         debug_print(byte, "CALL C, n16");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         call_cc_n16(C, true, n16);
         break;
       }
       case 0xDE: {
         debug_print(byte, "SBC A, n8");
-        uint8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        uint8_t n8 = read8(regs[PC].full + 1);
         sbc_A_n8(n8);
         break;
       }
@@ -1353,8 +1320,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xE0: {
         debug_print(byte, "LDH [n16], A");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         ldh_addr16_A(n16);
         break;
       }
@@ -1372,8 +1338,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xE6: {
         debug_print(byte, "AND A, n8");
-        int8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        int8_t n8 = (int8_t)read8(regs[PC].full + 1);
         and_A_n8(n8);
       } break;
       case 0xE7:
@@ -1382,8 +1347,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xE8: {
         debug_print(byte, "ADD SP, n8");
-        int8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        int8_t n8 = (int8_t)read8(regs[PC].full + 1);
         add_SP_n8(n8);
       } break;
       case 0xE9:
@@ -1392,15 +1356,13 @@ int main(int argc, char *argv[]) {
         break;
       case 0xEA: {
         debug_print(byte, "LD [n16], A");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         ld_addr16_A(n16);
         break;
       }
       case 0xEE: {
         debug_print(byte, "XOR A, n8");
-        int8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        int8_t n8 = (int8_t)read8(regs[PC].full + 1);
         xor_A_n8(n8);
       } break;
       case 0xEF:
@@ -1409,8 +1371,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xF0: {
         debug_print(byte, "LDH A, [n16]");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         ldh_A_addr16(n16);
         break;
       }
@@ -1432,8 +1393,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xF6: {
         debug_print(byte, "OR A, n8");
-        int8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        int8_t n8 = (int8_t)read8(regs[PC].full + 1);
         or_A_n8(n8);
       } break;
       case 0xF7:
@@ -1442,8 +1402,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xF8: {
         debug_print(byte, "LD HL, SP+n8");
-        int8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        int8_t n8 = (int8_t)read8(regs[PC].full + 1);
         ld_HL_SPe8(n8);
       } break;
       case 0xF9:
@@ -1452,8 +1411,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xFA: {
         debug_print(byte, "LD A, [n16]");
-        uint16_t n16;
-        memcpy(&n16, &game_rom[regs[PC].full + 1], sizeof(n16));
+        uint16_t n16 = read16(regs[PC].full + 1);
         ld_A_addr16(n16);
         break;
       }
@@ -1463,8 +1421,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0xFE: {
         debug_print(byte, "CP A, n8");
-        int8_t n8;
-        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        int8_t n8 = (int8_t)read8(regs[PC].full + 1);
         cp_A_n8(n8);
       } break;
       case 0xFF:
