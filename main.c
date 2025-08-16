@@ -1423,6 +1423,12 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "PUSH AF");
         push_r16(regs[AF].full);
         break;
+      case 0xF6: {
+        debug_print(byte, "OR A, n8");
+        int8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        or_A_n8(n8);
+      } break;
       case 0xF7:
         debug_print(byte, "RST $30");
         rst(0x30);
@@ -1448,6 +1454,12 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "EI");
         ei();
         break;
+      case 0xFE: {
+        debug_print(byte, "CP A, n8");
+        int8_t n8;
+        memcpy(&n8, &game_rom[regs[PC].full + 1], sizeof(n8));
+        cp_A_n8(n8);
+      } break;
       case 0xFF:
         debug_print(byte, "RST $38");
         rst(0x38);

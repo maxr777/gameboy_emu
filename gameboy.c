@@ -602,6 +602,18 @@ void cp_A_aHL() {
   cycle += 2;
 }
 
+void cp_A_n8(const uint8_t val) {
+  uint8_t result = regs[AF].high - val;
+
+  result == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, true);
+  val > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+  val > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
 // ================ 16-BIT ARITHMETIC ================
 
 void add_HL_r16(const uint16_t src) {
@@ -691,6 +703,18 @@ void or_A_aHL() {
   set_flag(C, false);
 
   regs[PC].full += 1;
+  cycle += 2;
+}
+
+void or_A_n8(const uint8_t val) {
+  regs[AF].high |= val;
+
+  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, false);
+
+  regs[PC].full += 2;
   cycle += 2;
 }
 

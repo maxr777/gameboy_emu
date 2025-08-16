@@ -226,6 +226,7 @@ void inc_r8(uint8_t *dest);
 void inc_aHL();
 void cp_A_r8(const uint8_t src);
 void cp_A_aHL();
+void cp_A_n8(const uint8_t val);
 
 // 16-BIT ARITHMETIC
 void add_HL_r16(const uint16_t src);
@@ -238,6 +239,7 @@ void and_A_aHL();
 void and_A_n8(const uint8_t val);
 void or_A_r8(const uint8_t src);
 void or_A_aHL();
+void or_A_n8(const uint8_t val);
 void cpl();
 void xor_A_r8(const uint8_t src);
 void xor_A_aHL();
