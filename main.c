@@ -1017,6 +1017,10 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "SUB A, L");
         sub_A_r8(regs[HL].low);
         break;
+      case 0x96:
+        debug_print(byte, "SUB A, [HL]");
+        sub_A_aHL();
+        break;
       case 0x97:
         debug_print(byte, "SUB A, A");
         sub_A_r8(regs[AF].high);
@@ -1044,6 +1048,10 @@ int main(int argc, char *argv[]) {
       case 0x9D:
         debug_print(byte, "SBC A, L");
         sbc_A_r8(regs[HL].low);
+        break;
+      case 0x9E:
+        debug_print(byte, "SBC A, [HL]");
+        sbc_A_aHL();
         break;
       case 0x9F:
         debug_print(byte, "SBC A, A");
