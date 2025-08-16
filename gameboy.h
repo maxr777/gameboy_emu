@@ -162,6 +162,7 @@ extern bool prefix;
 extern uint8_t *game_rom;
 extern size_t game_size;
 extern int current_rom_bank;
+extern bool boot_rom_enabled;
 extern uint8_t boot_rom[256];
 
 void rom_write(const uint16_t addr, const uint8_t val);

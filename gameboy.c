@@ -21,6 +21,8 @@ bool prefix = false;
 uint8_t *game_rom; // initialized in main.c
 size_t game_size;  // initialized in main.c
 
+bool boot_rom_enabled = true;
+
 // bootix bootrom: https://github.com/Hacktix/Bootix
 uint8_t boot_rom[256] = {
     0x31, 0xfe, 0xff, 0x21, 0xff, 0x9f, 0xaf, 0x32, 0xcb, 0x7c, 0x20, 0xfa,
@@ -69,6 +71,8 @@ void mcb1_write(const uint16_t addr, const uint8_t val) {
 }
 
 uint8_t rom_read(const uint16_t addr) {
+  if (boot_rom_enabled && addr <= 0x00FF)
+    return boot_rom[addr];
   switch (cartridge_header.cartridge_type) {
   case 0x00:
     return game_rom[addr];

@@ -6,3 +6,5 @@ SDL3-win/
 *.dll
 tests/
 output
+errors
+log
