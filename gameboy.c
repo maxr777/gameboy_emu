@@ -779,7 +779,6 @@ void bit_u3_r8(const int bit_num, const uint8_t src) {
 }
 
 void bit_u3_aHL(const int bit_num) {
-
   read8(regs[HL].full) & (1 << bit_num) ? set_flag(Z, false) : set_flag(Z, true);
 
   set_flag(N, false);
@@ -787,6 +786,22 @@ void bit_u3_aHL(const int bit_num) {
 
   regs[PC].full += 1;
   cycle += 2;
+}
+
+void res_u3_r8(const int bit_num, uint8_t *src) {
+  *src &= ~(1 << bit_num);
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void res_u3_aHL(const int bit_num) {
+  uint8_t val = read8(regs[HL].full);
+  val &= ~(1 << bit_num);
+  write8(regs[HL].full, val);
+
+  regs[PC].full += 2;
+  cycle += 4;
 }
 
 // ================ BIT SHIFTS ================

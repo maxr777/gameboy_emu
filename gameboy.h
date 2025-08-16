@@ -248,6 +248,8 @@ void xor_A_n8(const uint8_t val);
 // BIT FLAGS
 void bit_u3_r8(const int bit_num, const uint8_t src);
 void bit_u3_aHL(const int bit_num);
+void res_u3_r8(const int bit_num, uint8_t *src);
+void res_u3_aHL(const int bit_num);
 
 // BIT SHIFTS
 void rla();

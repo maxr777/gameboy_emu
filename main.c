@@ -371,6 +371,262 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "BIT 7, A");
         bit_u3_r8(7, regs[AF].high);
         break;
+      case 0x80:
+        debug_print(byte, "RES 0, B");
+        res_u3_r8(0, &regs[BC].high);
+        break;
+      case 0x81:
+        debug_print(byte, "RES 0, C");
+        res_u3_r8(0, &regs[BC].low);
+        break;
+      case 0x82:
+        debug_print(byte, "RES 0, D");
+        res_u3_r8(0, &regs[DE].high);
+        break;
+      case 0x83:
+        debug_print(byte, "RES 0, E");
+        res_u3_r8(0, &regs[DE].low);
+        break;
+      case 0x84:
+        debug_print(byte, "RES 0, H");
+        res_u3_r8(0, &regs[HL].high);
+        break;
+      case 0x85:
+        debug_print(byte, "RES 0, L");
+        res_u3_r8(0, &regs[HL].low);
+        break;
+      case 0x86:
+        debug_print(byte, "RES 0, [HL]");
+        res_u3_aHL(0);
+        break;
+      case 0x87:
+        debug_print(byte, "RES 0, A");
+        res_u3_r8(0, &regs[AF].high);
+        break;
+      case 0x88:
+        debug_print(byte, "RES 1, B");
+        res_u3_r8(1, &regs[BC].high);
+        break;
+      case 0x89:
+        debug_print(byte, "RES 1, C");
+        res_u3_r8(1, &regs[BC].low);
+        break;
+      case 0x8A:
+        debug_print(byte, "RES 1, D");
+        res_u3_r8(1, &regs[DE].high);
+        break;
+      case 0x8B:
+        debug_print(byte, "RES 1, E");
+        res_u3_r8(1, &regs[DE].low);
+        break;
+      case 0x8C:
+        debug_print(byte, "RES 1, H");
+        res_u3_r8(1, &regs[HL].high);
+        break;
+      case 0x8D:
+        debug_print(byte, "RES 1, L");
+        res_u3_r8(1, &regs[HL].low);
+        break;
+      case 0x8E:
+        debug_print(byte, "RES 1, [HL]");
+        res_u3_aHL(1);
+        break;
+      case 0x8F:
+        debug_print(byte, "RES 1, A");
+        res_u3_r8(1, &regs[AF].high);
+        break;
+      case 0x90:
+        debug_print(byte, "RES 2, B");
+        res_u3_r8(2, &regs[BC].high);
+        break;
+      case 0x91:
+        debug_print(byte, "RES 2, C");
+        res_u3_r8(2, &regs[BC].low);
+        break;
+      case 0x92:
+        debug_print(byte, "RES 2, D");
+        res_u3_r8(2, &regs[DE].high);
+        break;
+      case 0x93:
+        debug_print(byte, "RES 2, E");
+        res_u3_r8(2, &regs[DE].low);
+        break;
+      case 0x94:
+        debug_print(byte, "RES 2, H");
+        res_u3_r8(2, &regs[HL].high);
+        break;
+      case 0x95:
+        debug_print(byte, "RES 2, L");
+        res_u3_r8(2, &regs[HL].low);
+        break;
+      case 0x96:
+        debug_print(byte, "RES 2, [HL]");
+        res_u3_aHL(2);
+        break;
+      case 0x97:
+        debug_print(byte, "RES 2, A");
+        res_u3_r8(2, &regs[AF].high);
+        break;
+      case 0x98:
+        debug_print(byte, "RES 3, B");
+        res_u3_r8(3, &regs[BC].high);
+        break;
+      case 0x99:
+        debug_print(byte, "RES 3, C");
+        res_u3_r8(3, &regs[BC].low);
+        break;
+      case 0x9A:
+        debug_print(byte, "RES 3, D");
+        res_u3_r8(3, &regs[DE].high);
+        break;
+      case 0x9B:
+        debug_print(byte, "RES 3, E");
+        res_u3_r8(3, &regs[DE].low);
+        break;
+      case 0x9C:
+        debug_print(byte, "RES 3, H");
+        res_u3_r8(3, &regs[HL].high);
+        break;
+      case 0x9D:
+        debug_print(byte, "RES 3, L");
+        res_u3_r8(3, &regs[HL].low);
+        break;
+      case 0x9E:
+        debug_print(byte, "RES 3, [HL]");
+        res_u3_aHL(3);
+        break;
+      case 0x9F:
+        debug_print(byte, "RES 3, A");
+        res_u3_r8(3, &regs[AF].high);
+        break;
+      case 0xA0:
+        debug_print(byte, "RES 4, B");
+        res_u3_r8(4, &regs[BC].high);
+        break;
+      case 0xA1:
+        debug_print(byte, "RES 4, C");
+        res_u3_r8(4, &regs[BC].low);
+        break;
+      case 0xA2:
+        debug_print(byte, "RES 4, D");
+        res_u3_r8(4, &regs[DE].high);
+        break;
+      case 0xA3:
+        debug_print(byte, "RES 4, E");
+        res_u3_r8(4, &regs[DE].low);
+        break;
+      case 0xA4:
+        debug_print(byte, "RES 4, H");
+        res_u3_r8(4, &regs[HL].high);
+        break;
+      case 0xA5:
+        debug_print(byte, "RES 4, L");
+        res_u3_r8(4, &regs[HL].low);
+        break;
+      case 0xA6:
+        debug_print(byte, "RES 4, [HL]");
+        res_u3_aHL(4);
+        break;
+      case 0xA7:
+        debug_print(byte, "RES 4, A");
+        res_u3_r8(4, &regs[AF].high);
+        break;
+      case 0xA8:
+        debug_print(byte, "RES 5, B");
+        res_u3_r8(5, &regs[BC].high);
+        break;
+      case 0xA9:
+        debug_print(byte, "RES 5, C");
+        res_u3_r8(5, &regs[BC].low);
+        break;
+      case 0xAA:
+        debug_print(byte, "RES 5, D");
+        res_u3_r8(5, &regs[DE].high);
+        break;
+      case 0xAB:
+        debug_print(byte, "RES 5, E");
+        res_u3_r8(5, &regs[DE].low);
+        break;
+      case 0xAC:
+        debug_print(byte, "RES 5, H");
+        res_u3_r8(5, &regs[HL].high);
+        break;
+      case 0xAD:
+        debug_print(byte, "RES 5, L");
+        res_u3_r8(5, &regs[HL].low);
+        break;
+      case 0xAE:
+        debug_print(byte, "RES 5, [HL]");
+        res_u3_aHL(5);
+        break;
+      case 0xAF:
+        debug_print(byte, "RES 5, A");
+        res_u3_r8(5, &regs[AF].high);
+        break;
+      case 0xB0:
+        debug_print(byte, "RES 6, B");
+        res_u3_r8(6, &regs[BC].high);
+        break;
+      case 0xB1:
+        debug_print(byte, "RES 6, C");
+        res_u3_r8(6, &regs[BC].low);
+        break;
+      case 0xB2:
+        debug_print(byte, "RES 6, D");
+        res_u3_r8(6, &regs[DE].high);
+        break;
+      case 0xB3:
+        debug_print(byte, "RES 6, E");
+        res_u3_r8(6, &regs[DE].low);
+        break;
+      case 0xB4:
+        debug_print(byte, "RES 6, H");
+        res_u3_r8(6, &regs[HL].high);
+        break;
+      case 0xB5:
+        debug_print(byte, "RES 6, L");
+        res_u3_r8(6, &regs[HL].low);
+        break;
+      case 0xB6:
+        debug_print(byte, "RES 6, [HL]");
+        res_u3_aHL(6);
+        break;
+      case 0xB7:
+        debug_print(byte, "RES 6, A");
+        res_u3_r8(6, &regs[AF].high);
+        break;
+      case 0xB8:
+        debug_print(byte, "RES 7, B");
+        res_u3_r8(7, &regs[BC].high);
+        break;
+      case 0xB9:
+        debug_print(byte, "RES 7, C");
+        res_u3_r8(7, &regs[BC].low);
+        break;
+      case 0xBA:
+        debug_print(byte, "RES 7, D");
+        res_u3_r8(7, &regs[DE].high);
+        break;
+      case 0xBB:
+        debug_print(byte, "RES 7, E");
+        res_u3_r8(7, &regs[DE].low);
+        break;
+      case 0xBC:
+        debug_print(byte, "RES 7, H");
+        res_u3_r8(7, &regs[HL].high);
+        break;
+      case 0xBD:
+        debug_print(byte, "RES 7, L");
+        res_u3_r8(7, &regs[HL].low);
+        break;
+      case 0xBE:
+        debug_print(byte, "RES 7, [HL]");
+        res_u3_aHL(7);
+        break;
+      case 0xBF:
+        debug_print(byte, "RES 7, A");
+        res_u3_r8(7, &regs[AF].high);
+        break;
       default:
         debug_print(byte, "UNKNOWN PREFIX");
         regs[PC].full += 2;
