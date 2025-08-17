@@ -1009,7 +1009,7 @@ void rr_aHL() {
   uint8_t val = read8(regs[HL].full);
   bool carry = val & 0x01;
   val >>= 1;
-  val |= get_flag(C);
+  val |= (get_flag(C) << 7);
   set_flag(C, carry);
   write8(regs[HL].full, val);
 

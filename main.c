@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #define DISP_MULTP 4
@@ -365,7 +366,7 @@ int main(int argc, char *argv[]) {
         break;
       case 0x3E:
         debug_print(byte, "SRL [HL]");
-        sra_aHL();
+        srl_aHL();
         break;
       case 0x3F:
         debug_print(byte, "SRL A");
@@ -1138,11 +1139,6 @@ int main(int argc, char *argv[]) {
       case 0xFF:
         debug_print(byte, "SET 7, A");
         set_u3_r8(7, &regs[AF].high);
-        break;
-      default:
-        debug_print(byte, "UNKNOWN PREFIX");
-        regs[PC].full += 2;
-        cycle += 1;
         break;
       }
       prefix = false;
