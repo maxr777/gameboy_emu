@@ -961,6 +961,35 @@ void rrc_aHL() {
   cycle += 4;
 }
 
+void rl_r8(uint8_t *src) {
+  bool carry = *src & 0x80;
+  *src <<= 1;
+  *src |= get_flag(C);
+  set_flag(C, carry);
+
+  *src == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void rl_aHL() {
+  uint8_t val = read8(regs[HL].full);
+  bool carry = val & 0x80;
+  val <<= 1;
+  val |= get_flag(C);
+  set_flag(C, carry);
+
+  val == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+
+  regs[PC].full += 2;
+  cycle += 4;
+}
+
 // ================ JUMPS ================
 
 void call_n16(const uint16_t addr) {
