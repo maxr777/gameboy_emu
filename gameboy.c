@@ -415,7 +415,7 @@ void adc_A_r8(const uint8_t src) {
   bool c = get_flag(C);
 
   (regs[AF].high & 0x0F) + (src & 0x0F) + c > 0x0F ? set_flag(H, true) : set_flag(H, false);
-  (uint16_t)regs[AF].high + src + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
+  (uint16_t) regs[AF].high + src + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += src + c;
   regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
@@ -430,7 +430,7 @@ void adc_A_aHL() {
   uint8_t val = read8(regs[HL].full);
 
   (regs[AF].high & 0x0F) + (val & 0x0F) + c > 0x0F ? set_flag(H, true) : set_flag(H, false);
-  (uint16_t)regs[AF].high + val + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
+  (uint16_t) regs[AF].high + val + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += val + c;
   regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
@@ -444,7 +444,7 @@ void adc_A_n8(const uint8_t val) {
   bool c = get_flag(C);
 
   (regs[AF].high & 0x0F) + (val & 0x0F) + c > 0x0F ? set_flag(H, true) : set_flag(H, false);
-  (uint16_t)regs[AF].high + val + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
+  (uint16_t) regs[AF].high + val + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += val + c;
   regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
@@ -901,6 +901,35 @@ void rrca() {
 
   regs[PC].full += 1;
   cycle += 1;
+}
+
+void rlc_r8(uint8_t *src) {
+  bool carry = *src & 0x80;
+  set_flag(C, carry);
+  *src <<= 1;
+  *src |= carry;
+  *src == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void rlc_aHL() {
+  uint8_t val = read8(regs[HL].full);
+  bool carry = val & 0x80;
+  set_flag(C, carry);
+  val <<= 1;
+  val |= carry;
+  write8(regs[HL].full, val);
+
+  val == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+
+  regs[PC].full += 2;
+  cycle += 4;
 }
 
 // ================ JUMPS ================

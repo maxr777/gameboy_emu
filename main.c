@@ -115,6 +115,38 @@ int main(int argc, char *argv[]) {
     if (prefix) {
       // ==================== YES-PREFIX ====================
       switch (byte) {
+      case 0x00:
+        debug_print(byte, "RLC B");
+        rlc_r8(&regs[BC].high);
+        break;
+      case 0x01:
+        debug_print(byte, "RLC C");
+        rlc_r8(&regs[BC].low);
+        break;
+      case 0x02:
+        debug_print(byte, "RLC D");
+        rlc_r8(&regs[DE].high);
+        break;
+      case 0x03:
+        debug_print(byte, "RLC E");
+        rlc_r8(&regs[DE].low);
+        break;
+      case 0x04:
+        debug_print(byte, "RLC H");
+        rlc_r8(&regs[HL].high);
+        break;
+      case 0x05:
+        debug_print(byte, "RLC L");
+        rlc_r8(&regs[HL].low);
+        break;
+      case 0x06:
+        debug_print(byte, "RLC [HL]");
+        rlc_aHL();
+        break;
+      case 0x07:
+        debug_print(byte, "RLC A");
+        rlc_r8(&regs[AF].high);
+        break;
       case 0x40:
         debug_print(byte, "BIT 0, B");
         bit_u3_r8(0, regs[BC].high);
