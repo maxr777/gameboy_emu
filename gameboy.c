@@ -981,6 +981,37 @@ void rl_aHL() {
   val <<= 1;
   val |= get_flag(C);
   set_flag(C, carry);
+  write8(regs[HL].full, val);
+
+  val == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+
+  regs[PC].full += 2;
+  cycle += 4;
+}
+
+void rr_r8(uint8_t *src) {
+  bool carry = *src & 0x01;
+  *src >>= 1;
+  *src |= (get_flag(C) << 7);
+  set_flag(C, carry);
+
+  *src == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(N, false);
+  set_flag(H, false);
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void rr_aHL() {
+  uint8_t val = read8(regs[HL].full);
+  bool carry = val & 0x01;
+  val >>= 1;
+  val |= get_flag(C);
+  set_flag(C, carry);
+  write8(regs[HL].full, val);
 
   val == 0 ? set_flag(Z, true) : set_flag(Z, false);
   set_flag(N, false);

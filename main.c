@@ -211,6 +211,38 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RL A");
         rl_r8(&regs[AF].high);
         break;
+      case 0x18:
+        debug_print(byte, "RR B");
+        rr_r8(&regs[BC].high);
+        break;
+      case 0x19:
+        debug_print(byte, "RR C");
+        rr_r8(&regs[BC].low);
+        break;
+      case 0x1A:
+        debug_print(byte, "RR D");
+        rr_r8(&regs[DE].high);
+        break;
+      case 0x1B:
+        debug_print(byte, "RR E");
+        rr_r8(&regs[DE].low);
+        break;
+      case 0x1C:
+        debug_print(byte, "RR H");
+        rr_r8(&regs[HL].high);
+        break;
+      case 0x1D:
+        debug_print(byte, "RR L");
+        rr_r8(&regs[HL].low);
+        break;
+      case 0x1E:
+        debug_print(byte, "RR [HL]");
+        rr_aHL();
+        break;
+      case 0x1F:
+        debug_print(byte, "RR A");
+        rr_r8(&regs[AF].high);
+        break;
       case 0x40:
         debug_print(byte, "BIT 0, B");
         bit_u3_r8(0, regs[BC].high);
