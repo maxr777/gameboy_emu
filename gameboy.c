@@ -1073,6 +1073,61 @@ void sra_aHL() {
   cycle += 4;
 }
 
+void swap_r8(uint8_t *src) {
+  uint8_t high = *src & 0xF0;
+  uint8_t low = *src & 0x0F;
+  *src = (low << 4) | (high >> 4);
+
+  set_flag(Z, !(*src));
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, false);
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void swap_aHL() {
+  uint8_t val = read8(regs[HL].full);
+  uint8_t high = val & 0xF0;
+  uint8_t low = val & 0x0F;
+  val = (low << 4) | (high >> 4);
+  write8(regs[HL].full, val);
+
+  set_flag(Z, !val);
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, false);
+
+  regs[PC].full += 2;
+  cycle += 4;
+}
+
+void srl_r8(uint8_t *src) {
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, *src & 0x01);
+  *src >>= 1;
+  set_flag(Z, !(*src));
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void srl_aHL() {
+  uint8_t val = read8(regs[HL].full);
+
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, val & 0x01);
+  val >>= 1;
+  write8(regs[HL].full, val);
+  set_flag(Z, !(val));
+
+  regs[PC].full += 2;
+  cycle += 4;
+}
+
 // ================ JUMPS ================
 
 void call_n16(const uint16_t addr) {

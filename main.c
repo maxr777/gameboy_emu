@@ -307,6 +307,70 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "SRA A");
         sra_r8(&regs[AF].high);
         break;
+      case 0x30:
+        debug_print(byte, "SWAP B");
+        swap_r8(&regs[BC].high);
+        break;
+      case 0x31:
+        debug_print(byte, "SWAP C");
+        swap_r8(&regs[BC].low);
+        break;
+      case 0x32:
+        debug_print(byte, "SWAP D");
+        swap_r8(&regs[DE].high);
+        break;
+      case 0x33:
+        debug_print(byte, "SWAP E");
+        swap_r8(&regs[DE].low);
+        break;
+      case 0x34:
+        debug_print(byte, "SWAP H");
+        swap_r8(&regs[HL].high);
+        break;
+      case 0x35:
+        debug_print(byte, "SWAP L");
+        swap_r8(&regs[HL].low);
+        break;
+      case 0x36:
+        debug_print(byte, "SWAP [HL]");
+        swap_aHL();
+        break;
+      case 0x37:
+        debug_print(byte, "SWAP A");
+        swap_r8(&regs[AF].high);
+        break;
+      case 0x38:
+        debug_print(byte, "SRL B");
+        srl_r8(&regs[BC].high);
+        break;
+      case 0x39:
+        debug_print(byte, "SRL C");
+        srl_r8(&regs[BC].low);
+        break;
+      case 0x3A:
+        debug_print(byte, "SRL D");
+        srl_r8(&regs[DE].high);
+        break;
+      case 0x3B:
+        debug_print(byte, "SRL E");
+        srl_r8(&regs[DE].low);
+        break;
+      case 0x3C:
+        debug_print(byte, "SRL H");
+        srl_r8(&regs[HL].high);
+        break;
+      case 0x3D:
+        debug_print(byte, "SRL L");
+        srl_r8(&regs[HL].low);
+        break;
+      case 0x3E:
+        debug_print(byte, "SRL [HL]");
+        sra_aHL();
+        break;
+      case 0x3F:
+        debug_print(byte, "SRL A");
+        srl_r8(&regs[AF].high);
+        break;
       case 0x40:
         debug_print(byte, "BIT 0, B");
         bit_u3_r8(0, regs[BC].high);
