@@ -261,6 +261,8 @@ void rra();
 void rrca();
 void rlc_r8(uint8_t *src);
 void rlc_aHL();
+void rrc_r8(uint8_t *src);
+void rrc_aHL();
 
 // JUMPS
 void call_n16(const uint16_t addr);

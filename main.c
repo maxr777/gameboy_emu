@@ -147,6 +147,38 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RLC A");
         rlc_r8(&regs[AF].high);
         break;
+      case 0x08:
+        debug_print(byte, "RRC B");
+        rrc_r8(&regs[BC].high);
+        break;
+      case 0x09:
+        debug_print(byte, "RRC C");
+        rrc_r8(&regs[BC].low);
+        break;
+      case 0x0A:
+        debug_print(byte, "RRC D");
+        rrc_r8(&regs[DE].high);
+        break;
+      case 0x0B:
+        debug_print(byte, "RRC E");
+        rrc_r8(&regs[DE].low);
+        break;
+      case 0x0C:
+        debug_print(byte, "RRC H");
+        rrc_r8(&regs[HL].high);
+        break;
+      case 0x0D:
+        debug_print(byte, "RRC L");
+        rrc_r8(&regs[HL].low);
+        break;
+      case 0x0E:
+        debug_print(byte, "RRC [HL]");
+        rrc_aHL();
+        break;
+      case 0x0F:
+        debug_print(byte, "RRC A");
+        rrc_r8(&regs[AF].high);
+        break;
       case 0x40:
         debug_print(byte, "BIT 0, B");
         bit_u3_r8(0, regs[BC].high);
