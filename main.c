@@ -243,6 +243,70 @@ int main(int argc, char *argv[]) {
         debug_print(byte, "RR A");
         rr_r8(&regs[AF].high);
         break;
+      case 0x20:
+        debug_print(byte, "SLA B");
+        sla_r8(&regs[BC].high);
+        break;
+      case 0x21:
+        debug_print(byte, "SLA C");
+        sla_r8(&regs[BC].low);
+        break;
+      case 0x22:
+        debug_print(byte, "SLA D");
+        sla_r8(&regs[DE].high);
+        break;
+      case 0x23:
+        debug_print(byte, "SLA E");
+        sla_r8(&regs[DE].low);
+        break;
+      case 0x24:
+        debug_print(byte, "SLA H");
+        sla_r8(&regs[HL].high);
+        break;
+      case 0x25:
+        debug_print(byte, "SLA L");
+        sla_r8(&regs[HL].low);
+        break;
+      case 0x26:
+        debug_print(byte, "SLA [HL]");
+        sla_aHL();
+        break;
+      case 0x27:
+        debug_print(byte, "SLA A");
+        sla_r8(&regs[AF].high);
+        break;
+      case 0x28:
+        debug_print(byte, "SRA B");
+        sra_r8(&regs[BC].high);
+        break;
+      case 0x29:
+        debug_print(byte, "SRA C");
+        sra_r8(&regs[BC].low);
+        break;
+      case 0x2A:
+        debug_print(byte, "SRA D");
+        sra_r8(&regs[DE].high);
+        break;
+      case 0x2B:
+        debug_print(byte, "SRA E");
+        sra_r8(&regs[DE].low);
+        break;
+      case 0x2C:
+        debug_print(byte, "SRA H");
+        sra_r8(&regs[HL].high);
+        break;
+      case 0x2D:
+        debug_print(byte, "SRA L");
+        sra_r8(&regs[HL].low);
+        break;
+      case 0x2E:
+        debug_print(byte, "SRA [HL]");
+        sra_aHL();
+        break;
+      case 0x2F:
+        debug_print(byte, "SRA A");
+        sra_r8(&regs[AF].high);
+        break;
       case 0x40:
         debug_print(byte, "BIT 0, B");
         bit_u3_r8(0, regs[BC].high);

@@ -378,7 +378,7 @@ void add_A_r8(const uint8_t src) {
   (regs[AF].high + src) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += src;
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 1;
   cycle += 1;
@@ -392,7 +392,7 @@ void add_A_aHL() {
   (regs[AF].high + val) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += val;
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 1;
   cycle += 2;
@@ -404,7 +404,7 @@ void add_A_n8(const uint8_t val) {
   (regs[AF].high + val) > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += val;
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 2;
   cycle += 2;
@@ -418,7 +418,7 @@ void adc_A_r8(const uint8_t src) {
   (uint16_t) regs[AF].high + src + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += src + c;
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 1;
   cycle += 1;
@@ -433,7 +433,7 @@ void adc_A_aHL() {
   (uint16_t) regs[AF].high + val + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += val + c;
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 1;
   cycle += 2;
@@ -447,7 +447,7 @@ void adc_A_n8(const uint8_t val) {
   (uint16_t) regs[AF].high + val + c > 0x00FF ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high += val + c;
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 2;
   cycle += 2;
@@ -460,7 +460,7 @@ void sub_A_r8(const uint8_t src) {
   src > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high -= src;
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 1;
   cycle += 1;
@@ -474,7 +474,7 @@ void sub_A_aHL() {
   val > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high -= val;
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 1;
   cycle += 2;
@@ -486,7 +486,7 @@ void sub_A_n8(const uint8_t val) {
   val > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high -= val;
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 2;
   cycle += 2;
@@ -500,7 +500,7 @@ void sbc_A_r8(const uint8_t src) {
   src + c > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high -= (src + c);
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 1;
   cycle += 1;
@@ -515,7 +515,7 @@ void sbc_A_aHL() {
   val + c > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high -= (val + c);
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 1;
   cycle += 2;
@@ -529,7 +529,7 @@ void sbc_A_n8(const uint8_t val) {
   val + c > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
   regs[AF].high -= (val + c);
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
 
   regs[PC].full += 2;
   cycle += 2;
@@ -539,7 +539,7 @@ void dec_r8(uint8_t *dest) {
   // lower 4 bits only borrow if they're 0000
   ((*dest)-- & 0x0F) == 0x00 ? set_flag(H, true) : set_flag(H, false);
 
-  *dest == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !(*dest));
   set_flag(N, true);
 
   regs[PC].full += 1;
@@ -550,7 +550,7 @@ void dec_aHL() {
   uint8_t result = read8(regs[HL].full);
 
   (result-- & 0x0F) == 0x00 ? set_flag(H, true) : set_flag(H, false);
-  result == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !result);
   set_flag(N, true);
 
   write8(regs[HL].full, result);
@@ -562,7 +562,7 @@ void dec_aHL() {
 void inc_r8(uint8_t *dest) {
   ((*dest)++ & 0x0F) == 0x0F ? set_flag(H, true) : set_flag(H, false);
 
-  *dest == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !(*dest));
   set_flag(N, false);
 
   regs[PC].full += 1;
@@ -573,7 +573,7 @@ void inc_aHL() {
   uint8_t result = read8(regs[HL].full);
 
   (result++ & 0x0F) == 0x0F ? set_flag(H, true) : set_flag(H, false);
-  result == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !result);
   set_flag(N, false);
 
   write8(regs[HL].full, result);
@@ -585,7 +585,7 @@ void inc_aHL() {
 void cp_A_r8(const uint8_t src) {
   uint8_t result = regs[AF].high - src;
 
-  result == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !result);
   set_flag(N, true);
   src > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
   src > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
@@ -598,7 +598,7 @@ void cp_A_aHL() {
   uint8_t val = read8(regs[HL].full);
   uint8_t result = regs[AF].high - val;
 
-  result == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !result);
   set_flag(N, true);
   val > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
   val > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
@@ -610,7 +610,7 @@ void cp_A_aHL() {
 void cp_A_n8(const uint8_t val) {
   uint8_t result = regs[AF].high - val;
 
-  result == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !result);
   set_flag(N, true);
   val > (regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
   val > regs[AF].high ? set_flag(C, true) : set_flag(C, false);
@@ -652,7 +652,7 @@ void inc_r16(uint16_t *dest) {
 void and_A_r8(const uint8_t src) {
   regs[AF].high &= src;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(N, false);
   set_flag(H, true);
   set_flag(C, false);
@@ -665,7 +665,7 @@ void and_A_aHL() {
   uint8_t val = read8(regs[HL].full);
   regs[AF].high &= val;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(N, false);
   set_flag(H, true);
   set_flag(C, false);
@@ -677,7 +677,7 @@ void and_A_aHL() {
 void and_A_n8(const uint8_t val) {
   regs[AF].high &= val;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(N, false);
   set_flag(H, true);
   set_flag(C, false);
@@ -689,7 +689,7 @@ void and_A_n8(const uint8_t val) {
 void or_A_r8(const uint8_t src) {
   regs[AF].high |= src;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(N, false);
   set_flag(H, false);
   set_flag(C, false);
@@ -702,7 +702,7 @@ void or_A_aHL() {
   uint8_t val = read8(regs[HL].full);
   regs[AF].high |= val;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(N, false);
   set_flag(H, false);
   set_flag(C, false);
@@ -714,7 +714,7 @@ void or_A_aHL() {
 void or_A_n8(const uint8_t val) {
   regs[AF].high |= val;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(N, false);
   set_flag(H, false);
   set_flag(C, false);
@@ -736,7 +736,7 @@ void cpl() {
 void xor_A_r8(const uint8_t src) {
   regs[AF].high ^= src;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(N, false);
   set_flag(H, false);
   set_flag(C, false);
@@ -749,7 +749,7 @@ void xor_A_aHL() {
   uint8_t val = read8(regs[HL].full);
   regs[AF].high ^= val;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(N, false);
   set_flag(H, false);
   set_flag(C, false);
@@ -761,7 +761,7 @@ void xor_A_aHL() {
 void xor_A_n8(const uint8_t val) {
   regs[AF].high ^= val;
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(N, false);
   set_flag(H, false);
   set_flag(C, false);
@@ -908,7 +908,7 @@ void rlc_r8(uint8_t *src) {
   set_flag(C, carry);
   *src <<= 1;
   *src |= carry;
-  *src == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !(*src));
   set_flag(N, false);
   set_flag(H, false);
 
@@ -924,7 +924,7 @@ void rlc_aHL() {
   val |= carry;
   write8(regs[HL].full, val);
 
-  val == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !val);
   set_flag(N, false);
   set_flag(H, false);
 
@@ -937,7 +937,7 @@ void rrc_r8(uint8_t *src) {
   set_flag(C, carry);
   *src >>= 1;
   *src |= (carry << 7);
-  *src == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !(*src));
   set_flag(N, false);
   set_flag(H, false);
 
@@ -953,7 +953,7 @@ void rrc_aHL() {
   val |= (carry << 7);
   write8(regs[HL].full, val);
 
-  val == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !val);
   set_flag(N, false);
   set_flag(H, false);
 
@@ -967,7 +967,7 @@ void rl_r8(uint8_t *src) {
   *src |= get_flag(C);
   set_flag(C, carry);
 
-  *src == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !(*src));
   set_flag(N, false);
   set_flag(H, false);
 
@@ -983,7 +983,7 @@ void rl_aHL() {
   set_flag(C, carry);
   write8(regs[HL].full, val);
 
-  val == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !val);
   set_flag(N, false);
   set_flag(H, false);
 
@@ -997,7 +997,7 @@ void rr_r8(uint8_t *src) {
   *src |= (get_flag(C) << 7);
   set_flag(C, carry);
 
-  *src == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !(*src));
   set_flag(N, false);
   set_flag(H, false);
 
@@ -1013,9 +1013,61 @@ void rr_aHL() {
   set_flag(C, carry);
   write8(regs[HL].full, val);
 
-  val == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !val);
   set_flag(N, false);
   set_flag(H, false);
+
+  regs[PC].full += 2;
+  cycle += 4;
+}
+
+void sla_r8(uint8_t *src) {
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, *src & 0x80);
+  *src <<= 1;
+  set_flag(Z, !(*src));
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void sla_aHL() {
+  uint8_t val = read8(regs[HL].full);
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, val & 0x80);
+  val <<= 1;
+  write8(regs[HL].full, val);
+  set_flag(Z, !val);
+
+  regs[PC].full += 2;
+  cycle += 4;
+}
+
+void sra_r8(uint8_t *src) {
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, *src & 0x01);
+  bool sign_bit = *src & 0x80;
+  *src >>= 1;
+  set_flag(Z, !(*src));
+  *src |= (sign_bit << 7);
+
+  regs[PC].full += 2;
+  cycle += 2;
+}
+
+void sra_aHL() {
+  uint8_t val = read8(regs[HL].full);
+  set_flag(N, false);
+  set_flag(H, false);
+  set_flag(C, val & 0x01);
+  bool sign_bit = val & 0x80;
+  val >>= 1;
+  set_flag(Z, !val);
+  val |= (sign_bit << 7);
+  write8(regs[HL].full, val);
 
   regs[PC].full += 2;
   cycle += 4;
@@ -1246,7 +1298,7 @@ void daa() {
     regs[AF].high += adj;
   }
 
-  regs[AF].high == 0 ? set_flag(Z, true) : set_flag(Z, false);
+  set_flag(Z, !regs[AF].high);
   set_flag(H, false);
 
   regs[PC].full += 1;
