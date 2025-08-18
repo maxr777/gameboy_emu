@@ -43,6 +43,7 @@ int main(int argc, char *argv[]) {
   // so if the rom is smaller than 0x0150 it's not a correct ROM
   fseek(game_file, 0, SEEK_END);
   game_size = ftell(game_file);
+  rewind(game_file);
   if (game_size < 0x0150) {
     fprintf(stderr, "The ROM is too small");
     return 1;
@@ -74,6 +75,26 @@ int main(int argc, char *argv[]) {
   memcpy(&cartridge_header.header_checksum, &game_rom[0x014D], sizeof(cartridge_header.header_checksum));
   memcpy(&cartridge_header.global_checksum, &game_rom[0x014E], sizeof(cartridge_header.global_checksum));
 
+  if (debug) {
+    printf("=== Cartridge Header ===\n");
+    printf("Entry Point: %02X %02X %02X %02X\n",
+           cartridge_header.entry_point[0], cartridge_header.entry_point[1],
+           cartridge_header.entry_point[2], cartridge_header.entry_point[3]);
+    printf("Title: %.16s\n", cartridge_header.title);
+    printf("CGB Flag: 0x%02X\n", cartridge_header.cgb_flag);
+    printf("New License Code: 0x%04X\n", cartridge_header.new_license_code);
+    printf("SGB Flag: 0x%02X\n", cartridge_header.sgb_flag);
+    printf("Cartridge Type: 0x%02X\n", cartridge_header.cartridge_type);
+    printf("ROM Size: 0x%02X\n", cartridge_header.rom_size);
+    printf("RAM Size: 0x%02X\n", cartridge_header.ram_size);
+    printf("Destination Code: 0x%02X\n", cartridge_header.destination_code);
+    printf("Old Licensee Code: 0x%02X\n", cartridge_header.old_licensee_code);
+    printf("Mask ROM Version: 0x%02X\n", cartridge_header.mask_rom_version_number);
+    printf("Header Checksum: 0x%02X\n", cartridge_header.header_checksum);
+    printf("Global Checksum: 0x%04X\n", cartridge_header.global_checksum);
+    printf("========================\n");
+  }
+
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
     return 1;
@@ -91,8 +112,8 @@ int main(int argc, char *argv[]) {
   uint8_t byte = 0;
 
   // TODO: This is for testing only
-  // regs[PC].full = 0x0150;
-  // boot_rom_enabled = false;
+  regs[PC].full = 0x0100;
+  boot_rom_enabled = false;
 
   while (running) {
     while (SDL_PollEvent(&event)) {
