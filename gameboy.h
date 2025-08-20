@@ -130,6 +130,24 @@ typedef union {
   };
 } Register;
 
+extern uint8_t ram[8192];
+extern uint8_t vram[8192];
+extern uint8_t io_registers[128];
+extern uint8_t oam[160];
+extern bool display[160][144];
+
+typedef struct {
+  Register regs[REGISTER_COUNT];
+  int cycle;
+  bool prefix;
+  bool ime;
+  int ime_enable_counter;
+} CPU;
+
+extern CPU cpu;
+
+// ================ ROM STUFF ================
+
 typedef struct {
   uint8_t entry_point[4];
   uint8_t nintendo_logo[48];
@@ -147,34 +165,23 @@ typedef struct {
   uint16_t global_checksum;
 } CartridgeHeader;
 
-extern Register regs[REGISTER_COUNT];
-extern bool display[160][144];
-extern uint8_t ram[8192];
-extern uint8_t vram[8192];
-extern uint8_t io_registers[128];
-extern uint8_t oam[160];
-extern CartridgeHeader cartridge_header;
-extern int cycle;
-extern bool prefix;
+typedef struct {
+  uint8_t *game_rom;
+  size_t game_size;
+  CartridgeHeader cartridge_header;
+  bool boot_rom_enabled;
+  const uint8_t boot_rom[256];
+  uint8_t current_bank;
+  uint8_t max_banks;
+} ROM;
 
-// ================ ROM STUFF ================
-
-extern uint8_t *game_rom;
-extern size_t game_size;
-extern int current_rom_bank;
-extern bool boot_rom_enabled;
-extern uint8_t boot_rom[256];
+extern ROM rom;
 
 void rom_write(const uint16_t addr, const uint8_t val);
 void mcb1_write(const uint16_t addr, const uint8_t val);
 
 uint8_t rom_read(const uint16_t addr);
 uint8_t mcb1_read(const uint16_t addr);
-
-// ================ INTERRUPT STUFF ================
-
-extern bool ime;
-extern int ime_enable_counter;
 
 // ================ HELPER FUNCTIONS ================
 
