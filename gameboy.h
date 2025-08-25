@@ -172,7 +172,7 @@ typedef struct {
   bool boot_rom_enabled;
   const uint8_t boot_rom[256];
   uint8_t current_bank;
-  uint8_t max_banks;
+  int max_banks;
 } ROM;
 
 extern ROM rom;
@@ -194,6 +194,9 @@ uint16_t read16(const uint16_t addr);
 uint8_t read8(const uint16_t addr);
 
 // ================ OPCODES ================
+
+// TODO: try to refuce the amount of functions in here, ideas:
+// convert similar functions into one with more parameters
 
 // LOADS
 void ld_r8_r8(uint8_t *dest, const uint8_t src);

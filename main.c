@@ -75,6 +75,36 @@ int main(int argc, char *argv[]) {
   memcpy(&rom.cartridge_header.header_checksum, &rom.game_rom[0x014D], sizeof(rom.cartridge_header.header_checksum));
   memcpy(&rom.cartridge_header.global_checksum, &rom.game_rom[0x014E], sizeof(rom.cartridge_header.global_checksum));
 
+  switch (rom.cartridge_header.rom_size) {
+  case 0x00:
+    rom.max_banks = 2;
+    break;
+  case 0x01:
+    rom.max_banks = 4;
+    break;
+  case 0x02:
+    rom.max_banks = 8;
+    break;
+  case 0x03:
+    rom.max_banks = 16;
+    break;
+  case 0x04:
+    rom.max_banks = 32;
+    break;
+  case 0x05:
+    rom.max_banks = 64;
+    break;
+  case 0x06:
+    rom.max_banks = 128;
+    break;
+  case 0x07:
+    rom.max_banks = 256;
+    break;
+  case 0x08:
+    rom.max_banks = 512;
+    break;
+  }
+
   if (debug) {
     printf("=== Cartridge Header ===\n");
     printf("Entry Point: %02X %02X %02X %02X\n",
