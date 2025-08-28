@@ -54,13 +54,17 @@ ROM rom = {
 		0x31, 0x2e, 0x32, 0x00, 0x3e, 0xff, 0xc6, 0x01, 0x0b, 0x1e, 0xd8, 0x21,
 		0x4d, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x3e, 0x01, 0xe0, 0x50},
-	.current_bank = 0};
+	.current_rom_bank = 1,
+	.max_rom_banks = 0,
+	.current_ram_bank = 0,
+};
 
 MBC1_State mbc1 = {
 	.ram_enable = false,
 	.first_rom_bank_reg = 0,
 	.second_rom_bank_reg = 0,
 	.ram_bank_number = 1,
+	.banking_mode = 0,
 };
 
 void rom_write(const uint16_t addr, const uint8_t val) {
@@ -79,23 +83,26 @@ void rom_write(const uint16_t addr, const uint8_t val) {
 	}
 }
 
+// addresses: https://gbdev.io/pandocs/MBC1.html
 void mbc1_write(const uint16_t addr, const uint8_t val) {
-	// addresses: https://gbdev.io/pandocs/MBC1.html
-	if (addr < 0x2000) {
+	if (addr < 0x2000) { // RAM enable
 		if ((val & 0x0F) == 0x0A)
 			mbc1.ram_enable = true;
 		else
 			mbc1.ram_enable = false;
-	} else if (addr < 0x4000) {
+	} else if (addr < 0x4000) { // ROM bank number
 		mbc1.first_rom_bank_reg = val & 0x1F;
-		rom.current_bank = (mbc1.second_rom_bank_reg << 5) + mbc1.first_rom_bank_reg;
-		rom.current_bank &= rom.max_banks - 1;
-		if (rom.current_bank == 0) rom.current_bank = 1;
-	} else if (addr < 0x6000) {
+		rom.current_rom_bank = (mbc1.second_rom_bank_reg << 5) + mbc1.first_rom_bank_reg;
+		rom.current_rom_bank &= rom.max_rom_banks - 1;
+		if (rom.current_rom_bank == 0) rom.current_rom_bank = 1;
+	} else if (addr < 0x6000) { // RAM bank number/upper bits of ROM bank number
 		mbc1.second_rom_bank_reg = val & 0x03;
-		rom.current_bank = (mbc1.second_rom_bank_reg << 5) + mbc1.first_rom_bank_reg;
-		rom.current_bank &= rom.max_banks - 1;
-		if (rom.current_bank == 0) rom.current_bank = 1;
+		rom.current_rom_bank = (mbc1.second_rom_bank_reg << 5) + mbc1.first_rom_bank_reg;
+		rom.current_rom_bank &= rom.max_rom_banks - 1;
+		if (rom.current_rom_bank == 0) rom.current_rom_bank = 1;
+		if (mbc1.banking_mode) rom.current_ram_bank = val & 0x03;
+	} else { // banking mode select
+		mbc1.banking_mode = val & 0x01;
 	}
 }
 
@@ -117,8 +124,17 @@ uint8_t rom_read(const uint16_t addr) {
 }
 
 uint8_t mbc1_read(const uint16_t addr) {
-	fprintf(stderr, "mcb1_read(): Not yet implemented\n");
-	return 0;
+	if (addr < 0x4000) { // ROM bank X0
+		if (mbc1.banking_mode == 1)
+			return rom.game_rom[addr + (ROM_BANK_SIZE * (mbc1.second_rom_bank_reg << 5))];
+		return rom.game_rom[addr];
+	} else if (addr < 0xA000) { // ROM bank 01-7F
+		return rom.game_rom[(addr - ROM_BANK_N_ADDR) + (ROM_BANK_SIZE * rom.current_rom_bank)];
+	} else { // RAM bank 00-03 (if any)
+		if (!mbc1.ram_enable)
+			return 0xFF;
+		return rom.external_ram[(addr - EXTERN_RAM_ADDR) + (rom.current_ram_bank * EXTERN_RAM_SIZE)];
+	}
 }
 
 // ================ HELPER FUNCTIONS ================

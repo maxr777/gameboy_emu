@@ -20,6 +20,13 @@
 #define HRAM_ADDR		0xFF80
 #define INT_ENABLE_ADDR 0xFFFF
 
+// ================ HARDWARE CONSTANTS ================
+
+#define ROM_BANK_SIZE	0x4000
+#define VRAM_SIZE		0x2000
+#define EXTERN_RAM_SIZE 0x2000
+#define WRAM_SIZE		0x1000
+
 // ================ IO REGISTERS ================
 
 // joypad input
@@ -130,8 +137,8 @@ typedef union {
 	};
 } Register;
 
-extern uint8_t ram[8192];
-extern uint8_t vram[8192];
+extern uint8_t ram[8192]; // TODO: size change
+extern uint8_t vram[VRAM_SIZE];
 extern uint8_t io_registers[128];
 extern uint8_t oam[160];
 extern bool display[160][144];
@@ -171,8 +178,12 @@ typedef struct {
 	CartridgeHeader cartridge_header;
 	bool boot_rom_enabled;
 	const uint8_t boot_rom[256];
-	uint8_t current_bank;
-	int max_banks;
+	uint8_t current_rom_bank;
+	int max_rom_banks;
+	uint8_t current_ram_bank;
+	// multiplied by 4 because of possible RAM banking, if no
+	// RAM banking then we simply can't access anything past 8192
+	uint8_t external_ram[EXTERN_RAM_SIZE * 4];
 } ROM;
 
 extern ROM rom;
@@ -182,6 +193,7 @@ typedef struct {
 	uint8_t first_rom_bank_reg;
 	uint8_t second_rom_bank_reg;
 	uint8_t ram_bank_number;
+	bool banking_mode;
 } MBC1_State;
 
 extern MBC1_State mbc1;

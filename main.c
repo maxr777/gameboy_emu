@@ -77,31 +77,31 @@ int main(int argc, char *argv[]) {
 
 	switch (rom.cartridge_header.rom_size) {
 	case 0x00:
-		rom.max_banks = 2;
+		rom.max_rom_banks = 2;
 		break;
 	case 0x01:
-		rom.max_banks = 4;
+		rom.max_rom_banks = 4;
 		break;
 	case 0x02:
-		rom.max_banks = 8;
+		rom.max_rom_banks = 8;
 		break;
 	case 0x03:
-		rom.max_banks = 16;
+		rom.max_rom_banks = 16;
 		break;
 	case 0x04:
-		rom.max_banks = 32;
+		rom.max_rom_banks = 32;
 		break;
 	case 0x05:
-		rom.max_banks = 64;
+		rom.max_rom_banks = 64;
 		break;
 	case 0x06:
-		rom.max_banks = 128;
+		rom.max_rom_banks = 128;
 		break;
 	case 0x07:
-		rom.max_banks = 256;
+		rom.max_rom_banks = 256;
 		break;
 	case 0x08:
-		rom.max_banks = 512;
+		rom.max_rom_banks = 512;
 		break;
 	}
 
@@ -144,6 +144,11 @@ int main(int argc, char *argv[]) {
 	// TODO: This is for testing only
 	cpu.regs[PC].full = 0x0100;
 	rom.boot_rom_enabled = false;
+	cpu.regs[AF].full = 0x01B0;
+	cpu.regs[BC].full = 0x0013;
+	cpu.regs[DE].full = 0x00D8;
+	cpu.regs[HL].full = 0x014D;
+	cpu.regs[SP].full = 0xFFFE;
 
 	while (running) {
 		while (SDL_PollEvent(&event)) {
