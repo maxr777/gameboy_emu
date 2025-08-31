@@ -2267,9 +2267,14 @@ int main(int argc, char *argv[]) {
 			default:
 				break;
 			}
+
+			if (++timer.divider_register_cycle_counter >= CYCLES_PER_DIV) {
+				timer.divider_register_cycle_counter = 0;
+				++timer.divider_register;
+			}
 		}
 
-		uint64 execution_time = SDL_GetTicks() - frame_start_time;
+		uint64_t execution_time = SDL_GetTicks() - frame_start_time;
 		if (execution_time < FRAMERATE)
 			SDL_Delay(FRAMERATE - execution_time);
 	}

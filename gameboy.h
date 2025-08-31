@@ -29,6 +29,7 @@
 
 #define CYCLES_PER_FRAME 70224
 #define FRAMERATE		 1000 / 60
+#define CYCLES_PER_DIV	 256 // DIV = divider counter (0xFF04)
 
 // ================ IO REGISTERS ================
 
@@ -158,6 +159,7 @@ extern CPU cpu;
 
 typedef struct {
 	uint8_t divider_register;
+	int divider_register_cycle_counter;
 	uint8_t timer_counter;
 	uint8_t timer_modulo;
 	uint8_t timer_control;

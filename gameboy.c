@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+// TODO: create defines for MBC addresses
+
 // ================ HARDWARE ================
 
 bool display[160][144] = {0};
@@ -220,6 +222,10 @@ void write8(const uint16_t addr, const uint8_t val) {
 		io_registers[addr - IO_REGS_ADDR] = val;
 		if (addr == SERIAL_TRANSFER)
 			printf("%c", val);
+		else if (addr == DIVIDER_CONTROL) {
+			timer.divider_register = 0;
+			timer.divider_register_cycle_counter = 0;
+		}
 	} else if (addr < INT_ENABLE_ADDR)
 		;
 	else
@@ -1404,6 +1410,7 @@ void nop() {
 
 void stop_n8(const uint8_t val) {
 	fprintf(stderr, "stop() is a stub - TODO implementation\n");
+	// TODO: Remember about the divider register (0xFF04)
 	usleep(1000000); // 1s
 
 	cpu.regs[PC].full += 2;
