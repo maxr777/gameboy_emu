@@ -27,6 +27,9 @@
 #define EXTERN_RAM_SIZE 0x2000
 #define WRAM_SIZE		0x1000
 
+#define CYCLES_PER_FRAME 70224
+#define FRAMERATE		 1000 / 60
+
 // ================ IO REGISTERS ================
 
 // joypad input
@@ -145,13 +148,22 @@ extern bool display[160][144];
 
 typedef struct {
 	Register regs[REGISTER_COUNT];
-	int cycle;
+	uint64_t cycle;
 	bool prefix;
 	bool ime;
 	int ime_enable_counter;
 } CPU;
 
 extern CPU cpu;
+
+typedef struct {
+	uint8_t divider_register;
+	uint8_t timer_counter;
+	uint8_t timer_modulo;
+	uint8_t timer_control;
+} Timer;
+
+extern Timer timer;
 
 // ================ ROM STUFF ================
 

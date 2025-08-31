@@ -12,7 +12,6 @@ uint8_t vram[8192] = {0};
 uint8_t io_registers[128] = {0};
 uint8_t oam[160] = {0};
 
-// CPU state and interrupt management
 // ime_enable_counter: EI instruction has a 1-instruction delay before enabling interrupts
 CPU cpu = {
 	.regs = {0},
@@ -21,6 +20,8 @@ CPU cpu = {
 	.ime = false,
 	.ime_enable_counter = -1 // 1->0->enable ime, -1=inactive
 };
+
+Timer timer = {0};
 
 // ================ ROM STUFF ================
 
