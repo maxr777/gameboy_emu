@@ -150,14 +150,15 @@ int main(int argc, char *argv[]) {
 	cpu.regs[SP].full = 0xFFFE;
 
 	while (running) {
-		uint64_t frame_start_time = SDL_GetTicks();
+		const uint64_t frame_start_time = SDL_GetTicks();
 
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_EVENT_QUIT) {
 				running = false;
 			}
 		}
-		uint64_t cycle_checkpoint = cpu.cycle;
+
+		const uint64_t cycle_checkpoint = cpu.cycle;
 		while (cpu.cycle - cycle_checkpoint < CYCLES_PER_FRAME) {
 
 			// the boot rom gets mapped over the game rom until the BOOT_ROM_DISABLE address is 1
@@ -2268,15 +2269,15 @@ int main(int argc, char *argv[]) {
 				break;
 			}
 
-			if (++timer.divider_register_cycle_counter >= CYCLES_PER_DIV) {
+			timer.divider_register_cycle_counter += cpu.cycle - cycle_checkpoint;
+			if (timer.divider_register_cycle_counter >= CYCLES_PER_DIV) {
 				timer.divider_register_cycle_counter = 0;
-				++timer.divider_register;
 			}
 		}
 
-		uint64_t execution_time = SDL_GetTicks() - frame_start_time;
-		if (execution_time < FRAMERATE)
-			SDL_Delay(FRAMERATE - execution_time);
+		const uint64_t execution_time = SDL_GetTicks() - frame_start_time;
+		if (execution_time < MS_PER_FRAME)
+			SDL_Delay(MS_PER_FRAME - execution_time);
 	}
 
 	SDL_DestroyWindow(window);

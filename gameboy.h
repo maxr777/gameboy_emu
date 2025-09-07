@@ -28,7 +28,7 @@
 #define WRAM_SIZE		0x1000
 
 #define CYCLES_PER_FRAME 70224
-#define FRAMERATE		 1000 / 60
+#define MS_PER_FRAME	 1000 / 60
 #define CYCLES_PER_DIV	 256 // DIV = divider counter (0xFF04)
 
 // ================ IO REGISTERS ================

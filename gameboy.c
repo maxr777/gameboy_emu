@@ -28,7 +28,6 @@ Timer timer = {0};
 // ================ ROM STUFF ================
 
 // bootix bootrom: https://github.com/Hacktix/Bootix
-// game_rom and game_size initialized in main.c
 ROM rom = {
 	.game_rom = NULL, // initialized in main.c
 	.game_size = 0,	  // initialized in main.c
