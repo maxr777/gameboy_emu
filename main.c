@@ -2271,7 +2271,17 @@ int main(int argc, char *argv[]) {
 
 			timer.divider_register_cycle_counter += cpu.cycle - cycle_checkpoint;
 			if (timer.divider_register_cycle_counter >= CYCLES_PER_DIV) {
+				++timer.divider_register;
 				timer.divider_register_cycle_counter = 0;
+			}
+
+			timer.timer_counter_cycle_counter += cpu.cycle - cycle_checkpoint;
+			if (timer.timer_counter_cycle_counter >= CPU_FREQ / timer.timer_control) {
+				if (timer.timer_counter == UINT8_MAX)
+					timer.timer_counter = timer.timer_modulo;
+				else
+					++timer.timer_counter;
+				timer.timer_counter_cycle_counter = 0;
 			}
 		}
 

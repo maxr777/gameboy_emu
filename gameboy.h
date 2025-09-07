@@ -5,6 +5,21 @@
 #include <stddef.h>
 #include <stdint.h>
 
+// ================ HARDWARE CONSTANTS ================
+
+#define ROM_BANK_SIZE	0x4000
+#define VRAM_SIZE		0x2000
+#define EXTERN_RAM_SIZE 0x2000
+#define WRAM_SIZE		0x1000
+
+#define CPU_FREQ		 4194304
+#define CYCLES_PER_FRAME 70224
+#define MS_PER_FRAME	 1000 / 60
+
+// DIV = divider register
+#define DIV_CONTROL_FREQ 16384
+#define CYCLES_PER_DIV	 CPU_FREQ / DIV_CONTROL_FREQ
+
 // ================ MEMORY MAP ================
 
 #define ROM_BANK_0_ADDR 0x0000
@@ -19,17 +34,6 @@
 #define IO_REGS_ADDR	0xFF00
 #define HRAM_ADDR		0xFF80
 #define INT_ENABLE_ADDR 0xFFFF
-
-// ================ HARDWARE CONSTANTS ================
-
-#define ROM_BANK_SIZE	0x4000
-#define VRAM_SIZE		0x2000
-#define EXTERN_RAM_SIZE 0x2000
-#define WRAM_SIZE		0x1000
-
-#define CYCLES_PER_FRAME 70224
-#define MS_PER_FRAME	 1000 / 60
-#define CYCLES_PER_DIV	 256 // DIV = divider counter (0xFF04)
 
 // ================ IO REGISTERS ================
 
@@ -161,6 +165,7 @@ typedef struct {
 	uint8_t divider_register;
 	int divider_register_cycle_counter;
 	uint8_t timer_counter;
+	int timer_counter_cycle_counter;
 	uint8_t timer_modulo;
 	uint8_t timer_control;
 } Timer;
