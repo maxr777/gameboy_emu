@@ -16,7 +16,6 @@
 #define CYCLES_PER_FRAME 70224
 #define MS_PER_FRAME	 1000 / 60
 
-// DIV = divider register
 #define DIV_CONTROL_FREQ 16384
 #define CYCLES_PER_DIV	 CPU_FREQ / DIV_CONTROL_FREQ
 
@@ -45,10 +44,10 @@
 #define SERIAL_CONTROL	0xFF02
 
 // timer and divider
-#define DIVIDER_CONTROL 0xFF04
-#define TIMER_COUNTER	0xFF05
-#define TIMER_MOD		0xFF06
-#define TIMER_CONTROL	0xFF07
+#define DIV_ADDR  0xFF04
+#define TIMA_ADDR 0xFF05
+#define TMA_ADDR  0xFF06
+#define TAC_ADDR  0xFF07
 
 // interrputs
 #define INTERRUPT_FLAG 0xFF0F
@@ -162,12 +161,12 @@ typedef struct {
 extern CPU cpu;
 
 typedef struct {
-	uint8_t divider_register;
-	int divider_register_cycle_counter;
-	uint8_t timer_counter;
-	int timer_counter_cycle_counter;
-	uint8_t timer_modulo;
-	uint8_t timer_control;
+	uint8_t div;
+	int div_cycle_counter;
+	uint8_t tima;
+	int tima_cycle_counter;
+	uint8_t tma;
+	uint8_t tac;
 } Timer;
 
 extern Timer timer;

@@ -2269,19 +2269,19 @@ int main(int argc, char *argv[]) {
 				break;
 			}
 
-			timer.divider_register_cycle_counter += cpu.cycle - cycle_checkpoint;
-			if (timer.divider_register_cycle_counter >= CYCLES_PER_DIV) {
-				++timer.divider_register;
-				timer.divider_register_cycle_counter = 0;
+			timer.div_cycle_counter += cpu.cycle - cycle_checkpoint;
+			if (timer.div_cycle_counter >= CYCLES_PER_DIV) {
+				++timer.div;
+				timer.div_cycle_counter = 0;
 			}
 
-			timer.timer_counter_cycle_counter += cpu.cycle - cycle_checkpoint;
-			if (timer.timer_counter_cycle_counter >= CPU_FREQ / timer.timer_control) {
-				if (timer.timer_counter == UINT8_MAX)
-					timer.timer_counter = timer.timer_modulo;
+			timer.tima_cycle_counter += cpu.cycle - cycle_checkpoint;
+			if (timer.tima_cycle_counter >= CPU_FREQ / timer.tac) {
+				if (timer.tima == UINT8_MAX)
+					timer.tima = timer.tma;
 				else
-					++timer.timer_counter;
-				timer.timer_counter_cycle_counter = 0;
+					++timer.tima;
+				timer.tima_cycle_counter = 0;
 			}
 		}
 

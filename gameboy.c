@@ -221,9 +221,9 @@ void write8(const uint16_t addr, const uint8_t val) {
 		io_registers[addr - IO_REGS_ADDR] = val;
 		if (addr == SERIAL_TRANSFER)
 			printf("%c", val);
-		else if (addr == DIVIDER_CONTROL) {
-			timer.divider_register = 0;
-			timer.divider_register_cycle_counter = 0;
+		else if (addr == DIV_ADDR) {
+			timer.div = 0;
+			timer.div_cycle_counter = 0;
 		}
 	} else if (addr < INT_ENABLE_ADDR)
 		;
