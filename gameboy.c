@@ -20,10 +20,15 @@ CPU cpu = {
 	.cycle = 0,
 	.prefix = false,
 	.ime = false,
-	.ime_enable_counter = -1 // 1->0->enable ime, -1=inactive
+	.ime_enable_counter = -1, // 1->0->enable ime, -1=inactive
 };
 
-Timer timer = {0};
+Timer_controls timer_controls = {
+	.div_cycle_counter = 0,
+	.tima_cycle_counter = 0,
+	.tac_enable = false,
+	.tac_increment_cycles = 256, // 00 corresponds to increment every 256 cycles
+};
 
 // ================ ROM STUFF ================
 
@@ -222,8 +227,24 @@ void write8(const uint16_t addr, const uint8_t val) {
 		if (addr == SERIAL_TRANSFER)
 			printf("%c", val);
 		else if (addr == DIV_ADDR) {
-			timer.div = 0;
-			timer.div_cycle_counter = 0;
+			io_registers[addr - IO_REGS_ADDR] = 0;
+			timer_controls.div_cycle_counter = 0;
+		} else if (addr == TAC_ADDR) {
+			timer_controls.tac_enable = val & 0x04;
+			switch (val & 0x03) {
+			case 0x00:
+				timer_controls.tac_increment_cycles = TAC_00_CYCLES;
+				break;
+			case 0x01:
+				timer_controls.tac_increment_cycles = TAC_01_CYCLES;
+				break;
+			case 0x02:
+				timer_controls.tac_increment_cycles = TAC_10_CYCLES;
+				break;
+			case 0x03:
+				timer_controls.tac_increment_cycles = TAC_11_CYCLES;
+				break;
+			}
 		}
 	} else if (addr < INT_ENABLE_ADDR)
 		;

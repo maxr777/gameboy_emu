@@ -2269,19 +2269,24 @@ int main(int argc, char *argv[]) {
 				break;
 			}
 
-			timer.div_cycle_counter += cpu.cycle - cycle_checkpoint;
-			if (timer.div_cycle_counter >= CYCLES_PER_DIV) {
-				++timer.div;
-				timer.div_cycle_counter = 0;
+			timer_controls.div_cycle_counter += cpu.cycle - cycle_checkpoint;
+			if (timer_controls.div_cycle_counter >= CYCLES_PER_DIV) {
+				write8(DIV_ADDR, read8(DIV_ADDR) + 1);
+				timer_controls.div_cycle_counter = 0;
 			}
 
-			timer.tima_cycle_counter += cpu.cycle - cycle_checkpoint;
-			if (timer.tima_cycle_counter >= CPU_FREQ / timer.tac) {
-				if (timer.tima == UINT8_MAX)
-					timer.tima = timer.tma;
-				else
-					++timer.tima;
-				timer.tima_cycle_counter = 0;
+			timer_controls.tima_cycle_counter += cpu.cycle - cycle_checkpoint;
+			if (timer_controls.tima_cycle_counter >= timer_controls.tac_increment_cycles) {
+				if (timer_controls.tac_enable) {
+					if (read8(TIMA_ADDR) == UINT8_MAX)
+						// TODO: request an interrupt - https://gbdev.io/pandocs/Timer_and_Divider_Registers.html
+						write8(TIMA_ADDR, read8(TMA_ADDR));
+					else
+						write8(TIMA_ADDR, read8(TIMA_ADDR) + 1);
+				}
+				// it should reset regardless of tac_enable, because both
+				// div and time use the same internal clock divider circuit
+				timer_controls.tima_cycle_counter = 0;
 			}
 		}
 

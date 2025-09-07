@@ -16,8 +16,13 @@
 #define CYCLES_PER_FRAME 70224
 #define MS_PER_FRAME	 1000 / 60
 
-#define DIV_CONTROL_FREQ 16384
-#define CYCLES_PER_DIV	 CPU_FREQ / DIV_CONTROL_FREQ
+// ================ TIMER FREQ CONSTANTS ================
+
+#define CYCLES_PER_DIV CPU_FREQ / 16384
+#define TAC_00_CYCLES  CPU_FREQ / 4096
+#define TAC_01_CYCLES  CPU_FREQ / 262144
+#define TAC_10_CYCLES  CPU_FREQ / 65536
+#define TAC_11_CYCLES  CPU_FREQ / 16384
 
 // ================ MEMORY MAP ================
 
@@ -161,15 +166,18 @@ typedef struct {
 extern CPU cpu;
 
 typedef struct {
-	uint8_t div;
 	int div_cycle_counter;
-	uint8_t tima;
 	int tima_cycle_counter;
-	uint8_t tma;
-	uint8_t tac;
-} Timer;
+	bool tac_enable;
+	// TAC's clock select - increment TIMA every:
+	// (00) 256 cycles,
+	// (01) 4 cycles,
+	// (10) 16 cycles,
+	// (11) 64 cycles
+	int tac_increment_cycles;
+} Timer_controls;
 
-extern Timer timer;
+extern Timer_controls timer_controls;
 
 // ================ ROM STUFF ================
 
