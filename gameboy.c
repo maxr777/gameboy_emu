@@ -13,6 +13,7 @@ uint8_t ram[8192] = {0};
 uint8_t vram[8192] = {0};
 uint8_t io_registers[128] = {0};
 uint8_t oam[160] = {0};
+uint8_t hram[127] = {0};
 
 // ime_enable_counter: EI instruction has a 1-instruction delay before enabling interrupts
 CPU cpu = {
@@ -247,9 +248,10 @@ void write8(const uint16_t addr, const uint8_t val) {
 			}
 		}
 	} else if (addr < INT_ENABLE_ADDR)
-		;
-	else
-		;
+		hram[addr - HRAM_ADDR] = val;
+	else {
+		fprintf(stderr, "IE writes aren't implemented yet\n");
+	}
 }
 
 uint8_t read8(const uint16_t addr) {
@@ -273,12 +275,17 @@ uint8_t read8(const uint16_t addr) {
 	else if (addr < IO_REGS_ADDR) {
 		fprintf(stderr, "read8: use of 0xFEA0-0xFEFF is prohibited\n");
 		return 0;
-	} else if (addr < HRAM_ADDR)
+	} else if (addr < HRAM_ADDR) {
+		// https://github.com/Gekkio/mooneye-test-suite?tab=readme-ov-file#passfail-reporting
+		// If you don't have a full Game boy system, pass/fail reporting can be sped up by making
+		// sure LY (0xff44) and SC (0xff02) both return 0xff when read. This will bypass some
+		// unnecessary drawing code and waiting for serial transfer to finish.
+		if ((addr == SERIAL_CONTROL) || (addr == LCD_Y)) return 0xFF;
 		return io_registers[addr - IO_REGS_ADDR];
-	else if (addr < INT_ENABLE_ADDR)
-		;
+	} else if (addr < INT_ENABLE_ADDR)
+		return hram[addr - HRAM_ADDR];
 	else
-		;
+		fprintf(stderr, "IE reads aren't implemented yet\n");
 
 	return 0;
 }

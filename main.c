@@ -8,6 +8,7 @@
 #define DISP_MULTP 4
 
 bool debug = false;
+unsigned long long max_cycles = 0;
 
 void debug_print(uint8_t opcode, const char *instruction) {
 	if (debug) {
@@ -30,6 +31,8 @@ int main(int argc, char *argv[]) {
 	for (int i = 2; i < argc; ++i) {
 		if (strcmp(argv[i], "-d") == 0)
 			debug = true;
+		if (strcmp(argv[i], "-c") == 0)
+			max_cycles = atoi(argv[++i]);
 	}
 
 	FILE *game_file = fopen(argv[1], "rb");
@@ -150,6 +153,10 @@ int main(int argc, char *argv[]) {
 	cpu.regs[SP].full = 0xFFFE;
 
 	while (running) {
+		if (max_cycles != 0)
+			if (cpu.cycle >= max_cycles)
+				running = false;
+
 		const uint64_t frame_start_time = SDL_GetTicks();
 
 		while (SDL_PollEvent(&event)) {

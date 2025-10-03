@@ -153,6 +153,7 @@ extern uint8_t ram[8192]; // TODO: size change
 extern uint8_t vram[VRAM_SIZE];
 extern uint8_t io_registers[128];
 extern uint8_t oam[160];
+extern uint8_t hram[127];
 extern bool display[160][144];
 
 typedef struct {
