@@ -243,9 +243,6 @@ uint8_t read8(const uint16_t addr);
 
 // ================ OPCODES ================
 
-// TODO: try to refuce the amount of functions in here, ideas:
-// convert similar functions into one with more parameters
-
 // LOADS
 void ld_r8_r8(uint8_t *dest, const uint8_t src);
 void ld_r8_n8(uint8_t *dest, const uint8_t val);
@@ -353,7 +350,9 @@ void scf();
 
 // STACK INSTRUCTIONS
 void pop_r16(uint16_t *src);
+void pop_AF();
 void push_r16(const uint16_t src);
+void push_AF();
 void ld_addr16_SP(const uint16_t addr);
 void ld_HL_SPe8(const int8_t val);
 void ld_SP_HL();

@@ -65,6 +65,7 @@ ROM rom = {
 	.current_rom_bank = 1,
 	.max_rom_banks = 0,
 	.current_ram_bank = 0,
+	.external_ram = {0}, // this gets set in main.c
 };
 
 MBC1_State mbc1 = {
@@ -109,8 +110,11 @@ void mbc1_write(const uint16_t addr, const uint8_t val) {
 		rom.current_rom_bank &= rom.max_rom_banks - 1;
 		if (rom.current_rom_bank == 0) rom.current_rom_bank = 1;
 		if (mbc1.banking_mode) rom.current_ram_bank = val & 0x03;
-	} else { // banking mode select
+	} else if (addr < 0x8000) { // banking mode select
 		mbc1.banking_mode = val & 0x01;
+	} else {
+		if (mbc1.ram_enable)
+			rom.external_ram[(addr - EXTERN_RAM_ADDR) + (rom.current_ram_bank * EXTERN_RAM_SIZE)] = val;
 	}
 }
 
@@ -212,9 +216,9 @@ void write8(const uint16_t addr, const uint8_t val) {
 	else if (addr < EXTERN_RAM_ADDR)
 		vram[addr - VRAM_ADDR] = val;
 	else if (addr < WRAM_0_ADDR)
-		;
+		rom_write(addr, val);
 	else if (addr < WRAM_N_ADDR)
-		ram[addr - WRAM_0_ADDR] = val;
+		;
 	else if (addr < ECHO_RAM_ADDR)
 		ram[addr - WRAM_0_ADDR] = val;
 	else if (addr < OAM_ADDR)
@@ -262,7 +266,7 @@ uint8_t read8(const uint16_t addr) {
 	else if (addr < EXTERN_RAM_ADDR)
 		return vram[addr - VRAM_ADDR];
 	else if (addr < WRAM_0_ADDR)
-		;
+		return rom_read(addr);
 	else if (addr < WRAM_N_ADDR)
 		return ram[addr - WRAM_0_ADDR];
 	else if (addr < ECHO_RAM_ADDR)
@@ -1336,9 +1340,27 @@ void pop_r16(uint16_t *src) {
 	cpu.cycle += 3;
 }
 
+void pop_AF() {
+	cpu.regs[AF].full = read16(cpu.regs[SP].full);
+	cpu.regs[AF].low &= 0xF0;
+	cpu.regs[SP].full += 2;
+
+	cpu.regs[PC].full += 1;
+	cpu.cycle += 3;
+}
+
 void push_r16(const uint16_t src) {
 	cpu.regs[SP].full -= 2;
 	write16(cpu.regs[SP].full, src);
+
+	cpu.regs[PC].full += 1;
+	cpu.cycle += 4;
+}
+
+void push_AF() {
+	cpu.regs[SP].full -= 2;
+	cpu.regs[AF].low &= 0xF0;
+	write16(cpu.regs[SP].full, cpu.regs[AF].full);
 
 	cpu.regs[PC].full += 1;
 	cpu.cycle += 4;

@@ -143,6 +143,8 @@ int main(int argc, char *argv[]) {
 	bool running = true;
 	uint8_t byte = 0;
 
+	memset(rom.external_ram, 0xFF, sizeof(rom.external_ram)); // unitnialized ram is supposed to be 0xFF everywhere
+
 	// TODO: This is for testing only
 	cpu.regs[PC].full = 0x0100;
 	rom.boot_rom_enabled = false;
@@ -153,10 +155,6 @@ int main(int argc, char *argv[]) {
 	cpu.regs[SP].full = 0xFFFE;
 
 	while (running) {
-		if (max_cycles != 0)
-			if (cpu.cycle >= max_cycles)
-				running = false;
-
 		const uint64_t frame_start_time = SDL_GetTicks();
 
 		while (SDL_PollEvent(&event)) {
@@ -167,6 +165,12 @@ int main(int argc, char *argv[]) {
 
 		const uint64_t cycle_checkpoint = cpu.cycle;
 		while (cpu.cycle - cycle_checkpoint < CYCLES_PER_FRAME) {
+
+			if (max_cycles != 0)
+				if (cpu.cycle >= max_cycles) {
+					running = false;
+					break;
+				}
 
 			// the boot rom gets mapped over the game rom until the BOOT_ROM_DISABLE address is 1
 			if (io_registers[BOOT_ROM_DISABLE - IO_REGS_ADDR] == 1)
@@ -2205,7 +2209,7 @@ int main(int argc, char *argv[]) {
 				}
 				case 0xF1:
 					debug_print(byte, "POP AF");
-					pop_r16(&cpu.regs[AF].full);
+					pop_AF();
 					break;
 				case 0xF2:
 					debug_print(byte, "LDH A, [C]");
@@ -2217,7 +2221,7 @@ int main(int argc, char *argv[]) {
 					break;
 				case 0xF5:
 					debug_print(byte, "PUSH AF");
-					push_r16(cpu.regs[AF].full);
+					push_AF();
 					break;
 				case 0xF6: {
 					debug_print(byte, "OR A, n8");
