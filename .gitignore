@@ -1,10 +1,8 @@
 *.out
-*.gb
 SDL3-win/
 *.exe
 *.obj
 *.dll
-tests/
 output
 errors
-log
+.claude
