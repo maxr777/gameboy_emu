@@ -8,6 +8,7 @@
 #define DISP_MULTP 4
 
 bool debug = false;
+bool stop_on_ld_b_b = false; // this is for mooneye tests - ld b, b signifies the end of the test
 unsigned long long max_cycles = 0;
 
 void debug_print(uint8_t opcode, const char *instruction) {
@@ -33,6 +34,8 @@ int main(int argc, char *argv[]) {
 			debug = true;
 		if (strcmp(argv[i], "-c") == 0)
 			max_cycles = atoi(argv[++i]);
+		if (strcmp(argv[i], "-sldbb") == 0)
+			stop_on_ld_b_b = true;
 	}
 
 	FILE *game_file = fopen(argv[1], "rb");
@@ -1496,6 +1499,8 @@ int main(int argc, char *argv[]) {
 				case 0x40:
 					debug_print(byte, "LD B, B");
 					ld_r8_r8(&cpu.regs[BC].high, cpu.regs[BC].high);
+					if (stop_on_ld_b_b)
+						running = false;
 					break;
 				case 0x41:
 					debug_print(byte, "LD B, C");

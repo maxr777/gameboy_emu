@@ -73,7 +73,7 @@ MBC1_State mbc1 = {
 	.first_rom_bank_reg = 0,
 	.second_rom_bank_reg = 0,
 	.ram_bank_number = 1,
-	.banking_mode = 0,
+	.banking_mode_is_advanced = false,
 };
 
 void rom_write(const uint16_t addr, const uint8_t val) {
@@ -109,10 +109,10 @@ void mbc1_write(const uint16_t addr, const uint8_t val) {
 		rom.current_rom_bank = (mbc1.second_rom_bank_reg << 5) + mbc1.first_rom_bank_reg;
 		rom.current_rom_bank &= rom.max_rom_banks - 1;
 		if (rom.current_rom_bank == 0) rom.current_rom_bank = 1;
-		if (mbc1.banking_mode) rom.current_ram_bank = val & 0x03;
+		if (mbc1.banking_mode_is_advanced) rom.current_ram_bank = val & 0x03;
 	} else if (addr < 0x8000) { // banking mode select
-		mbc1.banking_mode = val & 0x01;
-	} else {
+		mbc1.banking_mode_is_advanced = val & 0x01;
+	} else { // ofc vram is in between extern ram and rom banks, but that gets distinguished in write8
 		if (mbc1.ram_enable)
 			rom.external_ram[(addr - EXTERN_RAM_ADDR) + (rom.current_ram_bank * EXTERN_RAM_SIZE)] = val;
 	}
@@ -137,8 +137,10 @@ uint8_t rom_read(const uint16_t addr) {
 
 uint8_t mbc1_read(const uint16_t addr) {
 	if (addr < 0x4000) { // ROM bank X0
-		if (mbc1.banking_mode == 1)
-			return rom.game_rom[addr + (ROM_BANK_SIZE * (mbc1.second_rom_bank_reg << 5))];
+		if (mbc1.banking_mode_is_advanced) {
+			uint8_t bank = (mbc1.second_rom_bank_reg << 5) & (rom.max_rom_banks - 1);
+			return rom.game_rom[addr + (ROM_BANK_SIZE * (ROM_BANK_SIZE * bank))];
+		}
 		return rom.game_rom[addr];
 	} else if (addr < 0xA000) { // ROM bank 01-7F
 		return rom.game_rom[(addr - ROM_BANK_N_ADDR) + (ROM_BANK_SIZE * rom.current_rom_bank)];

@@ -220,7 +220,7 @@ typedef struct {
 	uint8_t first_rom_bank_reg;
 	uint8_t second_rom_bank_reg;
 	uint8_t ram_bank_number;
-	bool banking_mode;
+	bool banking_mode_is_advanced; // 0 = simple, 1 = advanced
 } MBC1_State;
 
 extern MBC1_State mbc1;
