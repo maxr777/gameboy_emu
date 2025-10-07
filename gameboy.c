@@ -139,7 +139,7 @@ uint8_t mbc1_read(const uint16_t addr) {
 	if (addr < 0x4000) { // ROM bank X0
 		if (mbc1.banking_mode_is_advanced) {
 			uint8_t bank = (mbc1.second_rom_bank_reg << 5) & (rom.max_rom_banks - 1);
-			return rom.game_rom[addr + (ROM_BANK_SIZE * (ROM_BANK_SIZE * bank))];
+			return rom.game_rom[addr + (ROM_BANK_SIZE * bank)];
 		}
 		return rom.game_rom[addr];
 	} else if (addr < 0xA000) { // ROM bank 01-7F
@@ -532,7 +532,7 @@ void adc_A_n8(const uint8_t val) {
 void sub_A_r8(const uint8_t src) {
 	set_flag(N, true);
 
-	src > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+	(src & 0x0F) > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
 	src > cpu.regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
 	cpu.regs[AF].high -= src;
@@ -546,7 +546,7 @@ void sub_A_aHL() {
 	uint8_t val = read8(cpu.regs[HL].full);
 
 	set_flag(N, true);
-	val > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+	(val & 0x0F) > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
 	val > cpu.regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
 	cpu.regs[AF].high -= val;
@@ -558,7 +558,7 @@ void sub_A_aHL() {
 
 void sub_A_n8(const uint8_t val) {
 	set_flag(N, true);
-	val > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+	(val & 0x0F) > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
 	val > cpu.regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
 	cpu.regs[AF].high -= val;
@@ -572,7 +572,7 @@ void sbc_A_r8(const uint8_t src) {
 	set_flag(N, true);
 	bool c = get_flag(C);
 
-	src + c > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+	((src + c) & 0x0F) > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
 	src + c > cpu.regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
 	cpu.regs[AF].high -= (src + c);
@@ -587,7 +587,7 @@ void sbc_A_aHL() {
 	bool c = get_flag(C);
 	uint8_t val = read8(cpu.regs[HL].full);
 
-	val + c > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+	((val + c) & 0x0F) > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
 	val + c > cpu.regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
 	cpu.regs[AF].high -= (val + c);
@@ -601,7 +601,7 @@ void sbc_A_n8(const uint8_t val) {
 	set_flag(N, true);
 	bool c = get_flag(C);
 
-	val + c > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+	((val + c) & 0x0F) > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
 	val + c > cpu.regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
 	cpu.regs[AF].high -= (val + c);
@@ -663,7 +663,7 @@ void cp_A_r8(const uint8_t src) {
 
 	set_flag(Z, !result);
 	set_flag(N, true);
-	src > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+	(src & 0x0F) > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
 	src > cpu.regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
 	cpu.regs[PC].full += 1;
@@ -676,7 +676,7 @@ void cp_A_aHL() {
 
 	set_flag(Z, !result);
 	set_flag(N, true);
-	val > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+	(val & 0x0F) > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
 	val > cpu.regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
 	cpu.regs[PC].full += 1;
@@ -688,7 +688,7 @@ void cp_A_n8(const uint8_t val) {
 
 	set_flag(Z, !result);
 	set_flag(N, true);
-	val > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
+	(val & 0x0F) > (cpu.regs[AF].high & 0x0F) ? set_flag(H, true) : set_flag(H, false);
 	val > cpu.regs[AF].high ? set_flag(C, true) : set_flag(C, false);
 
 	cpu.regs[PC].full += 2;
