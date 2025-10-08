@@ -13,9 +13,9 @@ unsigned long long max_cycles = 0;
 
 void debug_print(uint8_t opcode, const char *instruction) {
 	if (debug) {
-		printf("Cycle: %lu\tPC: 0x%04X\tOpcode: 0x%02X\t%-12s\tA: %02X\t\tBC: %04X\tDE: %04X\tHL: %04X\tSP: %04X\tFlags: %c%c%c%c\n",
+		printf("Cycle: %lu\tPC: 0x%04X\tOpcode: 0x%02X\t%-12s\tAF: %04X\t\tBC: %04X\tDE: %04X\tHL: %04X\tSP: %04X\tFlags: %c%c%c%c\n",
 			   cpu.cycle, cpu.regs[PC].full, opcode, instruction,
-			   cpu.regs[AF].high, cpu.regs[BC].full, cpu.regs[DE].full, cpu.regs[HL].full, cpu.regs[SP].full,
+			   cpu.regs[AF].full, cpu.regs[BC].full, cpu.regs[DE].full, cpu.regs[HL].full, cpu.regs[SP].full,
 			   (cpu.regs[AF].low & 0x80) ? 'Z' : '-',
 			   (cpu.regs[AF].low & 0x40) ? 'N' : '-',
 			   (cpu.regs[AF].low & 0x20) ? 'H' : '-',
@@ -2157,8 +2157,8 @@ int main(int argc, char *argv[]) {
 					break;
 				case 0xE0: {
 					debug_print(byte, "LDH [n16], A");
-					uint16_t n16 = read16(cpu.regs[PC].full + 1);
-					ldh_addr16_A(n16);
+					uint8_t n8 = read8(cpu.regs[PC].full + 1);
+					ldh_addr16_A(0xFF00 + n8);
 					break;
 				}
 				case 0xE1:
@@ -2208,8 +2208,8 @@ int main(int argc, char *argv[]) {
 					break;
 				case 0xF0: {
 					debug_print(byte, "LDH A, [n16]");
-					uint16_t n16 = read16(cpu.regs[PC].full + 1);
-					ldh_A_addr16(n16);
+					uint8_t n8 = read8(cpu.regs[PC].full + 1);
+					ldh_A_addr16(0xFF00 + n8);
 					break;
 				}
 				case 0xF1:

@@ -371,8 +371,7 @@ void ld_addr16_A(const uint16_t addr) {
 }
 
 void ldh_addr16_A(const uint16_t addr) {
-	if (addr >= 0xFF00 && addr <= 0xFFFF)
-		write8(addr, cpu.regs[AF].high);
+	write8(addr, cpu.regs[AF].high);
 
 	cpu.regs[PC].full += 2;
 	cpu.cycle += 3;
@@ -400,8 +399,7 @@ void ld_A_addr16(uint16_t addr) {
 }
 
 void ldh_A_addr16(const uint16_t addr) {
-	if (addr >= 0xFF00 && addr <= 0xFFFF)
-		cpu.regs[AF].high = read8(addr);
+	cpu.regs[AF].high = read8(addr);
 
 	cpu.regs[PC].full += 2;
 	cpu.cycle += 3;
@@ -1361,8 +1359,7 @@ void push_r16(const uint16_t src) {
 
 void push_AF() {
 	cpu.regs[SP].full -= 2;
-	cpu.regs[AF].low &= 0xF0;
-	write16(cpu.regs[SP].full, cpu.regs[AF].full);
+	write16(cpu.regs[SP].full, cpu.regs[AF].full & 0xFFF0);
 
 	cpu.regs[PC].full += 1;
 	cpu.cycle += 4;
