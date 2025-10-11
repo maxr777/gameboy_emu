@@ -2304,6 +2304,10 @@ int main(int argc, char *argv[]) {
 				// div and time use the same internal clock divider circuit
 				timer_controls.tima_cycle_counter = 0;
 			}
+
+			// this is for the early return with -sldbb
+			if (running == false)
+				break;
 		}
 
 		const uint64_t execution_time = SDL_GetTicks() - frame_start_time;
