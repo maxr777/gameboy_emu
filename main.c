@@ -2273,6 +2273,8 @@ int main(int argc, char *argv[]) {
 				}
 			}
 
+			cpu.regs[AF].low &= 0xF0;
+
 			switch (cpu.ime_enable_counter) {
 			case 1:
 				--cpu.ime_enable_counter;
