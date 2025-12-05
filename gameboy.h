@@ -5,118 +5,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-// ================ HARDWARE CONSTANTS ================
-
-#define ROM_BANK_SIZE	0x4000
-#define VRAM_SIZE		0x2000
-#define EXTERN_RAM_SIZE 0x2000
-#define WRAM_SIZE		0x1000
-
-#define CPU_FREQ		 4194304
-#define CYCLES_PER_FRAME 70224
-#define MS_PER_FRAME	 1000 / 60
-
-// ================ TIMER FREQ CONSTANTS ================
-
-#define CYCLES_PER_DIV CPU_FREQ / 16384
-#define TAC_00_CYCLES  CPU_FREQ / 4096
-#define TAC_01_CYCLES  CPU_FREQ / 262144
-#define TAC_10_CYCLES  CPU_FREQ / 65536
-#define TAC_11_CYCLES  CPU_FREQ / 16384
-
-// ================ MEMORY MAP ================
-
-#define ROM_BANK_0_ADDR 0x0000
-#define ROM_BANK_N_ADDR 0x4000
-#define VRAM_ADDR		0x8000
-#define EXTERN_RAM_ADDR 0xA000
-#define WRAM_0_ADDR		0xC000
-#define WRAM_N_ADDR		0xD000 // DMG = extension of WRAM_0, CGB = switchable bank 1-7
-#define ECHO_RAM_ADDR	0xE000 // Prohibited, mirror of both WRAMs
-#define OAM_ADDR		0xFE00
-#define INVAL_MEM_ADDR	0xFEA0 // Prohibited
-#define IO_REGS_ADDR	0xFF00
-#define HRAM_ADDR		0xFF80
-#define INT_ENABLE_ADDR 0xFFFF
-
-// ================ IO REGISTERS ================
-
-// joypad input
-#define JOYPAD_INPUT 0xFF00
-
-// serial transfer
-#define SERIAL_TRANSFER 0xFF01
-#define SERIAL_CONTROL	0xFF02
-
-// timer and divider
-#define DIV_ADDR  0xFF04
-#define TIMA_ADDR 0xFF05
-#define TMA_ADDR  0xFF06
-#define TAC_ADDR  0xFF07
-
-// interrputs
-#define INTERRUPT_FLAG 0xFF0F
-
-// audio
-#define CH1_SWEEP		0xFF10
-#define CH1_TIMER		0xFF11
-#define CH1_VOLUME		0xFF12
-#define CH1_PERIOD_LOW	0xFF13
-#define CH1_PERIOD_HIGH 0xFF14
-#define CH2_TIMER		0xFF16
-#define CH2_VOLUME		0xFF17
-#define CH2_PERIOD_LOW	0xFF18
-#define CH2_PERIOD_HIGH 0xFF19
-#define CH3_DAC_ENABLE	0xFF1A
-#define CH3_LEN_TIMER	0xFF1B
-#define CH3_OUTPUT_LVL	0xFF1C
-#define CH3_PERIOD_LOW	0xFF1D
-#define CH3_PERIOD_HIGH 0xFF1E
-#define CH4_LEN_TIMER	0xFF20
-#define CH4_VOLUME		0xFF21
-#define CH4_FREQUENCY	0xFF22
-#define CH4_CONTROL		0xFF23
-#define MASTER_VOLUME	0xFF24
-#define SOUND_PANNING	0xFF25
-#define AUDIO_CONTROL	0xFF26
-
-// wave pattern
-#define WAVE_PATTERN_RAM 0xFF30
-
-// lcd control, status, position, scrolling, palettes
-#define LCD_CONTROL		  0xFF40
-#define LCD_STATUS		  0xFF41
-#define BG_VIEWPORT_Y	  0xFF42
-#define BG_VIEWPORT_X	  0xFF43
-#define LCD_Y			  0xFF44
-#define LCD_LY_CMP		  0xFF45
-#define BG_PALETTE_DATA	  0xFF47
-#define OBJ_PALETTE0_DATA 0xFF48
-#define OBJ_PALETTE1_DATA 0xFF49
-#define WINDOW_Y7		  0xFF4A
-#define WINDOW_X7		  0xFF4B
-
-// vram bank select
-#define VRAM_BANK 0xFF4F
-
-// boot rom mapping control
-#define BOOT_ROM_DISABLE 0xFF50
-
-// vram dma
-#define VRAM_DMA_SRC_HIGH  0xFF51
-#define VRAM_DMA_SRC_LOW   0xFF52
-#define VRAM_DMA_DEST_HIGH 0xFF53
-#define VRAM_DMA_DEST_LOW  0xFF54
-#define VRAM_DMA_START	   0xFF55
-
-// bg/obj palettes
-#define CGB_BG_PALETTE_SPEC		   0xFF68
-#define CGB_BG_PALETTE_DATA		   0xFF69
-#define CGB_OBJ_COLOR_PALETTE_SPEC 0xFF6A
-#define CGB_OBJ_COLOR_PALETTE_DATA 0xFF6B
-
-// wram bank select
-#define WRAM_BANK 0xFF70
+#include "constants.h"
 
 // ================ HARDWARE ================
 
@@ -149,12 +38,14 @@ typedef union {
 	};
 } Register;
 
-extern uint8_t ram[8192]; // TODO: size change
-extern uint8_t vram[VRAM_SIZE];
-extern uint8_t io_registers[128];
-extern uint8_t oam[160];
-extern uint8_t hram[127];
-extern bool display[160][144];
+typedef struct {
+	uint8_t ram[8192]; // TODO: size change
+	uint8_t vram[VRAM_SIZE];
+	uint8_t io_registers[128];
+	uint8_t oam[160];
+	uint8_t hram[127];
+	bool display[160][144];
+} Memory_stuff;
 
 typedef struct {
 	Register regs[REGISTER_COUNT];
@@ -163,8 +54,6 @@ typedef struct {
 	bool ime;
 	int ime_enable_counter;
 } CPU;
-
-extern CPU cpu;
 
 typedef struct {
 	int div_cycle_counter;
@@ -177,8 +66,6 @@ typedef struct {
 	// (11) 64 cycles
 	int tac_increment_cycles;
 } Timer_controls;
-
-extern Timer_controls timer_controls;
 
 // ================ ROM STUFF ================
 
@@ -213,8 +100,6 @@ typedef struct {
 	uint8_t external_ram[EXTERN_RAM_SIZE * 4];
 } ROM;
 
-extern ROM rom;
-
 typedef struct {
 	bool ram_enable;
 	uint8_t first_rom_bank_reg;
@@ -222,8 +107,6 @@ typedef struct {
 	uint8_t ram_bank_number;
 	bool banking_mode_is_advanced; // 0 = simple, 1 = advanced
 } MBC1_State;
-
-extern MBC1_State mbc1;
 
 void rom_write(const uint16_t addr, const uint8_t val);
 void mbc1_write(const uint16_t addr, const uint8_t val);

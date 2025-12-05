@@ -1,9 +1,12 @@
-#include "gameboy.h"
 #include <SDL3/SDL.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "constants.h"
+#include "gameboy.c"
+#include "gameboy.h"
 
 #define DISP_MULTP 4
 
@@ -14,12 +17,12 @@ unsigned long long max_cycles = 0;
 void debug_print(uint8_t opcode, const char *instruction) {
 	if (debug) {
 		printf("Cycle: %lu\tPC: 0x%04X\tOpcode: 0x%02X\t%-12s\tAF: %04X\t\tBC: %04X\tDE: %04X\tHL: %04X\tSP: %04X\tFlags: %c%c%c%c\n",
-			   cpu.cycle, cpu.regs[PC].full, opcode, instruction,
-			   cpu.regs[AF].full, cpu.regs[BC].full, cpu.regs[DE].full, cpu.regs[HL].full, cpu.regs[SP].full,
-			   (cpu.regs[AF].low & 0x80) ? 'Z' : '-',
-			   (cpu.regs[AF].low & 0x40) ? 'N' : '-',
-			   (cpu.regs[AF].low & 0x20) ? 'H' : '-',
-			   (cpu.regs[AF].low & 0x10) ? 'C' : '-');
+		       cpu.cycle, cpu.regs[PC].full, opcode, instruction,
+		       cpu.regs[AF].full, cpu.regs[BC].full, cpu.regs[DE].full, cpu.regs[HL].full, cpu.regs[SP].full,
+		       (cpu.regs[AF].low & 0x80) ? 'Z' : '-',
+		       (cpu.regs[AF].low & 0x40) ? 'N' : '-',
+		       (cpu.regs[AF].low & 0x20) ? 'H' : '-',
+		       (cpu.regs[AF].low & 0x10) ? 'C' : '-');
 	}
 }
 
@@ -113,8 +116,8 @@ int main(int argc, char *argv[]) {
 	if (debug) {
 		printf("=== Cartridge Header ===\n");
 		printf("Entry Point: %02X %02X %02X %02X\n",
-			   rom.cartridge_header.entry_point[0], rom.cartridge_header.entry_point[1],
-			   rom.cartridge_header.entry_point[2], rom.cartridge_header.entry_point[3]);
+		       rom.cartridge_header.entry_point[0], rom.cartridge_header.entry_point[1],
+		       rom.cartridge_header.entry_point[2], rom.cartridge_header.entry_point[3]);
 		printf("Title: %.16s\n", rom.cartridge_header.title);
 		printf("CGB Flag: 0x%02X\n", rom.cartridge_header.cgb_flag);
 		printf("New License Code: 0x%04X\n", rom.cartridge_header.new_license_code);
