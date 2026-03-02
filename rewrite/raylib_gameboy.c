@@ -5,12 +5,13 @@
 #include "gameboy.h"
 #include "types.h"
 
-void PlatformInitWindow() {
-	InitWindow(960, 540, "Gameboy Emu");
+void PlatformToggleBorderless() {
+	ToggleBorderlessWindowed();
 }
 
-void PlatformToggleFullscreen() {
-	ToggleBorderlessWindowed();
+void PlatformInitWindow() {
+	InitWindow(960, 540, "Gameboy Emu");
+	PlatformToggleBorderless();
 }
 
 void PlatformDraw() {
@@ -31,7 +32,7 @@ int main() {
 		if (IsKeyPressed(KEY_Q))
 			running = false;
 		if (IsKeyPressed(KEY_F11))
-			PlatformToggleFullscreen();
+			PlatformToggleBorderless();
 
 		const f64 frame_start = GetTime();
 

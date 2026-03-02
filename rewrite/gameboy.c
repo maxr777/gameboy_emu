@@ -1,4 +1,9 @@
 #include "gameboy.h"
+#include "constants.h"
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /**
  * @brief Runs 70224 cycles (one scanline)
@@ -26,7 +31,7 @@ void updateState(GameboyState *state) {
  * @retval 4 malloc() fail
  * @retval 5 fread() fail
  */
-int loadGame(char *filepath, ROM *rom) {
+int loadGame(const char *filepath, ROM *rom) {
 	memset(rom, 0, sizeof(*rom));
 
 	FILE *game_file = fopen(filepath, "rb");
