@@ -1,8 +1,8 @@
 #ifndef GAMEBOY_H
 #define GAMEBOY_H
 
-#include "constants.h"
-#include "types.h"
+#include "../misc/constants.h"
+#include "../misc/types.h"
 
 typedef enum {
 	AF,

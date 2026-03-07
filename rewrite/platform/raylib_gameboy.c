@@ -1,19 +1,12 @@
-#include "gameboy.h"
-#include "constants.h"
-#include <assert.h>
+#include "raylib.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-/**
- * @brief Runs 70224 cycles (one scanline)
- */
-void updateState(GameboyState *state) {
-	u64 starting_cycle = state->cpu.cycle;
-	while (state->cpu.cycle < starting_cycle + CYCLES_PER_SCANLINE) {
-		assert(starting_cycle <= state->cpu.cycle);
-	}
-}
+#include "../gameboy/gameboy.c"
+#include "../gameboy/gameboy.h"
+#include "../misc/types.h"
 
 /**
  * @brief Loads the game file
@@ -31,7 +24,7 @@ void updateState(GameboyState *state) {
  * @retval 4 malloc() fail
  * @retval 5 fread() fail
  */
-int loadGame(const char *filepath, ROM *rom) {
+int platformLoadGame(const char *filepath, ROM *rom) {
 	memset(rom, 0, sizeof(*rom));
 
 	FILE *game_file = fopen(filepath, "rb");
@@ -119,4 +112,48 @@ int loadGame(const char *filepath, ROM *rom) {
 	}
 
 	return 0;
+}
+
+void PlatformToggleBorderless() {
+	ToggleBorderlessWindowed();
+}
+
+void PlatformInitWindow() {
+	InitWindow(960, 540, "Gameboy Emu");
+	PlatformToggleBorderless();
+}
+
+void PlatformDraw() {
+	BeginDrawing();
+	ClearBackground(BLACK);
+
+	Texture2D test_texture = LoadTexture("tests/test.jpg");
+	DrawTexture(test_texture, 0, 0, WHITE);
+
+	EndDrawing();
+}
+
+int main() {
+	// SetTraceLogLevel(LOG_NONE);
+	SetTraceLogLevel(LOG_ERROR);
+
+	PlatformInitWindow();
+
+	bool running = true;
+	while (!WindowShouldClose() && running) {
+		if (IsKeyPressed(KEY_Q))
+			running = false;
+		if (IsKeyPressed(KEY_F11))
+			PlatformToggleBorderless();
+
+		const double frame_start = GetTime();
+
+		// ============================== DRAWING ==============================
+
+		PlatformDraw();
+
+		const double elapsed = GetTime() - frame_start;
+		if (elapsed < TARGET_FRAMETIME)
+			WaitTime(TARGET_FRAMETIME - elapsed);
+	}
 }
