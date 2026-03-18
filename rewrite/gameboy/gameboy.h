@@ -62,7 +62,7 @@ typedef struct {
 	u8 nintendo_logo[48];
 	char title[16]; // already includes manufacturer code
 	u8 cgb_flag;
-	u16 new_license_code;
+	char new_license_code[2];
 	u8 sgb_flag;
 	u8 cartridge_type;
 	u8 rom_size;
@@ -79,7 +79,7 @@ typedef struct {
 	long game_size; // ftell() returns a long
 	CartridgeHeader cartridge_header;
 	bool boot_rom_enabled;
-	const u8 boot_rom[256];
+	u8 *boot_rom;
 	u8 current_rom_bank;
 	int max_rom_banks;
 	u8 current_ram_bank;

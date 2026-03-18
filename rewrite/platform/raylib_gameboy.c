@@ -111,6 +111,9 @@ int platformLoadGame(const char *filepath, ROM *rom) {
 		break;
 	}
 
+	// BOOT_ROM is defined in gameboy.c
+	rom->boot_rom = BOOT_ROM;
+
 	return 0;
 }
 
@@ -133,7 +136,11 @@ void PlatformDraw() {
 	EndDrawing();
 }
 
+#include "raylib_tests.c"
+
 int main() {
+	runTests();
+
 	// SetTraceLogLevel(LOG_NONE);
 	SetTraceLogLevel(LOG_ERROR);
 
