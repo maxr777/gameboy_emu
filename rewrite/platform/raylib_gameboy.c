@@ -8,6 +8,8 @@
 #include "../gameboy/gameboy.h"
 #include "../misc/types.h"
 
+bool debug = false;
+
 /**
  * @brief Loads the game file
  *
@@ -136,10 +138,40 @@ void PlatformDraw() {
 	EndDrawing();
 }
 
+void PlatformLogInstruction(const u8 opcode, const char *instruction, const GameboyState *state) {
+	if (debug) {
+		printf("Cycle: %lu\tPC: 0x%04X\tOpcode: 0x%02X\t%-12s\tAF: %04X\t\tBC: %04X\tDE: %04X\tHL: %04X\tSP: %04X\tFlags: %c%c%c%c\n",
+		       state->cpu.cycle, state->cpu.regs[PC].full, opcode, instruction,
+		       state->cpu.regs[AF].full, state->cpu.regs[BC].full, state->cpu.regs[DE].full, state->cpu.regs[HL].full, state->cpu.regs[SP].full,
+		       (state->cpu.regs[AF].low & 0x80) ? 'Z' : '-',
+		       (state->cpu.regs[AF].low & 0x40) ? 'N' : '-',
+		       (state->cpu.regs[AF].low & 0x20) ? 'H' : '-',
+		       (state->cpu.regs[AF].low & 0x10) ? 'C' : '-');
+	}
+}
+
+PlatformLogError(const char *msg) {
+	fprintf(stderr, msg);
+}
+
+PlatformLogMessage(const char *msg) {
+	fprintf(stdout, msg);
+}
+
 #include "raylib_tests.c"
 
 int main() {
-	runTests();
+	if (argc < 2) {
+		fprintf(stderr, "No game loaded");
+		return 1;
+	}
+
+	for (int i = 2; i < argc; ++i) {
+		if (strcmp(argv[i], "-d") == 0)
+			debug = true;
+	}
+
+	if (debug) runTests();
 
 	// SetTraceLogLevel(LOG_NONE);
 	SetTraceLogLevel(LOG_ERROR);
